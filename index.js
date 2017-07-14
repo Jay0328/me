@@ -24,14 +24,14 @@ app.use((req, res, next) => {
 });
 
 //  Static file
-app.use(express.static(__dirname + '/public/'));
-
-const server = http.createServer(app).listen(app.get('port'), () => {
-  console.log('Http server is listening on ' + app.get('port'));
-});
+app.use(express.static(__dirname + '/public/build'));
 
 //  Api Routers
 app.use('/api', api);
 
 //  React Routers   error routers will be resolved by React
 app.use(indexRoute);
+
+const server = http.createServer(app).listen(app.get('port'), () => {
+  console.log('Http server is listening on ' + app.get('port'));
+});
