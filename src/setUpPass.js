@@ -5,7 +5,6 @@ const User = require('./models/user.js');
 const config = require('./config.js');
 
 mongoose.Promise = global.Promise;
-const connection = mongoose.connect(config.database, { useMongoClient: true });
 
 const questions = [
   { question: 'Who are you ? ', answer: '' },
@@ -14,18 +13,19 @@ const questions = [
 ];
 let questionsCount = 0;
 
-const setUpPass = (username, password1, password2) => {
-  const user = new User({ username });
-  user.setUpPassword(password1, password2);
-  const { salt1, salt2, hash1, hash2 } = user;
-  User.findOneAndUpdate({ username }, { salt1, salt2, hash1, hash2 }, { upsert: true }, err => {
-    if (err) {
-      throw err;
-      process.exit(1);
-    }
+async function setUpPass(username, password1, password2) {
+  try {
+    const user = new User({ username });
+    user.setUpPassword(password1, password2);
+    const { salt1, salt2, hash1, hash2 } = user;
+    await User.findOneAndUpdate({ username }, { salt1, salt2, hash1, hash2 }, { upsert: true });
     console.log('set up success ! ');
     process.exit(0);
-  });
+  }
+  catch (err) {
+    throw err;
+    process.exit(1);
+  }
 };
 
 const ask = question => {
@@ -38,6 +38,15 @@ const ask = question => {
   });
 };
 
-connection.then(db => {
-  ask(questions[questionsCount].question);
-});
+async function run() {
+  try {
+    await mongoose.connect(config.database, { useMongoClient: true });
+    ask(questions[questionsCount].question);
+  }
+  catch (err) {
+    throw err;
+    process.exit(1);
+  }
+}
+
+run();
