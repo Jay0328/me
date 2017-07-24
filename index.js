@@ -18,7 +18,6 @@ app.use(morgan('dev'));
 
 //  Static file
 app.use(express.static(__dirname + '/public/build'));
-app.use(express.static(__dirname + '/semantic'));
 
 //  Api Routers
 app.use('/api', api);

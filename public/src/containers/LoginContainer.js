@@ -14,9 +14,9 @@ const mapDispatchToProps = (dispatch) => ({
     e.preventDefault();
     dispatch(pristineLoginForm());
   },
-  handleOnChange(e, { id, value }) {
+  handleOnChange: (field) => e => {
     e.preventDefault();
-    dispatch(loginOnChange(id, value));
+    dispatch(loginOnChange(field, e.target.value));
   },
   handleOnSubmit: (username, password1, password2) => e => {
     e.preventDefault();

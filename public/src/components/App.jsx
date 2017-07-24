@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const App = ({ children, isAuth, logout }) => {
   return (
-    <div>
+    <div className="wrapper">
       <Link to="/">HOME</Link>
       <Link to="/about">ABOUT</Link>
       {isAuth ? <a onClick={logout()}>LOGOUT</a> : <Link to="/login">LOGIN</Link>}

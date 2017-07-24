@@ -1,16 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Input, Message } from 'semantic-ui-react';
 
-const InputField = ({ id, validationState, label, errMsg, ...props }) => {
-  return (
-    <Form.Field error={validationState}>
-      <label htmlFor={id}>{label}</label>
-      <Input id={id} {...props} />
-      {!!validationState && <Message error content={errMsg} />}
-    </Form.Field>
-  );
+const Input = ({ id, ...props }) => (
+  <div>
+    <input id={id} {...props} />
+  </div>
+);
+
+Input.propTypes = {
+  id: PropTypes.string.isRequired
 };
+
+const ErrorMessage = ({ content }) => (
+  <div className="error message">
+    <div className="content">
+      <p>{content}</p>
+    </div>
+  </div>
+);
+
+ErrorMessage.propTypes = {
+  content: PropTypes.string.isRequired
+};
+
+const InputField = ({ id, validationState, label, errMsg, ...props }) => (
+  <div className={validationState ? 'error field' : 'field'}>
+    <label htmlFor={id}>{label}</label>
+    <Input id={id} {...props} />
+    {!!validationState && <ErrorMessage content={errMsg} />}
+  </div>
+);
 
 InputField.propTypes = {
   id: PropTypes.string.isRequired,
