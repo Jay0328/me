@@ -1,9 +1,18 @@
 @mixin loginForm() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
   form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: relative;
     .field {
-      clear: both;
-      margin: 0 0 1em;
+      display: flex;
+      flex-direction: column;
+      margin: 1em 0 1em;
+      width: 40vw;
       &.error {
         color: #9f3a38;
       }
@@ -26,7 +35,8 @@
       }
     }
     .field > label {
-      display: block;
+      display: flex;
+      align-self: center;
       margin: 0 0 .28571429rem 0;
       color: rgba(0,0,0,.87);
       font-size: .92857143em;
