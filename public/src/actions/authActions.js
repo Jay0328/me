@@ -83,10 +83,7 @@ export const verifyAuth = () => dispatch => new Promise((resolve, reject) => {
       })
       .catch(() => reject('token錯誤'));
   }
-  else {
-    dispatch({ type: null });
-    resolve();
-  }
+  else resolve();
 });
 
 export const logout = () => {
