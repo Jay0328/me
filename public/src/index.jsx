@@ -7,6 +7,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import { Route } from 'react-router-dom';
 //  css
 import 'normalize.css/normalize.css';
+import '../assets/css/index.scss';
 //  components & containers
 import {
   AppContainer,
