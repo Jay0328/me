@@ -68,7 +68,7 @@ export const login = data => dispatch => check(data)
     dispatch(loginFail(field, errMsg));
   }));
 
-export const verifyAuth = () => dispatch => {
+export const verifyAuth = () => dispatch => new Promise((resolve, reject) => {
   const token = localStorage.getItem('token');
   if (token) {
     request('/api/authenticate', {
@@ -79,10 +79,15 @@ export const verifyAuth = () => dispatch => {
     })
       .then(() => {
         dispatch(loginSuccess(token));
-      });
+        resolve();
+      })
+      .catch(() => reject('token錯誤'));
   }
-  return { type: null };
-};
+  else {
+    dispatch({ type: null });
+    resolve();
+  }
+});
 
 export const logout = () => {
   localStorage.removeItem('token');

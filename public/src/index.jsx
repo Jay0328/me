@@ -21,16 +21,17 @@ import { verifyAuth } from './actions/authActions';
 const history = createHistory();
 const store = creatStore(history);
 
-store.dispatch(verifyAuth());
-
-render(
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <AppContainer>
-        <Route exact path='/' component={HomeContainer} />
-        <Route exact path='/login' component={LoginContainer} />
-      </AppContainer>
-    </ConnectedRouter>
-  </Provider>,
-  document.getElementById('app')
-);
+store.dispatch(verifyAuth())
+  .then(() => {
+    render(
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
+          <AppContainer>
+            <Route exact path='/' component={HomeContainer} />
+            <Route exact path='/login' component={LoginContainer} />
+          </AppContainer>
+        </ConnectedRouter>
+      </Provider>,
+      document.getElementById('app')
+    );
+  });
