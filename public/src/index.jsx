@@ -2,7 +2,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { render } from 'react-dom';
-import createHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
 import { ConnectedRouter } from 'react-router-redux';
 import { Route } from 'react-router-dom';
 //  css
@@ -18,7 +18,7 @@ import {
 import creatStore from './store';
 import { verifyAuth } from './actions/authActions';
 
-const history = createHistory();
+const history = createBrowserHistory();
 const store = creatStore(history);
 
 store.dispatch(verifyAuth())

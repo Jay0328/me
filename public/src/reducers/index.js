@@ -4,9 +4,9 @@ import auth from './auth';
 import login from './login';
 
 const reducers = combineReducers({
-  routerReducer,
   auth,
   login,
+  routing: routerReducer,
 });
 
 export default reducers;
