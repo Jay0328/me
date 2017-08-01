@@ -14,10 +14,8 @@ const fetchArticle = (year, month, day, title) => dispatch => request('/api/arti
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ year, month, day, title })
 })
-  .then(({ content }) => {
-    dispatch(receiveArticle(year, month, day, title, content));
-  })
-  .catch();
+  .then(({ content }) => dispatch(receiveArticle(year, month, day, title, content)))
+  .catch(({ err }) => dispatch(receiveArticle(year, month, day, title, err)));
 
 const shouldFetchArticle = (state, year, month, day, title) => {
   if (`${year}-${month}-${day}` !== state.getIn(['article', 'date'])
