@@ -8,9 +8,8 @@ const config = require('../config.js');
 const asyncMiddleware = require('../utils/asyncMiddleware.js');
 const router = express.Router();
 mongoose.Promise = Promise;
-mongoose.connect(config.database, { useMongoClient: true });
 
-router.route('/authenticate')
+router.route('/')
   .get((req, res) => {
     if (!req.headers.authorization) res.status(401).json({});
     const token = req.headers.authorization.split(' ')[1];
@@ -24,6 +23,7 @@ router.route('/authenticate')
     }
   })
   .post(asyncMiddleware(async (req, res, next) => {
+    await mongoose.connect(config.database, { useMongoClient: true });
     const { username: { value: username } } = req.body;
     const { password1: { value: password1 } } = req.body;
     const { password2: { value: password2 } } = req.body;
