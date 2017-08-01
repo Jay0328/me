@@ -13,6 +13,7 @@ import {
   AppContainer,
   HomeContainer,
   LoginContainer,
+  ArticleContainer
 } from './containers';
 //  redux
 import creatStore from './store';
@@ -21,17 +22,19 @@ import { verifyAuth } from './actions/authActions';
 const history = createBrowserHistory();
 const store = creatStore(history);
 
-store.dispatch(verifyAuth())
-  .then(() => {
-    render(
-      <Provider store={store}>
-        <ConnectedRouter history={history}>
-          <AppContainer>
-            <Route exact path='/' component={HomeContainer} />
-            <Route exact path='/login' component={LoginContainer} />
-          </AppContainer>
-        </ConnectedRouter>
-      </Provider>,
-      document.getElementById('app')
-    );
-  });
+const renderDom = () => {
+  render(
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <AppContainer>
+          <Route exact strict path='/' component={HomeContainer} />
+          <Route exact strict path='/login' component={LoginContainer} />
+          <Route path='/:year/:month/:day/:title' component={ArticleContainer} />
+        </AppContainer>
+      </ConnectedRouter>
+    </Provider>,
+    document.getElementById('app')
+  );
+};
+
+store.dispatch(verifyAuth()).then(renderDom);
