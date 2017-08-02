@@ -9,6 +9,38 @@ const asyncMiddleware = require('../utils/asyncMiddleware.js');
 const router = express.Router();
 mongoose.Promise = Promise;
 
+const handleUser = (user, password1, password2, res) => {
+  if (!user)
+    res.status(401).json({
+      err: [{
+        field: 'username',
+        errMsg: '帳號錯誤或帳號不存在'
+      }]
+    });
+  else if (!user.validPassword(password1, password2))
+    res.status(401).json({
+      err: [{
+        field: 'password1',
+        errMsg: '密碼錯誤'
+      },
+      {
+        field: 'password2',
+        errMsg: '密碼錯誤'
+      }]
+    });
+  else res.status(200).json({ token: user.generateJwt() });
+};
+
+const handleUserError = (err, res) => {
+  throw err;
+  res.status(401).json({
+    err: [{
+      field: 'username',
+      errMsg: '資料庫錯誤'
+    }]
+  });
+}
+
 router.route('/')
   .get((req, res) => {
     if (!req.headers.authorization) res.status(401).json({});
@@ -29,34 +61,10 @@ router.route('/')
     const { password2: { value: password2 } } = req.body;
     try {
       const user = await User.findOne({ username });
-      if (!user)
-        res.status(401).json({
-          err: [{
-            field: 'username',
-            errMsg: '帳號錯誤或帳號不存在'
-          }]
-        });
-      else if (!user.validPassword(password1, password2))
-        res.status(401).json({
-          err: [{
-            field: 'password1',
-            errMsg: '密碼錯誤'
-          },
-          {
-            field: 'password2',
-            errMsg: '密碼錯誤'
-          }]
-        });
-      else res.status(200).json({ token: user.generateJwt() });
+      handleUser(user, password1, password2, res);
     }
     catch (err) {
-      throw err;
-      res.status(401).json({
-        err: [{
-          field: 'username',
-          errMsg: '資料庫錯誤'
-        }]
-      });
+      handleUserError(err, res);
     }
   }));
 
