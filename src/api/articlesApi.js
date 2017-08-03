@@ -10,11 +10,23 @@ const Articles = require('../models/articles.js');
 const router = express.Router();
 mongoose.Promise = Promise;
 
-router.route('/')
+router.route('/page/:page')
   .get(asyncMiddleware(async (req, res, next) => {
-  }))
-  .post(asyncMiddleware(async (req, res, next) => {
-    const { year, month, day, title } = req.body;
+    const index = parseInt(req.params.index, 10);
+    try {
+      await mongoose.connect(database, { useMongoClient: true });
+      const articles = await Articles.find().skip(page).limit(5);
+      res.status(200).json({ articles });
+    }
+    catch (err) {
+      res.status(404).json({ err: 'GG' });
+      throw err;
+    }
+  }));
+
+router.route('/article')
+  .get(asyncMiddleware(async (req, res, next) => {
+    const { year, month, day, title } = req.query;
     try {
       await mongoose.connect(database, { useMongoClient: true });
       const article = await Articles.findOne({ year, month, day, title });

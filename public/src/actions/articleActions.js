@@ -9,13 +9,13 @@ const receiveArticle = (year, month, day, title, content) => ({
   content
 });
 
-const fetchArticle = (year, month, day, title) => dispatch => request('/api/articles', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ year, month, day, title })
-})
-  .then(({ content }) => dispatch(receiveArticle(year, month, day, title, content)))
-  .catch(({ err }) => dispatch(receiveArticle(year, month, day, title, err)));
+const fetchArticle = (year, month, day, title) => dispatch =>
+  request(`/api/articles/article?year=${year}&month=${month}&day=${day}&title=${title}`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  })
+    .then(({ content }) => dispatch(receiveArticle(year, month, day, title, content)))
+    .catch(({ err }) => dispatch(receiveArticle(year, month, day, title, err)));
 
 const shouldFetchArticle = (state, year, month, day, title) => {
   if (`${year}-${month}-${day}` !== state.getIn(['article', 'date'])
