@@ -47,7 +47,7 @@ const fetchArticle = (year, month, day, title) => dispatch =>
 const shouldFetchArticle = (state, year, month, day, title) => {
   if (`${year}-${month}-${day}` !== state.getIn(['article', 'date'])
     || title !== state.getIn(['article', 'title'])
-    || state.getIn(['article', 'content'])) return true;
+    || !state.getIn(['article', 'content'])) return true;
   return false;
 };
 
