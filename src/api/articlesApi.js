@@ -12,14 +12,16 @@ mongoose.Promise = Promise;
 
 router.route('/page/:page')
   .get(asyncMiddleware(async (req, res, next) => {
-    const index = parseInt(req.params.index, 10);
+    const page = parseInt(req.params.page, 10);
     try {
       await mongoose.connect(database, { useMongoClient: true });
-      const articles = await Articles.find().skip(page).limit(5);
-      res.status(200).json({ articles });
+      const totalArticles = await Articles.count({ type: 'program' });
+      const totalPage = Math.ceil(totalArticles / 10);
+      const articles = await Articles.find({ type: 'program' }).skip((page - 1) * 10).limit(10);
+      res.status(200).json({ articles, totalPage });
     }
     catch (err) {
-      res.status(404).json({ err: 'GG' });
+      res.status(404).json({ err: '取得文章列表錯誤' });
       throw err;
     }
   }));

@@ -1,5 +1,32 @@
 import request from '../utils/api';
 
+/* articles list */
+export const RECEIVE_ARTICLES_LIST = 'RECEIVE_ARTICLES_LIST';
+
+const receiveArticlesList = (list, page, totalPage) => ({
+  type: RECEIVE_ARTICLES_LIST,
+  list,
+  page,
+  totalPage
+});
+
+const fetchArticlesList = page => dispatch => request(`/api/articles/page/${page}`, {
+  method: 'GET',
+  headers: { 'Content-Type': 'application/json' },
+})
+  .then(({ articles, totalPage }) => dispatch(receiveArticlesList(articles, page, totalPage)))
+  .catch(({ err }) => dispatch(receiveArticlesList([err], page, 0)));
+
+const shouldFetchArticlesList = (state, page) => state.getIn(['articlesList', 'page']) !== page;
+
+export const fetchArticlesListIfNeed = page => (dispatch, getState) => {
+  if (shouldFetchArticlesList(getState(), page)) {
+    return dispatch(fetchArticlesList(page));
+  }
+  return { type: null };
+};
+
+/* single article */
 export const RECEIVE_ARTICLE = 'RECEIVE_ARTICLE';
 
 const receiveArticle = (year, month, day, title, content) => ({

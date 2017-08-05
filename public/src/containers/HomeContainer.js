@@ -1,16 +1,28 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import { push } from 'react-router-redux';
 import Home from '../components/Home';
+import { fetchArticlesListIfNeed } from '../actions/articleActions';
 
-const mapStateToProps = () => ({
+const mapStateToProps = state => ({
+  articlesList: state.getIn(['articlesList', 'list']).toArray(),
+  page: state.getIn(['articlesList', 'page']),
+  totalPage: state.getIn(['articlesList', 'totalPage'])
 });
 
-const mapDispatchToProps = () => ({
+const mapDispatchToProps = dispatch => ({
+  fetchArticlesList(page) {
+    dispatch(fetchArticlesListIfNeed(page));
+  },
+  articleOnClick: (year, month, day, title) => e => {
+    e.preventDefault();
+    dispatch(push(`/${year}/${month}/${day}/${title}`));
+  }
 });
 
 const HomeContainer = connect(
-	mapStateToProps,
-	mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(Home);
 
 export default withRouter(HomeContainer);
