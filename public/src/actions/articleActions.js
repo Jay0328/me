@@ -28,12 +28,17 @@ export const fetchArticlesListIfNeed = page => (dispatch, getState) => {
 
 /* single article */
 export const RECEIVE_ARTICLE = 'RECEIVE_ARTICLE';
+export const CLEAR_ARTICLE_CONTENT = 'CLEAR_ARTICLE_CONTENT';
 
 const receiveArticle = (year, month, day, title, content) => ({
   type: RECEIVE_ARTICLE,
   date: `${year}-${month}-${day}`,
   title,
   content
+});
+
+const clearArticleContent = () => ({
+  type: CLEAR_ARTICLE_CONTENT
 });
 
 const fetchArticle = (year, month, day, title) => dispatch =>
@@ -53,6 +58,7 @@ const shouldFetchArticle = (state, year, month, day, title) => {
 
 export const fetchArticleIfNeed = (year, month, day, title) => (dispatch, getState) => {
   if (shouldFetchArticle(getState(), year, month, day, title)) {
+    dispatch(clearArticleContent());
     return dispatch(fetchArticle(year, month, day, title));
   }
   return { type: null };
