@@ -1,5 +1,6 @@
 @import "./navbar.scss";
 @import "./login.scss";
+@import "./pagination.scss";
 
 *, *::before, *::after {
   -webkit-box-sizing: border-box;
@@ -17,6 +18,9 @@ body {
       padding-top: 10vh;
       .login {
         @include loginForm();
+      }
+      .pagination {
+        @include pagination();
       }
     }
   }

@@ -17,6 +17,7 @@ const Pagination = ({ baseUrl, page, totalPage }) => {
     menu = [
       ...menu,
       <Link
+        className="pagination-item"
         to={page > 2 ? `${baseUrl !== '/' ? baseUrl : ''}/page/${page - 1}` : baseUrl}
         key={`link-page-${page - 1}`}
       >
@@ -27,8 +28,8 @@ const Pagination = ({ baseUrl, page, totalPage }) => {
   if (menuStart > 1) {
     menu = [
       ...menu,
-      <Link to={baseUrl} key='link-page-1'>1</Link>,
-      <div key='page-divider-left'>...</div>
+      <Link className="pagination-item" to={baseUrl} key='link-last-page'>1</Link>,
+      <div className="pagination-divider" key='page-divider-left'>...</div>
     ];
   }
   /* page menu */
@@ -36,9 +37,10 @@ const Pagination = ({ baseUrl, page, totalPage }) => {
     ...menu,
     Array.from({ length: (menuEnd - menuStart) + 1 }, (v, k) => k + menuStart)
       .map(p => {
-        if (p === page) return <div key={`link-page-${p}`}>{p}</div>;
+        if (p === page) return <div className="pagination-item activated" key={`link-page-${p}`}>{p}</div>;
         return (
           <Link
+            className="pagination-item"
             to={p !== 1 ? `${baseUrl !== '/' ? baseUrl : ''}/page/${p}` : baseUrl}
             key={`link-page-${p}`}
           >
@@ -51,8 +53,9 @@ const Pagination = ({ baseUrl, page, totalPage }) => {
   if (menuEnd < totalPage) {
     menu = [
       ...menu,
-      <div key='page-divider-right'>...</div>,
+      <div className="pagination-divider" key='page-divider-right'>...</div>,
       <Link
+        className="pagination-item"
         to={`${baseUrl !== '/' ? baseUrl : ''}/page/${totalPage}`}
         key={`link-page-${totalPage}`}
       >
@@ -64,8 +67,9 @@ const Pagination = ({ baseUrl, page, totalPage }) => {
     menu = [
       ...menu,
       <Link
+        className="pagination-item"
         to={`${baseUrl !== '/' ? baseUrl : ''}/page/${page + 1}`}
-        key={`link-page-${page + 1}`}
+        key='link-next-page'
       >
         &#x21E8;
        </Link>

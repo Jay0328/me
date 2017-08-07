@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Pagination from './Pagination';
+import Profile from './Profile';
 
 class Home extends React.Component {
   constructor(props) {
@@ -18,19 +19,22 @@ class Home extends React.Component {
   render() {
     const { articlesList, articleOnClick, page, totalPage } = this.props;
     return (
-      <div className="home">
-        <div>
-          {articlesList.map(article => {
-            const { year, month, day, title } = article;
-            return (
-              <div onClick={articleOnClick(year, month, day, title)} key={`${year}-${month}-${day}-${title}`}>
-                {year}-{month}-{day} : {title}
-              </div>
-            );
-          })}
+      <section className="home">
+        <div className="articles-list">
+          <div className="articles">
+            {articlesList.map(article => {
+              const { year, month, day, title } = article;
+              return (
+                <div onClick={articleOnClick(year, month, day, title)} key={`${year}-${month}-${day}-${title}`}>
+                  {year}-{month}-{day} : {title}
+                </div>
+              );
+            })}
+          </div>
+          <Pagination baseUrl='/' page={page} totalPage={totalPage} />
         </div>
-        <Pagination baseUrl='/' page={page} totalPage={totalPage} />
-      </div>
+        <Profile />
+      </section>
     );
   }
 }

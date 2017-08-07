@@ -1,0 +1,39 @@
+@mixin pagination() {
+  display: table;
+  min-height: 32px;
+  border: 1px solid rgba(34, 36, 38, .15);
+  box-shadow: 0 1px 2px 0 rgba(34, 36, 38, .15);
+  border-radius: 5px;
+  .pagination-item {
+    display: table-cell;
+    text-align: center;
+    text-decoration: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: black;
+    height: 100%;
+    min-width: 32px;
+    line-height: 32px;
+    &.activated {
+      color: #fff;
+      background-color: #296EB4;
+    }
+    &:hover {
+      color: #fff;
+      background-color: #296EB4;
+    }
+  }
+  .pagination-divider {
+    text-align: center;
+    height: 100%;
+    min-width: 32px;
+    line-height: 32px;
+    display: table-cell;
+    user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+  }
+}

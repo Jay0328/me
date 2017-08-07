@@ -9,10 +9,10 @@
   box-shadow: 0 0 10px rgba(14, 14, 14, .26);
   a{
     text-decoration: none;
-    user-select: none;
-    -ms-user-select: none;
-    -moz-user-select: none;
     -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
   .navbar-brand {
     display: flex;
