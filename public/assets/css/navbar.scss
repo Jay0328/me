@@ -1,0 +1,50 @@
+@mixin navbar() {
+  position: fixed;
+  height: 7vh;
+  width: 100vw;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 5vw;
+  font-weight: 800;
+  box-shadow: 0 0 10px rgba(14, 14, 14, .26);
+  a{
+    text-decoration: none;
+    user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+  }
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+    font-size: 18px;
+    .navbar-brand-logo {
+      color: white;
+      background-color: black;
+      padding: 5px;
+      border-radius: 3px;
+    }
+    .navbar-brand-blog {
+      color: black;
+      &:hover {
+        color: #296EB4;
+      }
+    }
+  }
+  .navbar-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 40vw;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-shadow: 0 0 1px rgba(0, 0, 0, .1);
+    a{
+      color: black;
+      &:hover {
+        color: #296EB4;
+      }
+    }
+  }
+}

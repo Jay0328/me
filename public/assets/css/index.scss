@@ -1,3 +1,4 @@
+@import "./navbar.scss";
 @import "./login.scss";
 
 *, *::before, *::after {
@@ -9,8 +10,14 @@
 
 body {
   .wrapper {
-    .login {
-      @include loginForm();
+    .navbar {
+      @include navbar();
+    }
+    .container {
+      padding-top: 10vh;
+      .login {
+        @include loginForm();
+      }
     }
   }
 }

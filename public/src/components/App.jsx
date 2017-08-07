@@ -1,14 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Navbar from './Navbar';
 
 const App = ({ children, isAuth, logout }) => {
   return (
     <div className="wrapper">
-      <Link to="/">HOME</Link>
-      <Link to="/about">ABOUT</Link>
-      {isAuth ? <a onClick={logout()}>LOGOUT</a> : <Link to="/login">LOGIN</Link>}
-      {children}
+      <Navbar />
+      <main className="container">
+        {children}
+      </main>
+      <footer>
+        {isAuth ? <a onClick={logout()}>LOGOUT</a> : <Link to="/login">LOGIN</Link>}
+      </footer>
     </div>
   );
 };
