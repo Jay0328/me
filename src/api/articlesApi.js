@@ -34,7 +34,7 @@ router.route('/article')
       const article = await Articles.findOne({ year, month, day, url });
       if (article) {
         const { title } = article;
-        const content = await readFileSync(resolve(__dirname, `../../articles/${year}-${month}-${day}-${url}.md`),
+        const content = await readFileSync(resolve(__dirname, `../../articles/${year}-${month}-${day}-${title}.md`),
           'utf-8');
         res.status(200).json({ title, content });
       }
