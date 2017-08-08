@@ -14,9 +14,9 @@ const mapDispatchToProps = dispatch => ({
   fetchArticlesList(page) {
     dispatch(fetchArticlesListIfNeed(page));
   },
-  articleOnClick: (year, month, day, title) => e => {
+  articleOnClick: (year, month, day, url) => e => {
     e.preventDefault();
-    dispatch(push(`/${year}/${month}/${day}/${title}`));
+    dispatch(push(`/${year}/${month}/${day}/${url}`));
   }
 });
 

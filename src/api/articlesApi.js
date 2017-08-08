@@ -15,9 +15,9 @@ router.route('/page/:page')
     const page = parseInt(req.params.page, 10);
     try {
       await mongoose.connect(database, { useMongoClient: true });
-      const totalArticles = await Articles.count({ type: 'program' });
+      const totalArticles = await Articles.count({ category: 'program' });
       const totalPage = Math.ceil(totalArticles / 10);
-      const articles = await Articles.find({ type: 'program' }).skip((page - 1) * 10).limit(10);
+      const articles = await Articles.find({ category: 'program' }).skip((page - 1) * 10).limit(10);
       res.status(200).json({ articles, totalPage });
     }
     catch (err) {
@@ -28,14 +28,15 @@ router.route('/page/:page')
 
 router.route('/article')
   .get(asyncMiddleware(async (req, res, next) => {
-    const { year, month, day, title } = req.query;
+    const { year, month, day, url } = req.query;
     try {
       await mongoose.connect(database, { useMongoClient: true });
-      const article = await Articles.findOne({ year, month, day, title });
+      const article = await Articles.findOne({ year, month, day, url });
       if (article) {
-        const content = await readFileSync(resolve(__dirname, `../../articles/${year}-${month}-${day}-${title}.md`),
+        const { title } = article;
+        const content = await readFileSync(resolve(__dirname, `../../articles/${year}-${month}-${day}-${url}.md`),
           'utf-8');
-        res.status(200).json({ content });
+        res.status(200).json({ title, content });
       }
       else res.status(404).json({ err: '文章不存在' });
     }

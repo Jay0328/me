@@ -18,6 +18,14 @@ const articlesSchema = new Schema({
         type: String,
         required: true,
     },
+    url: {
+        type: String,
+        required: true,
+    },
+    category: {
+        type: String,
+        required: true,
+    },
     tags: [String]
 });
 

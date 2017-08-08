@@ -23,9 +23,9 @@ class Home extends React.Component {
         <div className="articles-list">
           <div className="articles">
             {articlesList.map(article => {
-              const { year, month, day, title } = article;
+              const { year, month, day, title, url } = article;
               return (
-                <div onClick={articleOnClick(year, month, day, title)} key={`${year}-${month}-${day}-${title}`}>
+                <div onClick={articleOnClick(year, month, day, url)} key={`${year}-${month}-${day}-${url}`}>
                   {year}-{month}-{day} : {title}
                 </div>
               );

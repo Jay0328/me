@@ -6,7 +6,7 @@ const Navbar = () => {
     { url: '/', name: 'HOME' },
     { url: '/tags', name: 'TAGS' },
     { url: '/about', name: 'ABOUT' },
-    { url: '/articles', name: 'ARTICLES' },
+    { url: '/archives', name: 'ARCHIVES' },
   ];
   return (
     <nav className="navbar">
