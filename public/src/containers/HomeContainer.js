@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { push } from 'react-router-redux';
 import Home from '../components/Home';
 import { fetchArticlesListIfNeed } from '../actions/articleActions';
 
@@ -13,10 +12,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchArticlesList(page) {
     dispatch(fetchArticlesListIfNeed(page));
-  },
-  articleOnClick: (year, month, day, url) => e => {
-    e.preventDefault();
-    dispatch(push(`/${year}/${month}/${day}/${url}`));
   }
 });
 

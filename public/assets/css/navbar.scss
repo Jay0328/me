@@ -1,12 +1,14 @@
-@mixin navbar() {
+.navbar {
   position: fixed;
-  height: 7vh;
+  height: 56px;
   width: 100vw;
   display: flex;
   justify-content: flex-end;
   padding: 0 5vw;
   font-weight: 800;
   box-shadow: 0 0 10px rgba(14, 14, 14, .26);
+  background-color: #fff;
+  z-index: 100;
   a{
     text-decoration: none;
     -webkit-user-select: none;

@@ -1,7 +1,3 @@
-@import "./navbar.scss";
-@import "./login.scss";
-@import "./pagination.scss";
-
 *, *::before, *::after {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -11,17 +7,14 @@
 
 body {
   .wrapper {
-    .navbar {
-      @include navbar();
-    }
+    @import "./navbar.scss";
     .container {
+      display: flex;
+      justify-content: center;
       padding-top: 10vh;
-      .login {
-        @include loginForm();
-      }
-      .pagination {
-        @include pagination();
-      }
+      width: 100vw;
+      @import "./home.scss";
+      @import "./login.scss";
     }
   }
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ArticlePreview from './ArticlePreview';
 import Pagination from './Pagination';
 import Profile from './Profile';
 
@@ -17,17 +18,22 @@ class Home extends React.Component {
   }
 
   render() {
-    const { articlesList, articleOnClick, page, totalPage } = this.props;
+    const { articlesList, page, totalPage } = this.props;
     return (
       <section className="home">
         <div className="articles-list">
-          <div className="articles">
+          <div className="list">
             {articlesList.map(article => {
               const { year, month, day, title, url } = article;
               return (
-                <div onClick={articleOnClick(year, month, day, url)} key={`${year}-${month}-${day}-${url}`}>
-                  {year}-{month}-{day} : {title}
-                </div>
+                <ArticlePreview
+                  key={`${year}-${month}-${day}-${url}`}
+                  year={year}
+                  month={month}
+                  day={day}
+                  title={title}
+                  url={url}
+                />
               );
             })}
           </div>
@@ -42,7 +48,6 @@ class Home extends React.Component {
 Home.propTypes = {
   match: PropTypes.shape().isRequired,
   fetchArticlesList: PropTypes.func.isRequired,
-  articleOnClick: PropTypes.func.isRequired,
   articlesList: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   page: PropTypes.number.isRequired,
   totalPage: PropTypes.number.isRequired
