@@ -1,6 +1,28 @@
 footer {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  margin: 50px 0;
+  a{
+    color: #296EB4;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  .visitor {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+  }
+  .copyright {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    color: #777;
+    text-align: center;
+    line-height: 1.7;
+  }
   .contact-info {
     display: flex;
     justify-content: center;
