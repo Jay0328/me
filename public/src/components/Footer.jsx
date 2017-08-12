@@ -57,7 +57,10 @@ const Footer = ({ isAuth, logout }) => {
           <i className="fa fa-github" aria-hidden="true"></i>
         </a>
       </div>
-      {isAuth ? <a onClick={logout}>{' '}</a> : <Link to="/login">{' '}</Link>}
+      <hr />
+      <div className="secure">
+        {isAuth ? <a onClick={logout}>Logout</a> : <Link to="/login">Login</Link>}
+      </div>
     </footer>
   );
 };
