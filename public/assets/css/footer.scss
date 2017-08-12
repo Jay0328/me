@@ -1,0 +1,16 @@
+footer {
+  display: flex;
+  flex-direction: column;
+  .contact-info {
+    display: flex;
+    justify-content: center;
+    font-size: 40px;
+    .contact-info-icon {
+      color: black;
+      margin: 0 10px;
+      &:hover {
+        color: #296EB4;
+      }
+    }
+  }
+}

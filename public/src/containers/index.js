@@ -1,11 +1,11 @@
-import AppContainer from './AppContainer';
 import HomeContainer from './HomeContainer';
 import LoginContainer from './LoginContainer';
 import ArticleContainer from './ArticleContainer';
+import FooterContainer from './FooterContainer';
 
 export {
-	AppContainer,
 	HomeContainer,
 	LoginContainer,
-	ArticleContainer
+	ArticleContainer,
+	FooterContainer
 };

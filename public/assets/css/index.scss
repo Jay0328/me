@@ -11,7 +11,7 @@ body {
   "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif;
   .wrapper {
     @import "./navbar.scss";
-    .container {
+    main.container {
       display: flex;
       justify-content: center;
       padding-top: 100px;
@@ -19,5 +19,6 @@ body {
       @import "./home.scss";
       @import "./login.scss";
     }
+    @import "./footer.scss";
   }
 }
