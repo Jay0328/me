@@ -26,7 +26,11 @@ const articlesSchema = new Schema({
         type: String,
         required: true,
     },
-    tags: [String]
+    tags: {
+        type: [String],
+        required: true
+    },
+    intro: String
 });
 
 const Articles = mongoose.model('Articles', articlesSchema, 'Articles');
