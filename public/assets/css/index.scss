@@ -6,12 +6,15 @@
 }
 
 body {
+  font-family: -apple-system, "PingFang SC", "Helvetica Neue", "Hiragino Sans GB", "Microsoft YaHei",
+  "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC",
+  "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif;
   .wrapper {
     @import "./navbar.scss";
     .container {
       display: flex;
       justify-content: center;
-      padding-top: 10vh;
+      padding-top: 100px;
       width: 100vw;
       @import "./home.scss";
       @import "./login.scss";

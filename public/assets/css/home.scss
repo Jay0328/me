@@ -1,11 +1,8 @@
-@import "./pagination.scss";
 @import "./profile.scss";
 
 .home {
   @import "./articles-list.scss";
-  @include pagination();
   @include profile();
   display: flex;
-  justify-content: flex-end;
-  width: 90vw;
+  width: 100%;
 }
