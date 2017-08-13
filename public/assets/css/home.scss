@@ -3,6 +3,7 @@
 .home {
   @import "./articles-list.scss";
   @include profile();
+  display: -webkit-flex;
   display: flex;
   width: 100%;
 }

@@ -1,4 +1,5 @@
 footer {
+  display: -webkit-flex;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,11 +12,13 @@ footer {
     }
   }
   .visitor {
+    display: -webkit-flex;
     display: flex;
     flex-direction: column;
     font-size: 12px;
   }
   .copyright {
+    display: -webkit-flex;
     display: flex;
     flex-direction: column;
     font-size: 14px;
@@ -24,6 +27,7 @@ footer {
     line-height: 1.7;
   }
   .contact-info {
+    display: -webkit-flex;
     display: flex;
     justify-content: center;
     font-size: 40px;
