@@ -1,9 +1,16 @@
 @import "./profile.scss";
 
 .home {
+  @import "./header.scss";
+  @media screen and (min-width: 897px) {
+    header {
+      display: none;
+    }
+  }
   @import "./articles-list.scss";
   @include profile();
   display: -webkit-flex;
   display: flex;
+  flex-wrap: wrap;
   width: 100%;
 }

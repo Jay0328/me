@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Header from './Header';
 import ArticlePreview from './ArticlePreview';
 import Pagination from './Pagination';
 import Profile from './Profile';
@@ -21,6 +22,7 @@ class Home extends React.Component {
     const { articlesList, page, totalPage } = this.props;
     return (
       <section className="home">
+        <Header />
         <div className="articles-list">
           <div className="list">
             {articlesList.map(article => {
