@@ -7,10 +7,15 @@
       display: none;
     }
   }
-  @import "./articles-list.scss";
-  @include profile();
   display: -webkit-flex;
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  .container {
+    @import "./articles-list.scss";
+    @include profile();
+    display: -webkit-flex;
+    display: flex;
+    margin-top: 75px;
+  }
 }

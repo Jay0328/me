@@ -23,26 +23,28 @@ class Home extends React.Component {
     return (
       <section className="home">
         <Header />
-        <div className="articles-list">
-          <div className="list">
-            {articlesList.map(article => {
-              const { year, month, day, title, url, intro } = article;
-              return (
-                <ArticlePreview
-                  key={`${year}-${month}-${day}-${url}`}
-                  year={year}
-                  month={month}
-                  day={day}
-                  title={title}
-                  url={url}
-                  intro={intro}
-                />
-              );
-            })}
+        <div className="container">
+          <div className="articles-list">
+            <div className="list">
+              {articlesList.map(article => {
+                const { year, month, day, title, url, intro } = article;
+                return (
+                  <ArticlePreview
+                    key={`${year}-${month}-${day}-${url}`}
+                    year={year}
+                    month={month}
+                    day={day}
+                    title={title}
+                    url={url}
+                    intro={intro}
+                  />
+                );
+              })}
+            </div>
+            <Pagination baseUrl='/' page={page} totalPage={totalPage} />
           </div>
-          <Pagination baseUrl='/' page={page} totalPage={totalPage} />
+          <Profile />
         </div>
-        <Profile />
       </section>
     );
   }
