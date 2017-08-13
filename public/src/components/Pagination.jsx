@@ -2,6 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+const toTop = () => {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+};
+
 const Pagination = ({ baseUrl, page, totalPage }) => {
   let menu = [];
   let menuStart = page - 2;
@@ -20,6 +25,7 @@ const Pagination = ({ baseUrl, page, totalPage }) => {
         className="pagination-item"
         to={page > 2 ? `${baseUrl !== '/' ? baseUrl : ''}/page/${page - 1}` : baseUrl}
         key={`link-page-${page - 1}`}
+        onClick={toTop}
       >
         &#x21E6;
       </Link>
@@ -28,7 +34,7 @@ const Pagination = ({ baseUrl, page, totalPage }) => {
   if (menuStart > 1) {
     menu = [
       ...menu,
-      <Link className="pagination-item" to={baseUrl} key='link-last-page'>1</Link>,
+      <Link className="pagination-item" to={baseUrl} key='link-last-page' onClick={toTop}>1</Link>,
       <div className="pagination-divider" key='page-divider-left'>...</div>
     ];
   }
@@ -43,6 +49,7 @@ const Pagination = ({ baseUrl, page, totalPage }) => {
             className="pagination-item"
             to={p !== 1 ? `${baseUrl !== '/' ? baseUrl : ''}/page/${p}` : baseUrl}
             key={`link-page-${p}`}
+            onClick={toTop}
           >
             {p}
           </Link>
@@ -58,6 +65,7 @@ const Pagination = ({ baseUrl, page, totalPage }) => {
         className="pagination-item"
         to={`${baseUrl !== '/' ? baseUrl : ''}/page/${totalPage}`}
         key={`link-page-${totalPage}`}
+        onClick={toTop}
       >
         {totalPage}
       </Link>
@@ -70,6 +78,7 @@ const Pagination = ({ baseUrl, page, totalPage }) => {
         className="pagination-item"
         to={`${baseUrl !== '/' ? baseUrl : ''}/page/${page + 1}`}
         key='link-next-page'
+        onClick={toTop}
       >
         &#x21E8;
        </Link>
