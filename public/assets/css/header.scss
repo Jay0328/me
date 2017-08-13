@@ -3,9 +3,38 @@ header {
   background-size: cover;
   width: 100vw;
   height: 370px;
+  .about-me {
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+    img {
+      width: 144px;
+      height: 144px;
+      border-radius: 50%;
+    }
+    h4 {
+      font-size: 18px;
+      color: rgba(64, 64, 64, 1);
+      margin-bottom: 0;
+    }
+    p {
+      font-size: 15px;
+      color: #eee;
+    }
+  }
 }
 @media screen and (max-width: 640px) {
   header {
     height: 300px;
+    .about-me {
+      h4 {
+        margin-top: 2px;
+      }
+      p {
+        margin: 0;
+      }
+    }
   }
 }
