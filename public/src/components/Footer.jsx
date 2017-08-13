@@ -21,7 +21,7 @@ const Footer = ({ isAuth, logout }) => {
           轉載請 CC 內容作者註明
         </span>
         <span>
-          Copyright © Taku 2017
+          Copyright © Taku {new Date().getFullYear()}
         </span>
         <span>
           Icon by&nbsp;
