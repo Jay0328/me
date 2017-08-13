@@ -6,7 +6,7 @@ import { facebook, github } from '../../config';
 const Footer = ({ isAuth, logout }) => {
   return (
     <footer>
-      <p className="copyright">
+      <div className="copyright">
         <div className="visitor">
           <span>
             本站總訪問量
@@ -38,7 +38,7 @@ const Footer = ({ isAuth, logout }) => {
           {', '}Modified by&nbsp;
           <a href="/">Me</a>
         </span>
-      </p>
+      </div>
       <div className="contact-info">
         <a
           className="contact-info-icon"
