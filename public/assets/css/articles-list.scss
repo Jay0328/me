@@ -54,7 +54,12 @@
     margin: 0 50px 0 10%;
   }
 }
-@media screen and (max-width: 896px) {
+@media screen and (min-width: 640px) and (max-width: 896px) {
+  .articles-list {
+    margin: 0 10%;
+  }
+}
+@media screen and (max-width: 639px) {
   .articles-list {
     margin: 0 5%;
   }

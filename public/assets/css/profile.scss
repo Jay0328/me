@@ -5,6 +5,11 @@
     height: 700px;
     margin-right: 10%;
   }
+  @media screen and (min-width: 897px) and (max-width: 1024px) {
+    .profile {
+      margin-right: 5%;
+    }
+  }
   @media screen and (max-width: 896px) {
     .profile {
       display: none;
