@@ -40,3 +40,10 @@ const renderDom = () => {
 };
 
 store.dispatch(verifyAuth()).then(renderDom);
+
+window.onfocus = () => {
+  document.title = 'Taku 9487';
+};
+window.onblur = () => {
+  document.title = 'QAQ 不要走';
+};
