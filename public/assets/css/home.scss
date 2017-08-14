@@ -1,0 +1,21 @@
+@import "./profile.scss";
+
+.home {
+  @import "./header.scss";
+  @media screen and (min-width: 897px) {
+    header {
+      display: none;
+    }
+  }
+  display: -webkit-flex;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  .container {
+    @import "./articles-list.scss";
+    @include profile();
+    display: -webkit-flex;
+    display: flex;
+    margin-top: 75px;
+  }
+}

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import App from '../components/App';
+import Footer from '../components/Footer';
 import { logout } from '../actions/authActions';
 
 const mapStateToProps = (state) => ({
@@ -8,15 +8,15 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  logout: () => (e) => {
+  logout: e => {
     e.preventDefault();
     dispatch(logout());
   }
 });
 
-const AppContainer = connect(
+const FooterContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(App);
+)(Footer);
 
-export default withRouter(AppContainer);
+export default withRouter(FooterContainer);

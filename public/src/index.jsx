@@ -10,8 +10,8 @@ import 'normalize.css/normalize.css';
 import 'highlight.js/styles/github.css';
 import '../assets/css/index.scss';
 //  components & containers
+import App from './components/App';
 import {
-  AppContainer,
   HomeContainer,
   LoginContainer,
   ArticleContainer
@@ -27,11 +27,12 @@ const renderDom = () => {
   render(
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <AppContainer>
+        <App>
           <Route exact strict path='/' component={HomeContainer} />
+          <Route exact strict path='/page/:page' component={HomeContainer} />
           <Route exact strict path='/login' component={LoginContainer} />
-          <Route path='/:year/:month/:day/:title' component={ArticleContainer} />
-        </AppContainer>
+          <Route exact strict path='/:year/:month/:day/:url' component={ArticleContainer} />
+        </App>
       </ConnectedRouter>
     </Provider>,
     document.getElementById('app')

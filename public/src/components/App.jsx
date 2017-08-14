@@ -1,22 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import Navbar from './Navbar';
+import { FooterContainer } from '../containers';
 
-const App = ({ children, isAuth, logout }) => {
+const App = ({ children }) => {
   return (
     <div className="wrapper">
-      <Link to="/">HOME</Link>
-      <Link to="/about">ABOUT</Link>
-      {isAuth ? <a onClick={logout()}>LOGOUT</a> : <Link to="/login">LOGIN</Link>}
-      {children}
+      <Navbar />
+      <main>
+        {children}
+      </main>
+      <FooterContainer />
     </div>
   );
 };
 
 App.propTypes = {
   children: PropTypes.node.isRequired,
-  isAuth: PropTypes.bool.isRequired,
-  logout: PropTypes.func.isRequired
 };
 
 App.defaultProps = {

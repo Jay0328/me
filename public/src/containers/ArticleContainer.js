@@ -8,8 +8,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchArticle(year, month, day, title) {
-    dispatch(fetchArticleIfNeed(year, month, day, title));
+  fetchArticle(year, month, day, url) {
+    dispatch(fetchArticleIfNeed(year, month, day, url));
   }
 });
 

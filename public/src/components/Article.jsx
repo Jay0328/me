@@ -18,8 +18,8 @@ const md = MarkdownIt({
 class Article extends React.Component {
   constructor(props) {
     super(props);
-    const { year, month, day, title } = this.props.match.params;
-    this.props.fetchArticle(year, month, day, title);
+    const { year, month, day, url } = this.props.match.params;
+    this.props.fetchArticle(year, month, day, url);
   }
   render() {
     const { content } = this.props;

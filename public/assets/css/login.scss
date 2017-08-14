@@ -1,4 +1,4 @@
-@mixin loginForm() {
+.login {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,6 +35,7 @@
       }
     }
     .field > label {
+      display: -webkit-flex;
       display: flex;
       align-self: center;
       margin: 0 0 .28571429rem 0;
