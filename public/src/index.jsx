@@ -13,6 +13,7 @@ import '../assets/css/index.scss';
 import App from './components/App';
 import {
   HomeContainer,
+  TagsContainer,
   LoginContainer,
   ArticleContainer
 } from './containers';
@@ -30,6 +31,7 @@ const renderDom = () => {
         <App>
           <Route exact strict path='/' component={HomeContainer} />
           <Route exact strict path='/page/:page' component={HomeContainer} />
+          <Route exact strict path='/tags' component={TagsContainer} />
           <Route exact strict path='/login' component={LoginContainer} />
           <Route exact strict path='/:year/:month/:day/:url' component={ArticleContainer} />
         </App>

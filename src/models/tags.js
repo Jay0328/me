@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const Schema = require('mongoose').Schema;
+const Schema = mongoose.Schema;
+const ObjectId = Schema.Types.ObjectId;
 
 const tagsSchema = new Schema({
   tagName: {

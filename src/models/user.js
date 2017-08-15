@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
-const Schema = require('mongoose').Schema;
 const { secret } = require('../config.js');
 
 const userSchema = new Schema({

@@ -14,8 +14,7 @@ const fetchArticlesList = page => dispatch => request(`/api/articles/page/${page
   method: 'GET',
   headers: { 'Content-Type': 'application/json' },
 })
-  .then(({ articles, totalPage }) => dispatch(receiveArticlesList(articles, page, totalPage)))
-  .catch(({ err }) => dispatch(receiveArticlesList([err], page, 0)));
+  .then(({ articles, totalPage }) => dispatch(receiveArticlesList(articles, page, totalPage)));
 
 const shouldFetchArticlesList = (state, page) => state.getIn(['articlesList', 'page']) !== page;
 
