@@ -8,7 +8,10 @@ const tagsSchema = new Schema({
     required: true,
     unique: true
   },
-  articles: [{ type: ObjectId, ref: 'User' }]
+  articles: {
+    type: [{ type: ObjectId, ref: 'User' }],
+    required: true
+  }
 });
 
 const Tags = mongoose.model('Tags', tagsSchema, 'Tags');
