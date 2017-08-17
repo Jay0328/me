@@ -1,0 +1,33 @@
+.article-preview {
+  height: 100%;
+  a {
+    text-decoration: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: #404040;
+    .article-title {
+      margin-bottom: 0;
+      font-weight: 200;
+      text-shadow: 0 0 1px rgba(0, 0, 0, .15);
+      &:hover {
+        color: #296EB4;
+      }
+    }
+    .article-meta {
+      margin-top: 5px;
+      padding-left: 2px;
+      font-size: 15px;
+      color: #808080;
+    }
+    .article-intro {
+      color: #555;
+      font-size: 16px;
+      text-shadow: 0 0 1px rgba(0, 0, 0, .1);
+      letter-spacing: 1px;
+      text-align: justify;
+      line-height: 1.7;
+    }
+  }
+}

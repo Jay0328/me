@@ -5,7 +5,9 @@ import Profile from './Profile';
 
 const Tag = ({ tagName }) => {
   return (
-    <div>{tagName}</div>
+    <div className="tag">
+      {tagName}
+    </div>
   );
 };
 
@@ -25,12 +27,14 @@ class Tags extends React.Component {
       <section className="tags">
         <Header />
         <div className="container">
-          <div className="tags-block">
-            {Object.keys(tags).map(tagName => (
-              <Tag key={tagName} tagName={tagName} />
-            ))}
-          </div>
-          <div className="tags-lists">
+          <div className="tags-container">
+            <div className="tags-block">
+              {Object.keys(tags).map(tagName => (
+                <Tag key={tagName} tagName={tagName} />
+              ))}
+            </div>
+            <div className="tags-lists">
+            </div>
           </div>
           <Profile />
         </div>

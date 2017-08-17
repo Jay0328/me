@@ -16,8 +16,9 @@ body {
       display: flex;
       justify-content: center;
       width: 100vw;
-      @import "./home.scss";
-      @import "./login.scss";
+      @import "./home/home.scss";
+      @import "./tags/tags.scss";
+      @import "./login/login.scss";
     }
     @import "./footer.scss";
   }

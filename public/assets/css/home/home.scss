@@ -13,9 +13,10 @@
   width: 100%;
   .container {
     @import "./articles-list.scss";
-    @include profile();
+    @include profile(0%, 0%, 10%, 5%);
     display: -webkit-flex;
     display: flex;
+    width: 100%;
     margin-top: 75px;
   }
 }
