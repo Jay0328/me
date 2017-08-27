@@ -1,10 +1,11 @@
+@import "../utils.scss";
+
 .tags-container {
-  display: -webkit-flex;
-  display: flex;
+  @import "./tags-block.scss";
+  @include flex();
   width: 100%;
   height: 100%;
   margin: 0 50px 0 15%;
-  @import "./tags-block.scss";
 }
 @media screen and (min-width: 897px) and (max-width: 1024px) {
   .tags-container {

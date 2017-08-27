@@ -1,5 +1,6 @@
+@import "../utils.scss";
+
 .tags-block {
-  display: -webkit-flex;
-  display: flex;
+  @include flex();
   width: 100%;
 }

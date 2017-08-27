@@ -1,11 +1,10 @@
+@import "../utils.scss";
+
 .article-preview {
   height: 100%;
   a {
+    @include user-select(none);
     text-decoration: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
     color: #404040;
     .article-title {
       margin-bottom: 0;

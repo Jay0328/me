@@ -1,16 +1,15 @@
+@import "utils.scss";
 @import "./profile.scss";
 
 .tags {
   @import "./header.scss";
-  display: -webkit-flex;
-  display: flex;
-  flex-wrap: wrap;
+  @include flex();
+  @include flex-wrap(wrap);
   width: 100%;
   .container {
     @import "./tags-container.scss";
     @include profile(0%, 0%, 10%, 5%);
-    display: -webkit-flex;
-    display: flex;
+    @include flex();
     width: 100%;
     margin-top: 75px;
   }
