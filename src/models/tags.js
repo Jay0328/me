@@ -9,7 +9,7 @@ const tagsSchema = new Schema({
     unique: true
   },
   articles: {
-    type: [{ type: ObjectId, ref: 'User' }],
+    type: [{ type: ObjectId, ref: 'Articles' }],
     required: true
   }
 });

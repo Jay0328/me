@@ -14,7 +14,7 @@ router.route('')
   .get(asyncMiddleware(async (req, res, next) => {
     try {
       await mongoose.connect(database, { useMongoClient: true });
-      const tags = await Tags.find();
+      const tags = await Tags.find().populate('articles', ['year', 'month', 'day', 'title', 'url']).exec();
       res.status(200).json({ tags });
     }
     catch (err) {
