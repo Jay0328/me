@@ -1,8 +1,9 @@
+@import "./utils.scss";
+
 footer {
-  display: -webkit-flex;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include flex();
+  @include flex-direction(column);
+  @include align-items(center);
   margin: 50px 0;
   a{
     color: #296EB4;
@@ -12,24 +13,21 @@ footer {
     }
   }
   .visitor {
-    display: -webkit-flex;
-    display: flex;
-    flex-direction: column;
+    @include flex();
+    @include flex-direction(column);
     font-size: 12px;
   }
   .copyright {
-    display: -webkit-flex;
-    display: flex;
-    flex-direction: column;
+    @include flex();
+    @include flex-direction(column);
     font-size: 14px;
     color: #777;
     text-align: center;
     line-height: 1.7;
   }
   .contact-info {
-    display: -webkit-flex;
-    display: flex;
-    justify-content: center;
+    @include flex();
+    @include justify-content(center);
     font-size: 40px;
     .contact-info-icon {
       color: black;

@@ -1,13 +1,15 @@
-@mixin profile() {
+@mixin profile($margin-left, $small-margin-left, $margin-right, $small-margin-right) {
   .profile {
     width: 300px;
     min-width: 300px;
     height: 700px;
-    margin-right: 10%;
+    margin-left: $margin-left;
+    margin-right: $margin-right;
   }
   @media screen and (min-width: 897px) and (max-width: 1024px) {
     .profile {
-      margin-right: 5%;
+      margin-left: $small-margin-left;
+      margin-right: $small-margin-right;
     }
   }
   @media screen and (max-width: 896px) {

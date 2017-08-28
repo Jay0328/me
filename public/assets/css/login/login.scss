@@ -1,16 +1,18 @@
+@import "../utils.scss";
+
 .login {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flex();
+  @include justify-content(center);
+  @include align-items(center);
   height: 100vh;
   form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    @include flex();
+    @include flex-direction(column);
+    @include align-items(center);
     position: relative;
     .field {
-      display: flex;
-      flex-direction: column;
+      @include flex();
+      @include flex-direction(column);
       margin: 1em 0 1em;
       width: 40vw;
       &.error {
@@ -19,7 +21,6 @@
       .error.message {
         background-color: #fff6f6;
         color: #9f3a38;
-        -webkit-box-shadow: 0 0 0 1px #e0b4b4 inset, 0 0 0 0 transparent;
         box-shadow: 0 0 0 1px #e0b4b4 inset, 0 0 0 0 transparent;
         position: relative;
         min-height: 1em;
@@ -35,9 +36,8 @@
       }
     }
     .field > label {
-      display: -webkit-flex;
-      display: flex;
-      align-self: center;
+      @include flex();
+      @include align-self(center);
       margin: 0 0 .28571429rem 0;
       color: rgba(0,0,0,.87);
       font-size: .92857143em;
@@ -58,10 +58,8 @@
       border: 1px solid rgba(34,36,38,.15);
       color: rgba(0,0,0,.87);
       border-radius: .28571429rem;
-      -webkit-box-shadow: 0 0 0 0 transparent inset;
       box-shadow: 0 0 0 0 transparent inset;
-      -webkit-transition: color .1s ease,border-color .1s ease;
-      transition: color .1s ease,border-color .1s ease;
+      @include transition(color .1s ease, border-color .1s ease);
       width: 100%;
       vertical-align: top;
       &:focus {
@@ -69,7 +67,6 @@
         border-color: #85b7d9;
         border-radius: .28571429rem;
         background: #fff;
-        -webkit-box-shadow: 0 0 0 0 rgba(34,36,38,.35) inset;
         box-shadow: 0 0 0 0 rgba(34,36,38,.35) inset;
       }
     }
@@ -111,7 +108,6 @@
       &:hover {
         background-color: #cacbcd;
         background-image: none;
-        -webkit-box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34,36,38,.15) inset;
         box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34,36,38,.15) inset;
         color: rgba(0,0,0,.8);
       }

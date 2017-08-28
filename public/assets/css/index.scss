@@ -1,3 +1,5 @@
+@import "./utils.scss";
+
 *, *::before, *::after {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -12,12 +14,12 @@ body {
   .wrapper {
     @import "./navbar.scss";
     main {
-      display: -webkit-flex;
-      display: flex;
-      justify-content: center;
       width: 100vw;
-      @import "./home.scss";
-      @import "./login.scss";
+      @include flex();
+      @include justify-content(center);
+      @import "./home/home.scss";
+      @import "./tags/tags.scss";
+      @import "./login/login.scss";
     }
     @import "./footer.scss";
   }
