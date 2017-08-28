@@ -27,7 +27,7 @@ class TagLabel extends React.PureComponent {
       const body = document.body;
       const bodyElement = document.documentElement;
       if (body.scrollTop + 50 <= target && bodyElement.scrollTop + 50 <= target
-        && (window.innerHeight + window.scrollY) < document.body.offsetHeight) {
+        && (window.innerHeight + window.pageYOffset) < document.body.offsetHeight) {
         body.scrollTop += 50;
         bodyElement.scrollTop += 50;
         requestAnimationFrame(self.scrollFrame(target));
