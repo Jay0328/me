@@ -12,7 +12,9 @@ class Tags extends React.PureComponent {
   }
 
   render() {
+    const tagFilter = this.props.match.params.tag;
     const { tags } = this.props;
+
     return (
       <section className="tags">
         <Header />
@@ -24,19 +26,20 @@ class Tags extends React.PureComponent {
               ))}
             </div>
             <div className="tags-lists">
-              {Object.keys(tags).map(tagName => (
-                <div id={tagName.replace(' ', '')} className="tag-list" key={tagName}>
-                  <TagLabel mode={'label'} tagName={tagName} />
-                  {tags[tagName].map(({ year, month, day, title, url }) => (
-                    <div className="article" key={`/${year}/${month}/${day}/${url}`}>
-                      <Link to={`/${year}/${month}/${day}/${url}`}>
-                        <h3 className="article-title">{title}</h3>
-                      </Link>
-                      <hr />
-                    </div>
-                  ))}
-                </div>
-              ))}
+              {Object.keys(tags).filter(tagName => !tagFilter || tagFilter === tagName.replace(' ', ''))
+                .map(tagName => (
+                  <div id={tagName.replace(' ', '')} className="tag-list" key={tagName}>
+                    <TagLabel mode={'label'} tagName={tagName} />
+                    {tags[tagName].map(({ year, month, day, title, url }) => (
+                      <div className="article" key={`/${year}/${month}/${day}/${url}`}>
+                        <Link to={`/${year}/${month}/${day}/${url}`}>
+                          <h3 className="article-title">{title}</h3>
+                        </Link>
+                        <hr />
+                      </div>
+                    ))}
+                  </div>
+                ))}
             </div>
           </div>
           <Profile />
@@ -47,6 +50,7 @@ class Tags extends React.PureComponent {
 }
 
 Tags.propTypes = {
+  match: PropTypes.shape().isRequired,
   tags: PropTypes.shape().isRequired,
   fetchTags: PropTypes.func.isRequired
 };

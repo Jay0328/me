@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class TagLabel extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.scrollFrame = this.scrollFrame.bind(this);
-    this.scrollToTag = this.scrollToTag.bind(this);
 
     const { mode, articleNum } = this.props;
     /* 1(187, 187, 238) to 10(41, 140, 180) */
@@ -21,41 +20,20 @@ class TagLabel extends React.PureComponent {
     };
   }
 
-  scrollFrame(target) {
-    const self = this;
-    return () => {
-      const body = document.body;
-      const bodyElement = document.documentElement;
-      if (body.scrollTop + 50 <= target && bodyElement.scrollTop + 50 <= target
-        && (window.innerHeight + window.pageYOffset) < document.body.offsetHeight) {
-        body.scrollTop += 50;
-        bodyElement.scrollTop += 50;
-        requestAnimationFrame(self.scrollFrame(target));
-      }
-      else {
-        body.scrollTop = target;
-        bodyElement.scrollTop = target;
-      }
-    };
-  }
-
-  scrollToTag(e) {
-    e.preventDefault();
-    const { tagName } = this.props;
-    const tagOffsetTop = document.querySelector(`.tag-list#${tagName.replace(' ', '')}`).offsetTop;
-    const navHeight = document.getElementsByTagName('nav')[0].offsetHeight;
-    const target = tagOffsetTop - navHeight;
-    this.scrollFrame(target)();
-  }
-
   render() {
     const { mode, tagName, articleNum } = this.props;
     const { labelStyle } = this.state;
+    const Component = mode === 'cloud' ? Link : 'div';
+
     return (
-      <div className="tag-label" style={labelStyle} onClick={mode === 'cloud' ? this.scrollToTag : null}>
+      <Component
+        className="tag-label"
+        style={labelStyle}
+        to={mode === 'cloud' ? `/tags/${tagName.replace(' ', '')}` : ''}
+      >
         {mode === 'label' && <i className="fa fa-tag" aria-hidden="true"></i>}
         {mode === 'cloud' ? `${tagName} (${articleNum})` : `${tagName}`}
-      </div>
+      </Component>
     );
   }
 }
