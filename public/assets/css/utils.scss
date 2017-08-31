@@ -1,20 +1,4 @@
-@mixin user-select($attr) {
-  -webkit-user-select: $attr;
-  -moz-user-select: $attr;
-  -ms-user-select: $attr;
-  user-select: $attr;
-}
-
-@mixin transform($attr...) {
-  -webkit-transform: $attr;
-  transform: $attr;
-}
-
-@mixin transition($attr...) {
-  -webkit-transition: $attr;
-  transition: $attr;
-}
-
+/* flex */
 @mixin flex() {
   display: -webkit-flex;
   display: -ms-flex;
@@ -49,4 +33,28 @@
   -webkit-flex-wrap: $attr;
   -ms-flex-wrap: $attr;
   flex-wrap: $attr;
+}
+/* end of flex */
+
+@mixin fit-content() {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+@mixin transform($attr...) {
+  -webkit-transform: $attr;
+  transform: $attr;
+}
+
+@mixin transition($attr...) {
+  -webkit-transition: $attr;
+  transition: $attr;
+}
+
+@mixin user-select($attr) {
+  -webkit-user-select: $attr;
+  -moz-user-select: $attr;
+  -ms-user-select: $attr;
+  user-select: $attr;
 }

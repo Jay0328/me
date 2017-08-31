@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const ObjectId = Schema.Types.ObjectId;
 
 const articlesSchema = new Schema({
   year: {
@@ -27,7 +28,7 @@ const articlesSchema = new Schema({
     required: true,
   },
   tags: {
-    type: [String],
+    type: [{ type: ObjectId, ref: 'Tags' }],
     required: true
   },
   intro: String

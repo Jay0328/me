@@ -1,23 +1,9 @@
 @import "../utils.scss";
+@import "./tag-label.scss";
 
 .tags-labels {
   @include flex();
   @include flex-wrap(wrap);
   width: 100%;
-  .tag-label {
-    @include user-select(none);
-    cursor: pointer;
-    border: none;
-    border-radius: 4px;
-    margin: 5px;
-    padding: 0 10px;
-    min-width: 100px;
-    text-align: center;
-    font-size: 14px;
-    line-height: 28px;
-    background: #bbbbee;
-    &:hover {
-      color: #555;
-    }
-  }
+  @include tag-label(black, #bbbbee);
 }

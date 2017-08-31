@@ -15,9 +15,9 @@ const fetchTags = () => dispatch => request('/api/tags', {
 
 const shouldFetchTags = state => state.get('tags').isEmpty();
 
-export const fetchTagsIfNeed = tags => (dispatch, getState) => {
+export const fetchTagsIfNeed = () => (dispatch, getState) => {
   if (shouldFetchTags(getState())) {
-    return dispatch(fetchTags(tags));
+    return dispatch(fetchTags());
   }
   return { type: null };
 };

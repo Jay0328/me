@@ -17,7 +17,8 @@ router.route('/page/:page')
       await mongoose.connect(database, { useMongoClient: true });
       const totalArticles = await Articles.count();
       const totalPage = Math.ceil(totalArticles / 10);
-      const articles = await Articles.find().skip((page - 1) * 10).limit(10);
+      const articles = await Articles.find().skip((page - 1) * 10).limit(10)
+        .populate('tags', 'tagName').exec();
       res.status(200).json({ articles, totalPage });
     }
     catch (err) {
