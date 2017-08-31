@@ -20,27 +20,33 @@ class Home extends React.Component {
 
   render() {
     const { articlesList, page, totalPage } = this.props;
+
+    const list = (
+      <div className="list">
+        {articlesList.map(article => {
+          const { year, month, day, title, url, tags, intro } = article;
+          return (
+            <ArticlePreview
+              key={`${year}-${month}-${day}-${url}`}
+              year={year}
+              month={month}
+              day={day}
+              title={title}
+              url={url}
+              tags={tags}
+              intro={intro}
+            />
+          );
+        })}
+      </div>
+    );
+
     return (
       <section className="home">
         <Header />
         <div className="container">
           <div className="articles-list">
-            <div className="list">
-              {articlesList.map(article => {
-                const { year, month, day, title, url, intro } = article;
-                return (
-                  <ArticlePreview
-                    key={`${year}-${month}-${day}-${url}`}
-                    year={year}
-                    month={month}
-                    day={day}
-                    title={title}
-                    url={url}
-                    intro={intro}
-                  />
-                );
-              })}
-            </div>
+            {list}
             <Pagination baseUrl='/' page={page} totalPage={totalPage} />
           </div>
           <Profile />

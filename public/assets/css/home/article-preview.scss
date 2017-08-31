@@ -1,32 +1,39 @@
 @import "../utils.scss";
+@import "../tags/tag-label.scss";
 
 .article-preview {
-  margin-bottom: 35px;
+  margin: 50px 0;
   a {
     @include user-select(none);
     text-decoration: none;
     color: #404040;
-    .article-title {
-      margin-bottom: 0;
-      font-weight: 200;
-      text-shadow: 0 0 1px rgba(0, 0, 0, .15);
-      &:hover {
-        color: #296EB4;
-      }
+  }
+  .article-title {
+    font-size: 1.5em;
+    font-weight: 200;
+    text-shadow: 0 0 1px rgba(0, 0, 0, .15);
+    &:hover {
+      color: #296EB4;
     }
-    .article-meta {
-      margin-top: 5px;
-      padding-left: 2px;
-      font-size: 15px;
-      color: #808080;
+  }
+  .article-meta {
+    @include fit-content();
+    display: block;
+    font-size: 15px;
+    color: #808080;
+    margin: 5px 0;
+    padding-left: 2px;
+    i {
+      margin-right: 3px;
     }
-    .article-intro {
-      color: #555;
-      font-size: 16px;
-      text-shadow: 0 0 1px rgba(0, 0, 0, .1);
-      letter-spacing: 1px;
-      text-align: justify;
-      line-height: 1.7;
-    }
+  }
+  @include tag-label(white, #296EB4);
+  .article-intro {
+    color: #555;
+    font-size: 16px;
+    text-shadow: 0 0 1px rgba(0, 0, 0, .1);
+    letter-spacing: 1px;
+    text-align: justify;
+    line-height: 1.7;
   }
 }

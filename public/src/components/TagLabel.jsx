@@ -14,9 +14,9 @@ class TagLabel extends React.PureComponent {
       b: articleNum < 10 ? Math.round(238 - (articleNum * 5.8)) : 180,
     };
     this.state = {
-      labelStyle: mode !== 'cloud' ? null : {
-        backgroundColor: `rgba(${labelColor.r}, ${labelColor.g}, ${labelColor.b}, 1)`,
-      }
+      labelStyle: mode === 'cloud' && articleNum > 0 ? {
+        backgroundColor: `rgba(${labelColor.r}, ${labelColor.g}, ${labelColor.b}, 1)`
+      } : null
     };
   }
 
@@ -32,7 +32,7 @@ class TagLabel extends React.PureComponent {
         to={mode === 'cloud' ? `/tags/${tagName.replace(' ', '')}` : ''}
       >
         {mode === 'label' && <i className="fa fa-tag" aria-hidden="true"></i>}
-        {mode === 'cloud' ? `${tagName} (${articleNum})` : `${tagName}`}
+        {mode === 'cloud' && articleNum > 0 ? `${tagName} (${articleNum})` : `${tagName}`}
       </Component>
     );
   }
