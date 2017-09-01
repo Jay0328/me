@@ -1,5 +1,10 @@
+@import "./contact-info.scss";
+@import "./about-me.scss";
+
 @mixin profile($margin-left, $small-margin-left, $margin-right, $small-margin-right) {
   .profile {
+    @include about-me(50px 0 0 0);
+    @include contact-info(30px);
     width: 300px;
     min-width: 300px;
     height: 700px;

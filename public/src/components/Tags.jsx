@@ -44,7 +44,7 @@ class Tags extends React.PureComponent {
 
     return (
       <section className="tags">
-        <Header />
+        <Header mode="tags" />
         <div className="container">
           <div className="tags-container">
             {tagsCloud}

@@ -1,41 +1,25 @@
 @import "./utils.scss";
+@import "./about-me.scss";
 
 header {
   background: url('/images/header-background.jpg') no-repeat center;
   background-size: cover;
   width: 100vw;
   height: 370px;
-  .about-me {
+  @include about-me(100px 0 0 0);
+  .header-content {
     @include flex();
-    @include flex-direction(column);
+    @include justify-content(center);
     @include align-items(center);
-    margin-top: 100px;
-    img {
-      width: 144px;
-      height: 144px;
-      border-radius: 50%;
-    }
-    h4 {
-      font-size: 18px;
-      color: rgba(64, 64, 64, 1);
-      margin-bottom: 0;
-    }
-    p {
-      font-size: 15px;
-      color: #eee;
-    }
+    height: inherit;
+    color: #fff;
+    font-size: 24px;
+    text-shadow: 0 0 40px black;
   }
 }
+
 @media screen and (max-width: 640px) {
   header {
     height: 300px;
-    .about-me {
-      h4 {
-        margin-top: 2px;
-      }
-      p {
-        margin: 0;
-      }
-    }
   }
 }

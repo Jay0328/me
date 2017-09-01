@@ -1,22 +1,24 @@
 import React from 'react';
-//  import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import AboutMe from './AboutMe';
 
-const Header = () => {
+const Header = ({ mode }) => {
+  let headerContent = null;
+  if (mode === 'default') headerContent = <AboutMe />;
+  else if (mode === 'tags') headerContent = <div className="header-content">Tags</div>;
   return (
     <header>
-      <div className="about-me">
-        <img src="/images/profile.png" alt="me" />
-        <h4>Taku</h4>
-        <p>人生就是&nbsp;!#$(%^(@#^$*#@!$^&@$!(</p>
-      </div>
+      {headerContent}
     </header>
   );
 };
 
 Header.propTypes = {
+  mode: PropTypes.string
 };
 
 Header.defaultProps = {
+  mode: 'default'
 };
 
 export default Header;
