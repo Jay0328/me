@@ -19,6 +19,7 @@ body {
       @include justify-content(center);
       @import "./home/home.scss";
       @import "./tags/tags.scss";
+      @import "./article/article.scss";
       @import "./login/login.scss";
     }
     @import "./footer.scss";
