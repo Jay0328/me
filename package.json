@@ -8,7 +8,7 @@
     "build": "webpack --progress --colors",
     "watch": "webpack --watch --progress --colors",
     "dev": "webpack-dev-server --devtool eval --progress --colors --hot --inline --output-public-path=/public/build/",
-    "start": "supervisor --harmony index",
+    "start": "supervisor --watch src/ --harmony index",
     "set-up-pass": "node ./src/setUpPass"
   },
   "repository": {
