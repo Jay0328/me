@@ -17,13 +17,13 @@ class Navbar extends React.PureComponent {
     };
   }
 
-  dropdownMenu(e) {
+  dropdownMenu = e => {
     e.preventDefault();
     const originState = this.state.isOpen;
     this.setState({ isOpen: !originState });
   }
 
-  hideMenu() {
+  hideMenu = () => {
     this.setState({ isOpen: false });
   }
 
