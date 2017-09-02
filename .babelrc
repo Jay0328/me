@@ -4,5 +4,7 @@
         "react",
         "stage-3"
     ],
-    "plugins": []
+    "plugins": [],
+    "comments": false,
+    "env": { "modules": false }
 }

@@ -1,27 +1,20 @@
 const webpack = require('webpack');
+const merge = require('webpack-merge');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const { resolve } = require('path');
+
 
 const BUILD_DIR = resolve(__dirname, 'public/build');
 const APP_DIR = resolve(__dirname, 'public/src');
 const CSS_DIR = resolve(__dirname, 'public/assets/css');
 
-const UglifyJsPluginConfig = new webpack.optimize.UglifyJsPlugin({
-    sourceMap: true,
-    compress: {
-        warnings: false
+const basicConfig = {
+    entry: {
+        app: `${APP_DIR}/index.jsx`,
     },
     output: {
-        comments: false
-    }
-});
-
-const config = {
-    entry: [
-        `${APP_DIR}/index.jsx`,
-    ],
-    output: {
         path: BUILD_DIR,
-        filename: 'bundle.js'
+        filename: '[name].js'
     },
     module: {
         rules: [
@@ -60,7 +53,15 @@ const config = {
             }
         ]
     },
+    resolve: {
+        extensions: ['.js', '.jsx', '.scss', '.css']
+    },
+    plugins: [new CleanWebpackPlugin([BUILD_DIR])]
+}
+
+const config = process.env.NODE_ENV !== 'production' ? merge(basicConfig, {
     devServer: {
+        contentBase: BUILD_DIR,
         inline: true,
         port: 8080,
         watchOptions: {
@@ -68,11 +69,25 @@ const config = {
         },
         watchContentBase: true
     },
-    resolve: {
-        extensions: ['.js', '.jsx', '.scss', '.css']
-    },
-    devtool: "cheap-module-eval-source-map",
-    plugins: [UglifyJsPluginConfig]
-}
+    devtool: 'inline-source-map'
+}) : merge(basicConfig, {
+    devtool: "cheap-module-source-map",
+    plugins: [
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify('production')
+            }
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false // Suppress uglification warnings
+            },
+            output: {
+                comments: false
+            }
+        }),
+        new webpack.optimize.AggressiveMergingPlugin()  //Merge chunks
+    ],
+});
 
 module.exports = config;
