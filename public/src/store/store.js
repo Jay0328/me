@@ -7,15 +7,15 @@ import reducers from '../reducers';
 
 const initialState = Immutable.Map();
 
-const create = (history) => {
+const create = history => {
+  let middleware = [routerMiddleware(history), reduxThunk];
+  if (process.env.NODE_ENV !== 'production') {
+    middleware = [...middleware, createLogger({ stateTransformer: state => state.toJS() })];
+  }
   return createStore(
     reducers,
     initialState,
-    applyMiddleware(
-      routerMiddleware(history),
-      reduxThunk,
-      createLogger({ stateTransformer: state => state.toJS() })
-    )
+    applyMiddleware(...middleware)
   );
 };
 
