@@ -17,6 +17,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
 //  Static file
+if (process.env.NODE_ENV === 'production') {
+  app.use('/app.js', (req, res, next) => {
+    req.url = `${req.url}.gz`;
+    res.set('Content-Encoding', 'gzip');
+    next();
+  });
+}
 app.use(express.static(__dirname + '/public/build'));
 app.use(express.static(__dirname + '/public/assets'));
 

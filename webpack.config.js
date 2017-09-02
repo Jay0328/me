@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 const { resolve } = require('path');
 
 
@@ -86,7 +87,14 @@ const config = process.env.NODE_ENV !== 'production' ? merge(basicConfig, {
                 comments: false
             }
         }),
-        new webpack.optimize.AggressiveMergingPlugin()  //Merge chunks
+        new webpack.optimize.AggressiveMergingPlugin(),  //Merge chunks
+        new CompressionPlugin({
+            asset: "[path].gz[query]",
+            algorithm: "gzip",
+            test: /\.js$|\.css$|\.html$/,
+            threshold: 10240,
+            minRatio: 0
+        })
     ],
 });
 
