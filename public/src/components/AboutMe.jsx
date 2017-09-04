@@ -1,4 +1,5 @@
 import React from 'react';
+import { pure } from 'recompose';
 
 const AboutMe = () => {
   return (
@@ -10,4 +11,4 @@ const AboutMe = () => {
   );
 };
 
-export default AboutMe;
+export default pure(AboutMe);

@@ -19,7 +19,4 @@ App.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-App.defaultProps = {
-};
-
 export default App;

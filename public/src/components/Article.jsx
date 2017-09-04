@@ -4,7 +4,7 @@ import Header from './Header';
 import Profile from './Profile';
 import Markdown from './Markdown';
 
-class Article extends React.Component {
+class Article extends React.PureComponent {
   constructor(props) {
     super(props);
     const { year, month, day, url } = this.props.match.params;
@@ -28,9 +28,6 @@ Article.propTypes = {
   match: PropTypes.shape().isRequired,
   content: PropTypes.string.isRequired,
   fetchArticle: PropTypes.func.isRequired
-};
-
-Article.defaultProps = {
 };
 
 export default Article;

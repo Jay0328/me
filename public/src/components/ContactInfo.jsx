@@ -1,4 +1,5 @@
 import React from 'react';
+import { pure } from 'recompose';
 import { facebook, github } from '../../config';
 
 const ContactInfo = () => {
@@ -24,4 +25,4 @@ const ContactInfo = () => {
   );
 };
 
-export default ContactInfo;
+export default pure(ContactInfo);

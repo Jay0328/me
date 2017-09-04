@@ -40,6 +40,7 @@
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "react-router-redux": "^5.0.0-alpha.6",
+    "recompose": "^0.25.0",
     "redux": "^3.7.1",
     "redux-immutable": "^4.0.0",
     "redux-logger": "^3.0.6",

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { pure } from 'recompose';
 import ContactInfo from './ContactInfo';
 
 const Footer = ({ isAuth, logout }) => {
@@ -53,7 +54,4 @@ Footer.propTypes = {
   logout: PropTypes.func.isRequired
 };
 
-Footer.defaultProps = {
-};
-
-export default Footer;
+export default pure(Footer);

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MarkdownIt from 'markdown-it';
 import hljs from 'highlight.js';
+import { pure } from 'recompose';
 
 const md = MarkdownIt({
   html: true,
@@ -29,7 +30,4 @@ Markdown.propTypes = {
   content: PropTypes.string.isRequired,
 };
 
-Markdown.defaultProps = {
-};
-
-export default Markdown;
+export default pure(Markdown);

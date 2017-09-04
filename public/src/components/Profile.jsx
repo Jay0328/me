@@ -1,8 +1,7 @@
 import React from 'react';
+import { pure } from 'recompose';
 import AboutMe from './AboutMe';
 import ContactInfo from './ContactInfo';
-//  import PropTypes from 'prop-types';
-//  import { Link } from 'react-router-dom';
 
 const Profile = () => {
   return (
@@ -13,10 +12,4 @@ const Profile = () => {
   );
 };
 
-Profile.propTypes = {
-};
-
-Profile.defaultProps = {
-};
-
-export default Profile;
+export default pure(Profile);

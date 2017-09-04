@@ -63,7 +63,4 @@ Tags.propTypes = {
   fetchTags: PropTypes.func.isRequired
 };
 
-Tags.defaultProps = {
-};
-
 export default Tags;

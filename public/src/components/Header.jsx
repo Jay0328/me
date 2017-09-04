@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { pure } from 'recompose';
 import AboutMe from './AboutMe';
 
 const Header = ({ mode }) => {
@@ -21,4 +22,4 @@ Header.defaultProps = {
   mode: 'default'
 };
 
-export default Header;
+export default pure(Header);

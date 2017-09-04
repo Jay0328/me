@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { pure } from 'recompose';
 
 const toTop = () => {
   document.body.scrollTop = 0;
@@ -93,7 +94,4 @@ Pagination.propTypes = {
   totalPage: PropTypes.number.isRequired
 };
 
-Pagination.defaultProps = {
-};
-
-export default Pagination;
+export default pure(Pagination);

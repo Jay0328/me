@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { pure } from 'recompose';
 import TagLabel from './TagLabel';
 
 const ArticlePreview = ({ year, month, day, title, url, tags, intro }) => {
@@ -48,7 +49,4 @@ ArticlePreview.propTypes = {
   intro: PropTypes.string.isRequired
 };
 
-ArticlePreview.defaultProps = {
-};
-
-export default ArticlePreview;
+export default pure(ArticlePreview);
