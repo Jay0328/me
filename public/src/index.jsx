@@ -22,6 +22,10 @@ import creatStore from './store';
 import { verifyAuth } from './actions/authActions';
 
 const history = createBrowserHistory();
+history.listen(() => {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+});
 const store = creatStore(history);
 
 const renderDom = () => {
