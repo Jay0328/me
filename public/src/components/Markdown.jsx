@@ -1,8 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MarkdownIt from 'markdown-it';
-import hljs from 'highlight.js';
+import hljs from 'highlight.js/lib/highlight';
 import { pure } from 'recompose';
+import { markdownLanguage } from '../../config';
+
+markdownLanguage.forEach(langName => {
+  const langModule = require(`highlight.js/lib/languages/${langName}`);
+  hljs.registerLanguage(langName, langModule);
+});
 
 const md = MarkdownIt({
   html: true,

@@ -3,6 +3,7 @@ const merge = require('webpack-merge');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const { resolve } = require('path');
+const { markdownLanguage } = require('./public/config.js');
 
 
 const BUILD_DIR = resolve(__dirname, 'public/build');
@@ -57,7 +58,13 @@ const basicConfig = {
     resolve: {
         extensions: ['.js', '.jsx', '.scss', '.css']
     },
-    plugins: [new CleanWebpackPlugin([BUILD_DIR])]
+    plugins: [
+        new CleanWebpackPlugin([BUILD_DIR]),
+        new webpack.ContextReplacementPlugin(
+            /highlight\.js\/lib\/languages$/,
+            new RegExp(`^./(${markdownLanguage.join('|')})$`)
+        )
+    ]
 }
 
 const config = process.env.NODE_ENV !== 'production' ? merge(basicConfig, {
