@@ -9,8 +9,8 @@
     color: #404040;
   }
   .article-title {
-    font-size: 1.5em;
-    font-weight: 200;
+    font-size: 1.8em;
+    font-weight: 400;
     text-shadow: 0 0 1px rgba(0, 0, 0, .15);
     &:hover {
       color: #296EB4;
@@ -28,12 +28,20 @@
     }
   }
   @include tag-label(white, #296EB4);
-  .article-intro {
-    color: #555;
-    font-size: 16px;
-    text-shadow: 0 0 1px rgba(0, 0, 0, .1);
-    letter-spacing: 1px;
-    text-align: justify;
-    line-height: 1.7;
+  .article-preview-content {
+    margin: 30px 0;
+  }
+  .article-more-btn {
+    color: white;
+    text-shadow: 0 0 1px rgba(0, 0, 0, .15);
+    border: none;
+    border-radius: 4px;
+    margin: 5px;
+    padding: 5px 10px;
+    text-align: center;
+    background: #296EB4;
+    &:hover {
+      color: black;
+    }
   }
 }

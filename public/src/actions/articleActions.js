@@ -29,11 +29,12 @@ export const fetchArticlesListIfNeed = page => (dispatch, getState) => {
 export const RECEIVE_ARTICLE = 'RECEIVE_ARTICLE';
 export const CLEAR_ARTICLE_CONTENT = 'CLEAR_ARTICLE_CONTENT';
 
-const receiveArticle = (year, month, day, title, url, content) => ({
+const receiveArticle = (year, month, day, title, url, tags, content) => ({
   type: RECEIVE_ARTICLE,
   date: `${year}-${month}-${day}`,
   title,
   url,
+  tags,
   content
 });
 
@@ -46,7 +47,9 @@ const fetchArticle = (year, month, day, url) => dispatch =>
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
   })
-    .then(({ title, content }) => dispatch(receiveArticle(year, month, day, title, url, content)))
+    .then(({ title, tags, content }) =>
+      dispatch(receiveArticle(year, month, day, title, url, tags, content))
+    )
     .catch(({ err }) => dispatch(receiveArticle(year, month, day, '', url, err)));
 
 const shouldFetchArticle = (state, year, month, day, url) => {

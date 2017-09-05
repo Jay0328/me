@@ -30,8 +30,7 @@ const articlesSchema = new Schema({
   tags: {
     type: [{ type: ObjectId, ref: 'Tags' }],
     required: true
-  },
-  intro: String
+  }
 });
 
 const Articles = mongoose.model('Articles', articlesSchema, 'Articles');

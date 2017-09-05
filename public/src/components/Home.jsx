@@ -24,7 +24,7 @@ class Home extends React.Component {
     const list = (
       <div className="list">
         {articlesList.map(article => {
-          const { year, month, day, title, url, tags, intro } = article;
+          const { year, month, day, title, url, tags, preview } = article;
           return (
             <ArticlePreview
               key={`${year}-${month}-${day}-${url}`}
@@ -34,7 +34,7 @@ class Home extends React.Component {
               title={title}
               url={url}
               tags={tags}
-              intro={intro}
+              preview={preview}
             />
           );
         })}

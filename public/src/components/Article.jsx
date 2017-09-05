@@ -11,10 +11,15 @@ class Article extends React.PureComponent {
     this.props.fetchArticle(year, month, day, url);
   }
   render() {
-    const { content } = this.props;
+    const { date, title, tags, content } = this.props;
     return (
       <section className="article">
-        <Header />
+        <Header
+          mode="article"
+          date={date}
+          title={title}
+          tags={tags}
+        />
         <div className="container">
           <Profile />
           <Markdown className="article-content" content={content} />
@@ -26,6 +31,9 @@ class Article extends React.PureComponent {
 
 Article.propTypes = {
   match: PropTypes.shape().isRequired,
+  date: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  tags: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   content: PropTypes.string.isRequired,
   fetchArticle: PropTypes.func.isRequired
 };
