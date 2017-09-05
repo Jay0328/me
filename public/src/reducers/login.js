@@ -1,7 +1,7 @@
-import Immutable, { fromJS } from 'immutable';
+import { fromJS } from 'immutable';
 import { PRISTINE_LOGIN_FORM, LOGIN_ONCHANGE, LOGIN_FAIL, LOGOUT } from '../actions/authActions';
 
-const initialState = Immutable.fromJS({
+const initialState = fromJS({
   username: {
     status: false,
     errMsg: '',
