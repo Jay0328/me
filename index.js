@@ -14,16 +14,18 @@ app.disable('x-powered-by');
 //  Configure express to use bodyParser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(morgan('dev'));
 
-//  Static file
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV !== 'production') {
+  app.use(morgan('dev'));
+}
+else {
   app.use('/app.js', (req, res, next) => {
     req.url = `${req.url}.gz`;
     res.set('Content-Encoding', 'gzip');
     next();
   });
 }
+//  Static file
 app.use(express.static(__dirname + '/public/build'));
 app.use(express.static(__dirname + '/public/assets'));
 
