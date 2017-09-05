@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { pure } from 'recompose';
 import TagLabel from './TagLabel';
+import Markdown from './Markdown';
 
-const ArticlePreview = ({ year, month, day, title, url, tags, intro }) => {
+const ArticlePreview = ({ year, month, day, title, url, tags, preview }) => {
   const articleTitle = (
     <Link to={`/${year}/${month}/${day}/${url}`} className="article-title">
       {title}
@@ -23,10 +24,11 @@ const ArticlePreview = ({ year, month, day, title, url, tags, intro }) => {
       ))}
     </div>
   );
-  const articleIntro = (
-    <p className="article-intro">
-      {intro}
-    </p>
+  const articlePreviewContent = <Markdown className="article-preview-content" content={preview} />;
+  const moreBtn = (
+    <Link to={`/${year}/${month}/${day}/${url}`} className="article-more-btn">
+      繼續閱讀
+    </Link>
   );
 
   return (
@@ -34,7 +36,8 @@ const ArticlePreview = ({ year, month, day, title, url, tags, intro }) => {
       {articleTitle}
       {articleMeta}
       {articleTags}
-      {articleIntro}
+      {articlePreviewContent}
+      {moreBtn}
     </div>
   );
 };
@@ -46,7 +49,7 @@ ArticlePreview.propTypes = {
   title: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  intro: PropTypes.string.isRequired
+  preview: PropTypes.string.isRequired
 };
 
 export default pure(ArticlePreview);
