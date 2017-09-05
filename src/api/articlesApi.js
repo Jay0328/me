@@ -48,12 +48,13 @@ router.route('/article')
     const { year, month, day, url } = req.query;
     try {
       await mongoose.connect(database, { useMongoClient: true });
-      const article = await Articles.findOne({ year, month, day, url });
+      const article = await Articles.findOne({ year, month, day, url })
+        .populate('tags', 'tagName').exec();
       if (article) {
-        const { title } = article;
+        const { title, tags } = article;
         const content = await readFileSync(resolve(__dirname, `../../blog/articles/${year}-${month}-${day}-${title}.md`),
           'utf-8');
-        res.status(200).json({ title, content });
+        res.status(200).json({ title, tags, content });
       }
       else res.status(404).json({ err: '文章不存在' });
     }
