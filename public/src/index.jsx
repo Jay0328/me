@@ -42,11 +42,15 @@ const renderDom = () => {
   );
 };
 
-store.dispatch(verifyAuth()).then(renderDom);
+const run = async () => {
+  await store.dispatch(verifyAuth());
+  renderDom();
+  window.onfocus = () => {
+    document.title = 'Taku 9487';
+  };
+  window.onblur = () => {
+    document.title = 'QAQ 不要走';
+  };
+};
 
-window.onfocus = () => {
-  document.title = 'Taku 9487';
-};
-window.onblur = () => {
-  document.title = 'QAQ 不要走';
-};
+run();

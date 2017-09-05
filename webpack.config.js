@@ -12,7 +12,7 @@ const CSS_DIR = resolve(__dirname, 'public/assets/css');
 
 const basicConfig = {
     entry: {
-        app: `${APP_DIR}/index.jsx`,
+        app: ['babel-polyfill', `${APP_DIR}/index.jsx`],
     },
     output: {
         path: BUILD_DIR,
