@@ -1,0 +1,9 @@
+@import "../utils.scss";
+@import "./tag-label.scss";
+
+.tags-labels {
+  @include flex();
+  @include flex-wrap(wrap);
+  width: 100%;
+  @include tag-label(black, #bbbbee);
+}

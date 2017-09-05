@@ -1,0 +1,27 @@
+@import "./utils.scss";
+
+*, *::before, *::after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  //	border: solid 1px;
+}
+
+body {
+  font-family: -apple-system, "PingFang SC", "Helvetica Neue", "Hiragino Sans GB", "Microsoft YaHei",
+  "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC",
+  "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif;
+  .wrapper {
+    @import "./navbar.scss";
+    main {
+      width: 100vw;
+      @include flex();
+      @include justify-content(center);
+      @import "./home/home.scss";
+      @import "./tags/tags.scss";
+      @import "./article/article.scss";
+      @import "./login/login.scss";
+    }
+    @import "./footer.scss";
+  }
+}
