@@ -12,6 +12,7 @@ mongoose.Promise = Promise;
 
 const readArticlePreviews = articles => new Promise(res => {
   const articleNum = articles.length;
+  if (articleNum === 0) res(articles);
   let count = articleNum;
   let ret = [...articles];
   for (let i = 0; i < articleNum; i++) {
