@@ -34,7 +34,7 @@ router.route('/page/:page')
       const totalArticles = await Articles.count();
       const totalPage = Math.ceil(totalArticles / 10);
       let articles = await Articles.find().skip((page - 1) * 10).limit(10)
-        .populate('tags', 'tagName').exec();
+        .populate('tags', 'tagName').sort({ year: 'desc', month: 'desc', day: 'desc' }).exec();
       articles = await readArticlePreviews(articles);
       res.status(200).json({ articles, totalPage });
     }
