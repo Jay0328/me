@@ -26,6 +26,35 @@ const readArticlePreviews = articles => new Promise(res => {
   }
 });
 
+router.route('/archive')
+  .get(asyncMiddleware(async (req, res, next) => {
+    try {
+      await mongoose.connect(database, { useMongoClient: true });
+      const totalArticlesCount = await Articles.count();
+      const totalArticles = await Articles.find({}, ['year', 'month', 'day', 'title', 'url'])
+        .sort({ year: 'desc', month: 'desc', day: 'desc' });
+      const archive = totalArticles.reduce((arch, article) => {
+        /* immutable */
+        let newArch = Object.assign({}, arch);
+        if (arch[article.year] && arch[article.year][article.month]) {
+          newArch[article.year][article.month] = [...arch[article.year][article.month], article];
+        }
+        else if (arch[article.year]) {
+          newArch[article.year][article.month] = [article];
+        }
+        else {
+          newArch = { [article.year]: { [article.month]: [article] } };
+        }
+        return newArch;
+      }, {});
+      res.status(200).json({ archive, totalArticlesCount });
+    }
+    catch (err) {
+      res.status(404).json({ err: '取得歸檔錯誤' });
+      throw err;
+    }
+  }));
+
 router.route('/page/:page')
   .get(asyncMiddleware(async (req, res, next) => {
     const page = parseInt(req.params.page, 10);
