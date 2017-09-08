@@ -9,7 +9,7 @@
     "watch": "webpack --watch --progress --colors",
     "dev": "webpack-dev-server --devtool eval --progress --colors --hot --inline",
     "start": "NODE_ENV=production forever start index.js",
-    "start-dev": "supervisor --watch src/ --harmony index",
+    "start:dev": "supervisor --watch src/ --harmony index",
     "set-up-pass": "node ./src/setUpPass"
   },
   "repository": {
