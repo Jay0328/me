@@ -14,6 +14,7 @@ body {
   .wrapper {
     @import "./navbar.scss";
     main {
+      padding-top: 56px;
       width: 100vw;
       @include flex();
       @include justify-content(center);

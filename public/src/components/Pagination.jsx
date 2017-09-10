@@ -24,7 +24,7 @@ const Pagination = ({ baseUrl, page, totalPage }) => {
       ...menu,
       <Link
         className="pagination-item"
-        to={page > 2 ? `${baseUrl !== '/' ? baseUrl : ''}/page/${page - 1}` : baseUrl}
+        to={page > 2 ? `${baseUrl !== '/' ? baseUrl : ''}/page/${page - 1}/` : baseUrl}
         key={`link-page-${page - 1}`}
         onClick={toTop}
       >
@@ -48,7 +48,7 @@ const Pagination = ({ baseUrl, page, totalPage }) => {
         return (
           <Link
             className="pagination-item"
-            to={p !== 1 ? `${baseUrl !== '/' ? baseUrl : ''}/page/${p}` : baseUrl}
+            to={p !== 1 ? `${baseUrl !== '/' ? baseUrl : ''}/page/${p}/` : baseUrl}
             key={`link-page-${p}`}
             onClick={toTop}
           >
@@ -64,7 +64,7 @@ const Pagination = ({ baseUrl, page, totalPage }) => {
       <div className="pagination-divider" key='page-divider-right'>...</div>,
       <Link
         className="pagination-item"
-        to={`${baseUrl !== '/' ? baseUrl : ''}/page/${totalPage}`}
+        to={`${baseUrl !== '/' ? baseUrl : ''}/page/${totalPage}/`}
         key={`link-page-${totalPage}`}
         onClick={toTop}
       >
@@ -77,7 +77,7 @@ const Pagination = ({ baseUrl, page, totalPage }) => {
       ...menu,
       <Link
         className="pagination-item"
-        to={`${baseUrl !== '/' ? baseUrl : ''}/page/${page + 1}`}
+        to={`${baseUrl !== '/' ? baseUrl : ''}/page/${page + 1}/`}
         key='link-next-page'
         onClick={toTop}
       >

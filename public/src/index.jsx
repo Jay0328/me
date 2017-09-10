@@ -34,11 +34,11 @@ const renderDom = () => {
       <ConnectedRouter history={history}>
         <App>
           <Route exact strict path='/' component={HomeContainer} />
-          <Route exact strict path='/page/:page' component={HomeContainer} />
-          <Route exact strict path='/tags' component={TagsContainer} />
-          <Route exact strict path='/tags/:tag' component={TagsContainer} />
-          <Route exact strict path='/login' component={LoginContainer} />
-          <Route exact strict path='/:year/:month/:day/:url' component={ArticleContainer} />
+          <Route exact strict path='/page/:page/' component={HomeContainer} />
+          <Route exact strict path='/tags/' component={TagsContainer} />
+          <Route exact strict path='/tags/:tag/' component={TagsContainer} />
+          <Route exact strict path='/login/' component={LoginContainer} />
+          <Route exact strict path='/:year/:month/:day/:url/' component={ArticleContainer} />
         </App>
       </ConnectedRouter>
     </Provider>,

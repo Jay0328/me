@@ -3,7 +3,7 @@
 
 @mixin profile($margin-left, $small-margin-left, $margin-right, $small-margin-right) {
   .profile {
-    @include about-me(50px 0 0 0);
+    @include about-me(50px 0 0 0, initial);
     @include contact-info(30px);
     width: 300px;
     min-width: 300px;

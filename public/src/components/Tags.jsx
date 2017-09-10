@@ -31,7 +31,7 @@ class Tags extends React.PureComponent {
               <TagLabel mode={'label'} tagName={tagName} />
               {tags[tagName].map(({ year, month, day, title, url }) => (
                 <div className="tag-article" key={`/${year}/${month}/${day}/${url}`}>
-                  <Link to={`/${year}/${month}/${day}/${url}`}>
+                  <Link to={`/${year}/${month}/${day}/${url}/`}>
                     <h3 className="tag-article-title">{title}</h3>
                   </Link>
                   <hr />

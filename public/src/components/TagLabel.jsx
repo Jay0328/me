@@ -29,7 +29,7 @@ class TagLabel extends React.PureComponent {
       <Component
         className="tag-label"
         style={labelStyle}
-        to={mode === 'cloud' ? `/tags/${tagName.replace(' ', '')}` : ''}
+        to={mode === 'cloud' ? `/tags/${tagName.replace(' ', '')}/` : ''}
       >
         {mode === 'label' && <i className="fa fa-tag" aria-hidden="true"></i>}
         {mode === 'cloud' && articleNum > 0 ? `${tagName} (${articleNum})` : `${tagName}`}

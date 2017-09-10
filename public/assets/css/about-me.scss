@@ -1,11 +1,13 @@
 @import "./utils.scss";
 
-@mixin about-me($margin) {
+@mixin about-me($margin, $height) {
   .about-me {
     @include flex();
     @include flex-direction(column);
+    @include justify-content(center);
     @include align-items(center);
     margin: $margin;
+    height: $height;
     img {
       width: 144px;
       height: 144px;
