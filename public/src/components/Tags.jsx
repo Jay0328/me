@@ -5,10 +5,17 @@ import Header from './Header';
 import Profile from './Profile';
 import TagLabel from './TagLabel';
 
-class Tags extends React.PureComponent {
+class Tags extends React.Component {
   constructor(props) {
     super(props);
     this.props.fetchTags();
+  }
+
+  componentDidMount() {
+    if (!this.props.fromTags) {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
   }
 
   render() {
@@ -18,7 +25,13 @@ class Tags extends React.PureComponent {
     const tagsCloud = (
       <div className="tags-labels">
         {Object.keys(tags).map(tagName => (
-          <TagLabel key={tagName} mode={'cloud'} tagName={tagName} articleNum={tags[tagName].size} />
+          <TagLabel
+            key={tagName}
+            mode={'cloud'}
+            tagName={tagName}
+            articleNum={tags[tagName].size}
+            fromTags={true}
+          />
         ))}
       </div>
     );
@@ -60,7 +73,8 @@ class Tags extends React.PureComponent {
 Tags.propTypes = {
   match: PropTypes.shape().isRequired,
   tags: PropTypes.shape().isRequired,
-  fetchTags: PropTypes.func.isRequired
+  fetchTags: PropTypes.func.isRequired,
+  fromTags: PropTypes.bool.isRequired
 };
 
 export default Tags;

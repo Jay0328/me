@@ -12,7 +12,12 @@ class Home extends React.Component {
     this.props.fetchArticlesList(page);
   }
 
-  componentWillUpdate(nextProps) {
+  componentDidMount() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
+
+  componentWillReceiveProps(nextProps) {
     if (this.props.match.params.page !== nextProps.match.params.page) {
       this.props.fetchArticlesList(parseInt(nextProps.match.params.page, 10));
     }

@@ -21,7 +21,7 @@ class TagLabel extends React.PureComponent {
   }
 
   render() {
-    const { mode, tagName, articleNum } = this.props;
+    const { mode, tagName, articleNum, fromTags } = this.props;
     const { labelStyle } = this.state;
     const Component = mode === 'cloud' ? Link : 'div';
 
@@ -29,7 +29,7 @@ class TagLabel extends React.PureComponent {
       <Component
         className="tag-label"
         style={labelStyle}
-        to={mode === 'cloud' ? `/tags/${tagName.replace(' ', '')}/` : ''}
+        to={mode === 'cloud' ? { pathname: `/tags/${tagName.replace(' ', '')}/`, state: { fromTags } } : ''}
       >
         {mode === 'label' && <i className="fa fa-tag" aria-hidden="true"></i>}
         {mode === 'cloud' && articleNum > 0 ? `${tagName} (${articleNum})` : `${tagName}`}
@@ -41,11 +41,13 @@ class TagLabel extends React.PureComponent {
 TagLabel.propTypes = {
   mode: PropTypes.string.isRequired,
   tagName: PropTypes.string.isRequired,
-  articleNum: PropTypes.number
+  articleNum: PropTypes.number,
+  fromTags: PropTypes.bool
 };
 
 TagLabel.defaultProps = {
-  articleNum: 0
+  articleNum: 0,
+  fromTags: false
 };
 
 export default TagLabel;
