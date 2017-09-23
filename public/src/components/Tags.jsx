@@ -16,6 +16,7 @@ class Tags extends React.Component {
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
     }
+    document.title = 'Tags | Taku\'s blog';
   }
 
   render() {

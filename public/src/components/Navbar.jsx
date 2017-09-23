@@ -9,7 +9,7 @@ class Navbar extends React.PureComponent {
         { url: '/', name: 'HOME' },
         { url: '/tags/', name: 'TAGS' },
         { url: '/about/', name: 'ABOUT' },
-        { url: '/archives/', name: 'ARCHIVES' },
+        { url: '/archive/', name: 'ARCHIVE' },
       ],
       isOpen: false
     };

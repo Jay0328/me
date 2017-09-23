@@ -14,6 +14,7 @@ import App from './components/App';
 import {
   HomeContainer,
   TagsContainer,
+  ArchiveContainer,
   LoginContainer,
   ArticleContainer
 } from './containers';
@@ -33,6 +34,7 @@ const renderDom = () => {
           <Route exact strict path='/page/:page/' component={HomeContainer} />
           <Route exact strict path='/tags/' component={TagsContainer} />
           <Route exact strict path='/tags/:tag/' component={TagsContainer} />
+          <Route exact strict path='/archive/' component={ArchiveContainer} />
           <Route exact strict path='/login/' component={LoginContainer} />
           <Route exact strict path='/:year/:month/:day/:url/' component={ArticleContainer} />
         </App>
@@ -45,12 +47,6 @@ const renderDom = () => {
 const run = async () => {
   await store.dispatch(verifyAuth());
   renderDom();
-  window.onfocus = () => {
-    document.title = 'Taku 9487';
-  };
-  window.onblur = () => {
-    document.title = 'QAQ 不要走';
-  };
 };
 
 run();

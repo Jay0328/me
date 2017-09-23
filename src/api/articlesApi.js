@@ -43,7 +43,7 @@ router.route('/archive')
           newArch[article.year][article.month] = [article];
         }
         else {
-          newArch = { [article.year]: { [article.month]: [article] } };
+          newArch[article.year] = { [article.month]: [article] };
         }
         return newArch;
       }, {});

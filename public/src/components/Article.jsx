@@ -18,6 +18,8 @@ class Article extends React.Component {
 
   render() {
     const { date, title, tags, content } = this.props;
+    document.title = `${`${title} | `}Taku's blog`;
+
     return (
       <section className="article">
         <Header

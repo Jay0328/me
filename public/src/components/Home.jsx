@@ -15,6 +15,8 @@ class Home extends React.Component {
   componentDidMount() {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
+
+    document.title = 'Taku\'s blog';
   }
 
   componentWillReceiveProps(nextProps) {
