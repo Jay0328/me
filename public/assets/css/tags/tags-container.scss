@@ -3,10 +3,8 @@
 .tags-container {
   @import "./tags-labels.scss";
   @import "./tags-lists.scss";
-  @include flex();
-  @include flex-wrap(wrap);
   width: 100%;
-  @include fit-content(height);
+  height: 100%;
   margin: 0 50px 0 15%;
 }
 @media screen and (min-width: 897px) and (max-width: 1024px) {

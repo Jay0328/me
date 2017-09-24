@@ -3,8 +3,8 @@
 
 .tags-labels {
   @include flex();
+  @include justify-content(center);
   @include flex-wrap(wrap);
   width: 100%;
-  @include fit-content(height);
   @include tag-label(black, #bbbbee);
 }
