@@ -31,22 +31,8 @@ router.route('/archive')
     try {
       await mongoose.connect(database, { useMongoClient: true });
       const totalArticlesCount = await Articles.count();
-      const totalArticles = await Articles.find({}, ['year', 'month', 'day', 'title', 'url'])
+      const archive = await Articles.find({}, ['year', 'month', 'day', 'title', 'url'])
         .sort({ year: 'desc', month: 'desc', day: 'desc' });
-      const archive = totalArticles.reduce((arch, article) => {
-        /* immutable */
-        let newArch = Object.assign({}, arch);
-        if (arch[article.year] && arch[article.year][article.month]) {
-          newArch[article.year][article.month] = [...arch[article.year][article.month], article];
-        }
-        else if (arch[article.year]) {
-          newArch[article.year][article.month] = [article];
-        }
-        else {
-          newArch[article.year] = { [article.month]: [article] };
-        }
-        return newArch;
-      }, {});
       res.status(200).json({ archive, totalArticlesCount });
     }
     catch (err) {
