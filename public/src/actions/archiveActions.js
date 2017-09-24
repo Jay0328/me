@@ -10,7 +10,7 @@ const receiveArchive = (archive, totalArticlesCount) => ({
 
 const fetchArchive = () => async dispatch => {
   try {
-    const { archive, totalArticlesCount } = await request('/api/articles/archive', {
+    const { archive, totalArticlesCount } = await request('/api/archives', {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     });

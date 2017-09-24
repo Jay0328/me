@@ -6,10 +6,10 @@ class Navbar extends React.PureComponent {
     super(props);
     this.state = {
       linkUrl: [
-        { url: '/', name: 'HOME' },
-        { url: '/tags/', name: 'TAGS' },
-        { url: '/about/', name: 'ABOUT' },
-        { url: '/archive/', name: 'ARCHIVE' },
+        { url: '/tags/', name: '標籤' },
+        { url: '/categories/', name: '分類' },
+        { url: '/archives/', name: '歸檔' },
+        { url: '/about/', name: '關於我' },
       ],
       isOpen: false
     };

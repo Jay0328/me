@@ -14,6 +14,19 @@ const tagsSchema = new Schema({
   }
 });
 
+tagsSchema.statics.getArticlesInTags = async function () {
+  return await this
+    .find()
+    .populate({
+      path: 'articles',
+      select: ['year', 'month', 'day', 'title', 'url'],
+      options: {
+        sort: { year: 'desc', month: 'desc', day: 'desc' }
+      }
+    })
+    .exec();
+};
+
 const Tags = mongoose.model('Tags', tagsSchema, 'Tags');
 
 module.exports = Tags;
