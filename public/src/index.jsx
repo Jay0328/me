@@ -45,8 +45,13 @@ const renderDom = () => {
 };
 
 const run = async () => {
-  await store.dispatch(verifyAuth());
-  renderDom();
+  try {
+    await store.dispatch(verifyAuth());
+    renderDom();
+  }
+  catch (err) {
+    throw err;
+  }
 };
 
 run();

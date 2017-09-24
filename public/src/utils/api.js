@@ -19,9 +19,6 @@ const fetchRequest = (url, options) => new Promise((resolve, reject) => {
     .catch(error => reject(error));
 });
 
-const request = (url, options, preCheck) => {
-  if (preCheck) return () => fetchRequest(url, options);
-  return fetchRequest(url, options, preCheck);
-};
+const request = (url, options) => fetchRequest(url, options);
 
 export default request;

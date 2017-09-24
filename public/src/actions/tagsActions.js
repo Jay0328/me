@@ -7,17 +7,21 @@ const receiveTags = tags => ({
   tags
 });
 
-const fetchTags = () => dispatch => request('/api/tags', {
-  method: 'GET',
-  headers: { 'Content-Type': 'application/json' },
-})
-  .then(({ tags }) => dispatch(receiveTags(tags)));
-
+const fetchTags = () => async dispatch => {
+  try {
+    const { tags } = await request('/api/tags', {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    dispatch(receiveTags(tags));
+  }
+  catch ({ err }) {
+    throw err;
+  }
+};
 const shouldFetchTags = state => state.get('tags').isEmpty();
 
 export const fetchTagsIfNeed = () => (dispatch, getState) => {
-  if (shouldFetchTags(getState())) {
-    return dispatch(fetchTags());
-  }
+  if (shouldFetchTags(getState())) dispatch(fetchTags());
   return { type: null };
 };

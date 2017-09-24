@@ -13,7 +13,7 @@ const ArchiveMonth = pure(({ archive, month: archMonth }) => (
       {archive.map(({ year, month, day, title, url }) => (
         <li key={`/${year}/${month}/${day}/${url}/`} >
           <Link to={`/${year}/${month}/${day}/${url}/`}>
-            {`${year}-${month}-${day}-${title}`}
+            {`${title} (${day}日)`}
           </Link>
         </li>
       ))}

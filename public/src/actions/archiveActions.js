@@ -8,17 +8,22 @@ const receiveArchive = (archive, totalArticlesCount) => ({
   totalArticlesCount
 });
 
-const fetchArchive = () => dispatch => request('/api/articles/archive', {
-  method: 'GET',
-  headers: { 'Content-Type': 'application/json' },
-})
-  .then(({ archive, totalArticlesCount }) => dispatch(receiveArchive(archive, totalArticlesCount)));
+const fetchArchive = () => async dispatch => {
+  try {
+    const { archive, totalArticlesCount } = await request('/api/articles/archive', {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    dispatch(receiveArchive(archive, totalArticlesCount));
+  }
+  catch ({ err }) {
+    throw err;
+  }
+};
 
 const shouldFetchArchive = state => state.getIn(['archive', 'archive']).isEmpty();
 
 export const fetchArchiveIfNeed = () => (dispatch, getState) => {
-  if (shouldFetchArchive(getState())) {
-    return dispatch(fetchArchive());
-  }
+  if (shouldFetchArchive(getState())) dispatch(fetchArchive());
   return { type: null };
 };

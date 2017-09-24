@@ -1,4 +1,4 @@
-import { goBack } from 'react-router-redux';
+import { push } from 'react-router-redux';
 import request from '../utils/api';
 
 //	action types
@@ -52,21 +52,25 @@ export const loginOnChange = (field, value) => ({
   value
 });
 
-export const login = data => dispatch => check(data)
-  .then(request('/api/authenticate', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  }, true))
-  .then(({ token }) => {
+export const login = data => async dispatch => {
+  try {
+    await check(data);
+    const { token } = await request('/api/authenticate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
     localStorage.setItem('token', token);
     dispatch(pristineLoginForm());
     dispatch(loginSuccess(token));
-    dispatch(goBack());
-  })
-  .catch(({ err }) => err.forEach(({ field, errMsg }) => {
-    dispatch(loginFail(field, errMsg));
-  }));
+    dispatch(push('/'));
+  }
+  catch ({ err }) {
+    err.forEach(({ field, errMsg }) => {
+      dispatch(loginFail(field, errMsg));
+    });
+  }
+};
 
 export const verifyAuth = () => dispatch => new Promise((resolve, reject) => {
   const token = localStorage.getItem('token');
