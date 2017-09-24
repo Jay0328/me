@@ -4,14 +4,12 @@ import { Link } from 'react-router-dom';
 class Navbar extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.dropdownMenu = this.dropdownMenu.bind(this);
-    this.hideMenu = this.hideMenu.bind(this);
     this.state = {
       linkUrl: [
         { url: '/', name: 'HOME' },
-        { url: '/tags', name: 'TAGS' },
-        { url: '/about', name: 'ABOUT' },
-        { url: '/archives', name: 'ARCHIVES' },
+        { url: '/tags/', name: 'TAGS' },
+        { url: '/about/', name: 'ABOUT' },
+        { url: '/archive/', name: 'ARCHIVE' },
       ],
       isOpen: false
     };

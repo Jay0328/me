@@ -5,6 +5,7 @@ import login from './login';
 import articlesList from './articlesList';
 import article from './article';
 import tags from './tags';
+import archive from './archive';
 
 const reducers = combineReducers({
   auth,
@@ -12,6 +13,7 @@ const reducers = combineReducers({
   articlesList,
   article,
   tags,
+  archive,
   routing: routerReducer,
 });
 

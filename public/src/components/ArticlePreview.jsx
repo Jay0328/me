@@ -7,12 +7,12 @@ import Markdown from './Markdown';
 
 const ArticlePreview = ({ year, month, day, title, url, tags, preview }) => {
   const articleTitle = (
-    <Link to={`/${year}/${month}/${day}/${url}`} className="article-title">
+    <Link to={`/${year}/${month}/${day}/${url}/`} className="article-title">
       {title}
     </Link>
   );
   const articleMeta = (
-    <Link to={`/${year}/${month}/${day}/${url}`} className="article-meta">
+    <Link to={`/${year}/${month}/${day}/${url}/`} className="article-meta">
       <i className="fa fa-calendar" aria-hidden="true"></i>
       {`${year}-${month}-${day}`}
     </Link>
@@ -26,7 +26,7 @@ const ArticlePreview = ({ year, month, day, title, url, tags, preview }) => {
   );
   const articlePreviewContent = <Markdown className="article-preview-content" content={preview} />;
   const moreBtn = (
-    <Link to={`/${year}/${month}/${day}/${url}`} className="article-more-btn">
+    <Link to={`/${year}/${month}/${day}/${url}/`} className="article-more-btn">
       繼續閱讀
     </Link>
   );

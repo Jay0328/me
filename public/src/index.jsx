@@ -14,6 +14,7 @@ import App from './components/App';
 import {
   HomeContainer,
   TagsContainer,
+  ArchiveContainer,
   LoginContainer,
   ArticleContainer
 } from './containers';
@@ -22,10 +23,6 @@ import creatStore from './store';
 import { verifyAuth } from './actions/authActions';
 
 const history = createBrowserHistory();
-history.listen(() => {
-  document.body.scrollTop = 0;
-  document.documentElement.scrollTop = 0;
-});
 const store = creatStore(history);
 
 const renderDom = () => {
@@ -34,11 +31,12 @@ const renderDom = () => {
       <ConnectedRouter history={history}>
         <App>
           <Route exact strict path='/' component={HomeContainer} />
-          <Route exact strict path='/page/:page' component={HomeContainer} />
-          <Route exact strict path='/tags' component={TagsContainer} />
-          <Route exact strict path='/tags/:tag' component={TagsContainer} />
-          <Route exact strict path='/login' component={LoginContainer} />
-          <Route exact strict path='/:year/:month/:day/:url' component={ArticleContainer} />
+          <Route exact strict path='/page/:page/' component={HomeContainer} />
+          <Route exact strict path='/tags/' component={TagsContainer} />
+          <Route exact strict path='/tags/:tag/' component={TagsContainer} />
+          <Route exact strict path='/archive/' component={ArchiveContainer} />
+          <Route exact strict path='/login/' component={LoginContainer} />
+          <Route exact strict path='/:year/:month/:day/:url/' component={ArticleContainer} />
         </App>
       </ConnectedRouter>
     </Provider>,
@@ -47,14 +45,13 @@ const renderDom = () => {
 };
 
 const run = async () => {
-  await store.dispatch(verifyAuth());
-  renderDom();
-  window.onfocus = () => {
-    document.title = 'Taku 9487';
-  };
-  window.onblur = () => {
-    document.title = 'QAQ 不要走';
-  };
+  try {
+    await store.dispatch(verifyAuth());
+    renderDom();
+  }
+  catch (err) {
+    throw err;
+  }
 };
 
 run();

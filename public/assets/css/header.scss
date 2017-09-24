@@ -7,7 +7,7 @@ header {
   background-size: cover;
   width: 100vw;
   height: 370px;
-  @include about-me(100px 0 0 0);
+  @include about-me(0, 100%);
   .header-content {
     @include flex();
     @include flex-direction(column);
