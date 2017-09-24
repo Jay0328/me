@@ -43,7 +43,7 @@ const Footer = ({ isAuth, logout }) => {
       <ContactInfo />
       <hr />
       <div className="secure">
-        {isAuth ? <a onClick={logout}>Logout</a> : <Link to="/login">Login</Link>}
+        {isAuth ? <a onClick={logout}>Logout</a> : <Link to="/login/">Login</Link>}
       </div>
     </footer>
   );

@@ -1,21 +1,16 @@
 @import "../utils.scss";
 @import "./profile.scss";
 
-.home {
+.archive {
   @import "./header.scss";
-  @media screen and (min-width: 897px) {
-    header {
-      display: none;
-    }
-  }
   @include flex();
   @include flex-wrap(wrap);
   width: 100%;
   .container {
-    @import "./articles-list.scss";
-    @include profile(0%, 0%, 10%, 5%);
+    @include profile(10%, 5%, 0%, 0%);
+    @import "./archive-container.scss";
     @include flex();
     width: 100%;
-    margin-top: 30px;
+    margin-top: 50px;
   }
 }

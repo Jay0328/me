@@ -14,11 +14,13 @@ body {
   .wrapper {
     @import "./navbar.scss";
     main {
+      padding-top: 56px;
       width: 100vw;
       @include flex();
       @include justify-content(center);
       @import "./home/home.scss";
       @import "./tags/tags.scss";
+      @import "./archive/archive.scss";
       @import "./article/article.scss";
       @import "./login/login.scss";
     }

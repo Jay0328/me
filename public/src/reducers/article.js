@@ -1,5 +1,5 @@
 import { fromJS, List } from 'immutable';
-import { RECEIVE_ARTICLE, CLEAR_ARTICLE_CONTENT } from '../actions/articleActions';
+import { RECEIVE_ARTICLE } from '../actions/articleActions';
 
 const initialState = fromJS({
   date: '',
@@ -16,8 +16,6 @@ const Article = (state = initialState, action) => {
       return state.set('date', date).set('title', title)
         .set('url', url).set('tags', List(tags))
         .set('content', content);
-    case CLEAR_ARTICLE_CONTENT:
-      return state.set('content', '');
     default:
       return state;
   }

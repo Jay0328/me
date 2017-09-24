@@ -4,7 +4,8 @@ import Tags from '../components/Tags';
 import { fetchTagsIfNeed } from '../actions/tagsActions';
 
 const mapStateToProps = state => ({
-  tags: state.get('tags').toObject()
+  tags: state.get('tags').toObject(),
+  fromTags: state.get('routing').location.state ? state.get('routing').location.state.fromTags : false
 });
 
 const mapDispatchToProps = dispatch => ({
