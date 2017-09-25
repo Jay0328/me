@@ -72,23 +72,25 @@ export const login = data => async dispatch => {
   }
 };
 
-export const verifyAuth = () => dispatch => new Promise((resolve, reject) => {
+export const verifyAuth = () => async dispatch => {
   const token = localStorage.getItem('token');
   if (token) {
-    request('/api/authenticate', {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
-      .then(() => {
-        dispatch(loginSuccess(token));
-        resolve();
-      })
-      .catch(() => reject('token錯誤'));
+    try {
+      await request('/api/authenticate', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      dispatch(loginSuccess(token));
+      return Promise.resolve();
+    }
+    catch (err) {
+      return Promise.reject('token錯誤');
+    }
   }
-  else resolve();
-});
+  else return Promise.resolve();
+};
 
 export const logout = () => {
   localStorage.removeItem('token');

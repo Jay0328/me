@@ -34,7 +34,7 @@ const renderDom = () => {
           <Route exact strict path='/page/:page/' component={HomeContainer} />
           <Route exact strict path='/tags/' component={TagsContainer} />
           <Route exact strict path='/tags/:tag/' component={TagsContainer} />
-          <Route exact strict path='/archive/' component={ArchiveContainer} />
+          <Route exact strict path='/archives/' component={ArchiveContainer} />
           <Route exact strict path='/login/' component={LoginContainer} />
           <Route exact strict path='/:year/:month/:day/:url/' component={ArticleContainer} />
         </App>

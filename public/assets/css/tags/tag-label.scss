@@ -1,6 +1,9 @@
+@import '../utils.scss';
+
 @mixin tag-label($color, $background-color) {
   .tag-label {
     @include user-select(none);
+    @include fit-content(height);
     cursor: pointer;
     color: $color;
     text-decoration: none;

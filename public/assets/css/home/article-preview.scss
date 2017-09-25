@@ -17,7 +17,7 @@
     }
   }
   .article-meta {
-    @include fit-content();
+    @include fit-content(width);
     display: block;
     font-size: 15px;
     color: #808080;
