@@ -4,16 +4,18 @@ import auth from './auth';
 import login from './login';
 import articlesList from './articlesList';
 import article from './article';
+import categories from './categories';
 import tags from './tags';
-import archive from './archive';
+import archives from './archives';
 
 const reducers = combineReducers({
   auth,
   login,
   articlesList,
   article,
+  categories,
   tags,
-  archive,
+  archives,
   routing: routerReducer,
 });
 

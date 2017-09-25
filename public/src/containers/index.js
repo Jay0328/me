@@ -1,6 +1,6 @@
 import HomeContainer from './HomeContainer';
 import TagsContainer from './TagsContainer';
-import ArchiveContainer from './ArchiveContainer';
+import ArchivesContainer from './ArchivesContainer';
 import LoginContainer from './LoginContainer';
 import ArticleContainer from './ArticleContainer';
 import FooterContainer from './FooterContainer';
@@ -8,7 +8,7 @@ import FooterContainer from './FooterContainer';
 export {
 	HomeContainer,
 	TagsContainer,
-	ArchiveContainer,
+	ArchivesContainer,
 	LoginContainer,
 	ArticleContainer,
 	FooterContainer
