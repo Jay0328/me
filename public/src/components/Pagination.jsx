@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { pure } from 'recompose';
 
-const toTop = () => {
-  document.body.scrollTop = 0;
-  document.documentElement.scrollTop = 0;
-};
+const toTop = () => scrollTo(0, 0);
 
 const Pagination = ({ baseUrl, page, totalPage }) => {
   let menu = [];

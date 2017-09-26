@@ -20,7 +20,6 @@ class Home extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.match.params.page !== nextProps.match.params.page) {
       this.props.fetchArticlesList(parseInt(nextProps.match.params.page, 10));
-      scrollTo(0, 0);
     }
   }
 
