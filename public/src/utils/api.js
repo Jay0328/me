@@ -1,15 +1,13 @@
 import 'whatwg-fetch';
 
-const parseJSON = res => {
-  return new Promise(resolve => res.json()
-    .then(json => resolve({
-      status: res.status,
-      ok: res.ok,
-      json,
-    })));
-};
+const parseJSON = res => new Promise(resolve => res.json()
+  .then(json => resolve({
+    status: res.status,
+    ok: res.status >= 200 && res.status < 300,
+    json,
+  })));
 
-const fetchRequest = (url, options) => new Promise((resolve, reject) => {
+const request = (url, options) => new Promise((resolve, reject) => {
   fetch(url, options)
     .then(parseJSON)
     .then(res => {
@@ -18,7 +16,5 @@ const fetchRequest = (url, options) => new Promise((resolve, reject) => {
     })
     .catch(error => reject(error));
 });
-
-const request = (url, options) => fetchRequest(url, options);
 
 export default request;

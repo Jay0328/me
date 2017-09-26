@@ -23,7 +23,7 @@ const check = data => new Promise((resolve, reject) => {
     }
   });
   if (err) reject({ err: rejectReason });
-  else resolve();
+  resolve();
 });
 
 const loginSuccess = token => ({
@@ -83,13 +83,11 @@ export const verifyAuth = () => async dispatch => {
         }
       });
       dispatch(loginSuccess(token));
-      return Promise.resolve();
     }
     catch (err) {
-      return Promise.reject('token錯誤');
+      Promise.reject('token錯誤');
     }
   }
-  else return Promise.resolve();
 };
 
 export const logout = () => {
