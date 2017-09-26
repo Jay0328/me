@@ -9,7 +9,7 @@ const initialState = fromJS({
 const handleArchives = archives =>
   archives.reduce((arch, article) => {
     /* immutable */
-    let newArch = Object.assign({}, arch);
+    let newArch = { ...arch };
     if (arch[article.year] && arch[article.year][article.month]) {
       newArch[article.year][article.month] = [...arch[article.year][article.month], article];
     }

@@ -50,9 +50,7 @@ class Archives extends React.Component {
   }
 
   componentDidMount() {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-
+    scrollTo(0, 0);
     document.title = 'Archives | Taku\'s blog';
   }
 

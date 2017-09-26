@@ -13,15 +13,14 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-
+    scrollTo(0, 0);
     document.title = 'Taku\'s blog';
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.match.params.page !== nextProps.match.params.page) {
       this.props.fetchArticlesList(parseInt(nextProps.match.params.page, 10));
+      scrollTo(0, 0);
     }
   }
 
