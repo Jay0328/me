@@ -1,10 +1,10 @@
-.archive-year {
+.archives-year {
   > h2 {
     font-size: 22px;
     font-weight: 400;
     text-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
   }
-  .archive-month {
+  .archives-month {
     padding: 0 25px;
     margin-left: 10px;
     > h3 {
@@ -30,7 +30,7 @@
   }
 }
 @media screen and (max-width: 896px) {
-  .archive-month > ul > li > a {
+  .archives-month > ul > li > a {
     color: #296EB4;
   }
 }

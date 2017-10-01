@@ -1,15 +1,15 @@
 import { fromJS, Map } from 'immutable';
-import { RECEIVE_ARCHIVE } from '../actions/archiveActions';
+import { RECEIVE_ARCHIVES } from '../actions/archivesActions';
 
 const initialState = fromJS({
-  archive: {},
+  archives: {},
   totalArticlesCount: 0
 });
 
-const handleArchive = archive =>
-  archive.reduce((arch, article) => {
+const handleArchives = archives =>
+  archives.reduce((arch, article) => {
     /* immutable */
-    let newArch = Object.assign({}, arch);
+    let newArch = { ...arch };
     if (arch[article.year] && arch[article.year][article.month]) {
       newArch[article.year][article.month] = [...arch[article.year][article.month], article];
     }
@@ -22,15 +22,15 @@ const handleArchive = archive =>
     return newArch;
   }, {});
 
-const Archive = (state = initialState, action) => {
+const Archives = (state = initialState, action) => {
   switch (action.type) {
-    case RECEIVE_ARCHIVE:
-      const { archive, totalArticlesCount } = action;
-      return state.set('archive', Map(handleArchive(archive)))
+    case RECEIVE_ARCHIVES:
+      const { archives, totalArticlesCount } = action;
+      return state.set('archives', Map(handleArchives(archives)))
         .set('totalArticlesCount', parseInt(totalArticlesCount, 10));
     default:
       return state;
   }
 };
 
-export default Archive;
+export default Archives;

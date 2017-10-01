@@ -12,10 +12,7 @@ class Tags extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.props.fromTags) {
-      document.body.scrollTop = 0;
-      document.documentElement.scrollTop = 0;
-    }
+    if (!this.props.fromTags) scrollTo(0, 0);
     document.title = 'Tags | Taku\'s blog';
   }
 

@@ -20,7 +20,7 @@ body {
       @include justify-content(center);
       @import "./home/home.scss";
       @import "./tags/tags.scss";
-      @import "./archive/archive.scss";
+      @import "./archives/archives.scss";
       @import "./article/article.scss";
       @import "./login/login.scss";
     }

@@ -54,6 +54,7 @@ const fetchArticle = (year, month, day, url) => async dispatch => {
   }
   catch ({ err }) {
     dispatch(receiveArticle(year, month, day, '', url, err));
+    throw err;
   }
 };
 
