@@ -14,6 +14,7 @@ import App from './components/App';
 import {
   HomeContainer,
   TagsContainer,
+  CategoriesContainer,
   ArchivesContainer,
   LoginContainer,
   ArticleContainer
@@ -34,6 +35,7 @@ const renderDom = () => {
           <Route exact strict path='/page/:page/' component={HomeContainer} />
           <Route exact strict path='/tags/' component={TagsContainer} />
           <Route exact strict path='/tags/:tag/' component={TagsContainer} />
+          <Route exact strict path='/categories/' component={CategoriesContainer} />
           <Route exact strict path='/archives/' component={ArchivesContainer} />
           <Route exact strict path='/login/' component={LoginContainer} />
           <Route exact strict path='/:year/:month/:day/:url/' component={ArticleContainer} />
