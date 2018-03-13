@@ -1,45 +1,26 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+//  import PropTypes from 'prop-types';
 import { pure } from 'recompose';
-import AboutMe from './AboutMe';
-import TagLabel from './TagLabel';
+import { connect } from 'react-redux';
 
-const Header = ({ mode, date, title, tags }) => {
-  let headerContent = null;
-  if (mode === 'default') headerContent = <AboutMe />;
-  else if (mode === 'tags') headerContent = <div className="header-content">Tags</div>;
-  else if (mode === 'article') {
-    headerContent = (
-      <div className="header-content">
-        <h2 className="article-title">{title}</h2>
-        <div className="article-meta">{date}</div>
-        <div className="article-tags">
-          {tags.map(({ tagName }) => (
-            <TagLabel key={tagName} mode={'cloud'} tagName={tagName} />
-          ))}
-        </div>
-      </div>
-    );
-  }
-  return (
-    <header>
-      {headerContent}
-    </header>
-  );
-};
+const Header = () => (
+  <header>
+    header
+  </header>
+);
 
-Header.propTypes = {
-  mode: PropTypes.string,
-  date: PropTypes.string,
-  title: PropTypes.string,
-  tags: PropTypes.arrayOf(PropTypes.shape())
-};
+const mapStateToProps = state => ({
+  date: state.getIn(['article', 'date']),
+  title: state.getIn(['article', 'title']),
+  tags: state.getIn(['article', 'tags']).toArray(),
+});
 
-Header.defaultProps = {
-  mode: 'default',
-  date: '',
-  title: '',
-  tags: []
-};
+const mapDispatchToProps = () => ({
+});
 
-export default pure(Header);
+const HeaderContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Header);
+
+export default pure(HeaderContainer);

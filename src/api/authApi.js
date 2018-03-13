@@ -55,7 +55,7 @@ router.route('/')
     }
   })
   .post(asyncMiddleware(async (req, res, next) => {
-    await mongoose.connect(database, { useMongoClient: true });
+    await mongoose.connect(database);
     const { username: { value: username } } = req.body;
     const { password1: { value: password1 } } = req.body;
     const { password2: { value: password2 } } = req.body;

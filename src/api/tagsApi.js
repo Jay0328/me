@@ -13,7 +13,7 @@ mongoose.Promise = Promise;
 router.route('')
   .get(asyncMiddleware(async (req, res, next) => {
     try {
-      await mongoose.connect(database, { useMongoClient: true });
+      await mongoose.connect(database);
       const tags = await Tags.getArticlesInTags();
       res.status(200).json({ tags });
     }

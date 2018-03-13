@@ -1,75 +1,66 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Header from './Header';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import injectSheet from 'react-jss';
+import RoutePage from './hoc/RoutePage';
 import ArticlePreview from './ArticlePreview';
 import Pagination from './Pagination';
-import Profile from './Profile';
+import { fetchArticlesListIfNeed } from '../actions/articleActions';
 
-class Home extends React.Component {
-  constructor(props) {
-    super(props);
-    const page = this.props.match.params.page ? parseInt(this.props.match.params.page, 10) : 1;
-    this.props.fetchArticlesList(page);
+const styles = {
+  list: {
   }
+};
 
-  componentDidMount() {
-    scrollTo(0, 0);
-    document.title = 'Taku\'s blog';
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.match.params.page !== nextProps.match.params.page) {
-      this.props.fetchArticlesList(parseInt(nextProps.match.params.page, 10));
-    }
-  }
-
-  render() {
-    const { articlesList, page, totalPage } = this.props;
-
-    const list = (
-      <div className="list">
-        {articlesList.map(article => {
-          const { year, month, day, title, url, tags, preview } = article;
-          return (
-            <ArticlePreview
-              key={`${year}-${month}-${day}-${url}`}
-              year={year}
-              month={month}
-              day={day}
-              title={title}
-              url={url}
-              tags={tags}
-              preview={preview}
-            />
-          );
-        })}
-      </div>
-    );
-
-    return (
-      <section className="home">
-        <Header />
-        <div className="container">
-          <div className="articles-list">
-            {list}
-            <Pagination baseUrl='/' page={page} totalPage={totalPage} />
-          </div>
-          <Profile />
-        </div>
-      </section>
-    );
-  }
-}
+const Home = ({ articlesList, page, totalPage }) => (
+  <main className="container">
+    <section className="list">
+      {articlesList.map(({ year, month, day, title, url, tags, preview }) => (
+        <ArticlePreview
+          key={`${year}-${month}-${day}-${url}`}
+          year={year}
+          month={month}
+          day={day}
+          title={title}
+          url={url}
+          tags={tags}
+          preview={preview}
+        />
+      ))}
+    </section>
+    <Pagination baseUrl='/' page={page} totalPage={totalPage} />
+  </main>
+);
 
 Home.propTypes = {
-  match: PropTypes.shape().isRequired,
-  fetchArticlesList: PropTypes.func.isRequired,
   articlesList: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   page: PropTypes.number.isRequired,
   totalPage: PropTypes.number.isRequired
 };
 
-Home.defaultProps = {
-};
+const HomePage = RoutePage(
+  injectSheet(styles)(Home),
+  (props, nextProps) => props.match.params.page !== nextProps.match.params.page
+);
 
-export default Home;
+const mapStateToProps = state => ({
+  articlesList: state.getIn(['articlesList', 'list']).toArray(),
+  page: state.getIn(['articlesList', 'page']),
+  totalPage: state.getIn(['articlesList', 'totalPage'])
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchData(props) {
+    let { page } = props.match.params;
+    page = page ? page | 0 : 1;
+    dispatch(fetchArticlesListIfNeed(page));
+  }
+});
+
+const HomeContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HomePage);
+
+export default withRouter(HomeContainer);

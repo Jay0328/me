@@ -1,57 +1,67 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { pure } from 'recompose';
+import injectSheet from 'react-jss';
 import ContactInfo from './ContactInfo';
+import { themeColor, grey, lightGrey } from './theme/colors';
 
-const Footer = ({ isAuth, logout }) => {
-  return (
-    <footer>
-      <div className="copyright">
-        <div className="visitor">
-          <span>
-            本站總訪問量
-          </span>
-          <span>? 次</span>
-          <span>
-            本站訪客數
-          </span>
-          <span>? 次</span>
-        </div>
-        <span>
-          轉載請 CC 內容作者註明
-        </span>
-        <span>
-          Copyright © Taku {new Date().getFullYear()}
-        </span>
-        <span>
-          Icon by&nbsp;
-          <i className="fa fa-font-awesome" aria-hidden="true"></i>&nbsp;
-          <a target="_blank" rel="external nofollow noopener noreferrer" href="http://fontawesome.io/">
-            Font Awesome
-          </a>
-        </span>
-        <span>
-          Theme by&nbsp;
-          <a target="_blank" rel="external nofollow noopener noreferrer" href="https://calpa.me">
-            Calpa Liu
-          </a>
-          {', '}Modified by&nbsp;
-          <a href="/">Me</a>
-        </span>
-      </div>
-      <ContactInfo />
-      <hr />
-      <div className="secure">
-        {isAuth ? <a onClick={logout}>Logout</a> : <Link to="/login/">Login</Link>}
-      </div>
-    </footer>
-  );
+const styles = {
+  footer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '50px 0'
+  },
+  copyright: {
+    fontSize: '14px',
+    color: lightGrey,
+    marginTop: '20px',
+    lineHeight: 1.8,
+    '& span': {
+      '&:first-child': {
+        marginRight: '10px'
+      },
+      '&:nth-child(3)': {
+        marginLeft: '30px'
+      }
+    },
+    '& a': {
+      textDecoration: 'none',
+      color: themeColor,
+      '&:hover': {
+        textDecoration: 'underline'
+      }
+    }
+  }
 };
+
+const Footer = ({ classes }) => (
+  <footer className={classes.footer}>
+    <ContactInfo
+      color={grey}
+      fontSize={50}
+    />
+    <p className={classes.copyright}>
+      <span>
+        Copyright © YC Blog {new Date().getFullYear()}
+      </span>
+      <br />
+      <span>
+        Theme by&nbsp;
+        <a
+          target="_blank"
+          rel="external nofollow noopener noreferrer"
+          href="http://huangxuan.me/"
+        >
+          Hux
+        </a>
+      </span>
+    </p>
+  </footer>
+);
 
 Footer.propTypes = {
-  isAuth: PropTypes.bool.isRequired,
-  logout: PropTypes.func.isRequired
+  classes: PropTypes.shape().isRequired
 };
 
-export default pure(Footer);
+export default injectSheet(styles)(pure(Footer));

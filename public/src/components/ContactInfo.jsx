@@ -1,28 +1,55 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { pure } from 'recompose';
+import injectSheet from 'react-jss';
 import { facebook, github } from '../../config';
+import { themeColor } from './theme/colors';
 
-const ContactInfo = () => {
-  return (
-    <div className="contact-info">
-      <a
-        className="contact-info-icon"
-        target="_blank"
-        rel="external nofollow noopener noreferrer"
-        href={facebook}
-      >
-        <i className="fa fa-facebook-square" aria-hidden="true"></i>
-      </a>
-      <a
-        className="contact-info-icon"
-        target="_blank"
-        rel="external nofollow noopener noreferrer"
-        href={github}
-      >
-        <i className="fa fa-github" aria-hidden="true"></i>
-      </a>
-    </div>
-  );
+const contacts = [
+  {
+    url: facebook,
+    icon: 'fa fa-facebook-square'
+  },
+  {
+    url: github,
+    icon: 'fa fa-github'
+  }
+];
+
+const styles = {
+  contactInfo: {
+    width: '200px'
+  },
+  icon: {
+    color: props => props.color,
+    fontSize: props => props.fontSize,
+    margin: props => `0 ${props.fontSize / 2}px`,
+    '&:hover': {
+      color: themeColor
+    }
+  }
 };
 
-export default pure(ContactInfo);
+const ContactInfo = ({ classes }) => (
+  <div className={classes.contactInfo}>
+    {
+      contacts.map(({ url, icon }) => (
+        <a
+          key={url}
+          className={classes.icon}
+          target="_blank"
+          rel="external nofollow noopener noreferrer"
+          href={url}
+        >
+          <i className={icon} aria-hidden="true"></i>
+        </a>
+      ))
+    }
+  </div>
+);
+
+ContactInfo.propTypes = {
+  classes: PropTypes.shape().isRequired
+};
+
+export default injectSheet(styles)(pure(ContactInfo));

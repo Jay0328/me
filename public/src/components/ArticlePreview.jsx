@@ -20,7 +20,7 @@ const ArticlePreview = ({ year, month, day, title, url, tags, preview }) => {
   const articleTags = (
     <div className="article-tags">
       {tags.map(({ tagName }) => (
-        <TagLabel key={tagName} mode={'cloud'} tagName={tagName} />
+        <TagLabel key={tagName} mode="cloud" tagName={tagName} />
       ))}
     </div>
   );

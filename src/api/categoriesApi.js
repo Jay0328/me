@@ -13,7 +13,7 @@ mongoose.Promise = Promise;
 router.route('')
   .get(asyncMiddleware(async (req, res, next) => {
     try {
-      await mongoose.connect(database, { useMongoClient: true });
+      await mongoose.connect(database);
       const categories = await Categories.getCategories();
       res.status(200).json({ categories });
     }
@@ -27,7 +27,7 @@ router.route('/:category')
   .get(asyncMiddleware(async (req, res, next) => {
     const categoryName = decodeURIComponent(req.params.category);
     try {
-      await mongoose.connect(database, { useMongoClient: true });
+      await mongoose.connect(database);
       const categoryArchive = await Categories.getCategoryArchive(categoryName);
       const totalArticlesCount = categoryArchive.articles.length;
       res.status(200).json({ categoryArchive, totalArticlesCount });

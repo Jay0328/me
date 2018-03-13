@@ -35,7 +35,7 @@ router.route('/page/:page')
   .get(asyncMiddleware(async (req, res, next) => {
     const page = parseInt(req.params.page, 10);
     try {
-      await mongoose.connect(database, { useMongoClient: true });
+      await mongoose.connect(database);
       const totalArticles = await Articles.count();
       const totalPage = Math.ceil(totalArticles / 10);
       let articles = await Articles.getArticlesInPage(page);
@@ -52,7 +52,7 @@ router.route('/article')
   .get(asyncMiddleware(async (req, res, next) => {
     const { year, month, day, url } = req.query;
     try {
-      await mongoose.connect(database, { useMongoClient: true });
+      await mongoose.connect(database);
       const article = await Articles.getArticle(year, month, day, url);
       if (article) {
         const { title, tags } = article;
