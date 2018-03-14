@@ -28,6 +28,7 @@ else {
 //  Static file
 app.use(express.static(__dirname + '/public/build'));
 app.use(express.static(__dirname + '/public/assets'));
+app.use(express.static(__dirname + '/blog'));
 
 //  Api Routers
 app.use('/api', api);
