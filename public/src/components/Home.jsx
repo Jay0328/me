@@ -15,16 +15,10 @@ const styles = {
 
 const Home = ({ articlesList, page, totalPage }) => (
   <main className="list">
-    {articlesList.map(({ year, month, day, title, url, tags, preview }) => (
+    {articlesList.map(article => (
       <ArticlePreview
-        key={`${year}-${month}-${day}-${url}`}
-        year={year}
-        month={month}
-        day={day}
-        title={title}
-        url={url}
-        tags={tags}
-        preview={preview}
+        key={`${article.year}-${article.month}-${article.day}-${article.url}`}
+        {...article}
       />
     ))}
     <Pagination baseUrl='/' page={page} totalPage={totalPage} />

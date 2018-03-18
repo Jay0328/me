@@ -7,18 +7,27 @@ import { withRouter } from 'react-router';
 import RoutePage from './hoc/RoutePage';
 import TagLabel from './TagLabel';
 import { fetchTagsIfNeed } from '../actions/tagsActions';
+import { themeColor } from './theme/colors';
 
 const styles = {
+  cloud: {
+    width: '85%',
+    margin: '0 auto',
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center'
+  }
 };
 
-const Tags = ({ match, tags }) => {
+const Tags = ({ classes, match, tags }) => {
   const tagFilter = match.params.tag;
   const tagsCloud = (
-    <div className="tags-labels">
+    <div className={classes.cloud}>
       {Object.keys(tags).map(tagName => (
         <TagLabel
           key={tagName}
           tagName={tagName}
+          hoverBackgroundColor={themeColor}
           articleNum={tags[tagName].size}
         />
       ))}
@@ -55,6 +64,7 @@ const Tags = ({ match, tags }) => {
 };
 
 Tags.propTypes = {
+  classes: PropTypes.shape().isRequired,
   match: PropTypes.shape().isRequired,
   tags: PropTypes.shape().isRequired
 };
