@@ -12,7 +12,7 @@ const styles = {
     border: '1px solid rgba(34, 36, 38, .15)',
     boxShadow: '0 1px 2px 0 rgba(34, 36, 38, .15)',
     borderRadius: '5px',
-    marginTop: '50px'
+    margin: '50px auto 0 auto'
   },
   item: {
     display: 'table-cell',

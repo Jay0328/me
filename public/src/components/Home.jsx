@@ -2,19 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import injectSheet from 'react-jss';
 import RoutePage from './hoc/RoutePage';
 import ArticlePreview from './ArticlePreview';
 import Pagination from './Pagination';
 import { fetchArticlesListIfNeed } from '../actions/articleActions';
 
-const styles = {
-  list: {
-  }
-};
-
 const Home = ({ articlesList, page, totalPage }) => (
-  <main className="list">
+  <main>
     {articlesList.map(article => (
       <ArticlePreview
         key={`${article.year}-${article.month}-${article.day}-${article.url}`}
@@ -32,7 +26,7 @@ Home.propTypes = {
 };
 
 const HomePage = RoutePage(
-  injectSheet(styles)(Home),
+  Home,
   (props, nextProps) => props.match.params.page !== nextProps.match.params.page
 );
 
