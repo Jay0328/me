@@ -47,11 +47,9 @@ const Tags = ({ match, tags }) => {
     </div>
   );
   return (
-    <main className="container">
-      <div className="tags-container">
-        {tagsCloud}
-        {tagsLists}
-      </div>
+    <main className="tags-container">
+      {tagsCloud}
+      {tagsLists}
     </main>
   );
 };

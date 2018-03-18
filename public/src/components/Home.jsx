@@ -14,21 +14,19 @@ const styles = {
 };
 
 const Home = ({ articlesList, page, totalPage }) => (
-  <main className="container">
-    <section className="list">
-      {articlesList.map(({ year, month, day, title, url, tags, preview }) => (
-        <ArticlePreview
-          key={`${year}-${month}-${day}-${url}`}
-          year={year}
-          month={month}
-          day={day}
-          title={title}
-          url={url}
-          tags={tags}
-          preview={preview}
-        />
-      ))}
-    </section>
+  <main className="list">
+    {articlesList.map(({ year, month, day, title, url, tags, preview }) => (
+      <ArticlePreview
+        key={`${year}-${month}-${day}-${url}`}
+        year={year}
+        month={month}
+        day={day}
+        title={title}
+        url={url}
+        tags={tags}
+        preview={preview}
+      />
+    ))}
     <Pagination baseUrl='/' page={page} totalPage={totalPage} />
   </main>
 );

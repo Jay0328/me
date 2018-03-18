@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import injectSheet from 'react-jss';
+import container from '../theme/container';
+
+const styles = {
+  container
+};
 
 const routePage = (WrappedComponent, shouldRefetchData) => {
   class RoutePage extends Component {
@@ -20,14 +26,20 @@ const routePage = (WrappedComponent, shouldRefetchData) => {
     }
 
     render() {
-      return <WrappedComponent {...this.props} />;
+      const { classes } = this.props;
+      return (
+        <main className={classes.container}>
+          <WrappedComponent {...this.props} />
+        </main>
+      );
     }
   }
   RoutePage.displayName = `RoutePage(${WrappedComponent.displayName || WrappedComponent.name || 'Component'})`;
   RoutePage.propTypes = {
+    classes: PropTypes.shape().isRequired,
     fetchData: PropTypes.func.isRequired
   };
-  return RoutePage;
+  return injectSheet(styles)(RoutePage);
 };
 
 export default routePage;
