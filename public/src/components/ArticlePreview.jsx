@@ -1,48 +1,101 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import injectSheet from 'react-jss';
 import { Link } from 'react-router-dom';
 import { pure } from 'recompose';
 import TagLabel from './TagLabel';
 import Markdown from './Markdown';
+import { themeColor, lightGrey, opacityColor } from './theme/colors';
 
-const ArticlePreview = ({ year, month, day, title, url, tags, preview }) => {
+const styles = {
+  articlePreview: {
+    padding: '15px 20px',
+    margin: '20px 0',
+    cursor: 'pointer',
+    transition: 'all 0.1s',
+    boxShadow: '5px 5px 10px -5px rgba(14, 14, 14, .26)',
+    '&:hover': {
+      transform: 'scale(1.05, 1.05)',
+      boxShadow: `10px 10px 30px -5px ${opacityColor(themeColor, 0.5)}`
+    }
+  },
+  link: {
+    display: 'block',
+    textDecoration: 'none',
+    width: 'fit-content',
+    margin: '10px 0',
+    paddingLeft: '5px',
+    color: 'black',
+    '&:hover': {
+      color: themeColor
+    }
+  },
+  title: {
+    extend: 'link',
+    fontSize: '26px',
+    fontWeight: '800'
+  },
+  meta: {
+    extend: 'link',
+    '& > i': {
+      marginRight: '5px'
+    }
+  },
+  tags: {
+    display: 'flex',
+    flexWrap: 'wrap'
+  }
+};
+
+const ArticlePreview = ({ classes, year, month, day, title, url, tags, preview }) => {
   const articleTitle = (
-    <Link to={`/${year}/${month}/${day}/${url}/`} className="article-title">
+    <Link
+      className={classes.title}
+      to={`/${year}/${month}/${day}/${url}/`}
+    >
       {title}
     </Link>
   );
   const articleMeta = (
-    <Link to={`/${year}/${month}/${day}/${url}/`} className="article-meta">
+    <Link
+      className={classes.meta}
+      to={`/${year}/${month}/${day}/${url}/`}
+    >
       <i className="fa fa-calendar" aria-hidden="true"></i>
-      {`${year}-${month}-${day}`}
+      {`${year}/${month}/${day}`}
     </Link>
   );
   const articleTags = (
-    <div className="article-tags">
+    <section className={classes.tags}>
       {tags.map(({ tagName }) => (
-        <TagLabel key={tagName} mode={'cloud'} tagName={tagName} />
+        <TagLabel
+          key={tagName}
+          tagName={tagName}
+          color={lightGrey}
+          hoverColor={themeColor}
+          backgroundColor="white"
+          borderColor={lightGrey}
+          hoverBorderColor={themeColor}
+        />
       ))}
-    </div>
+    </section>
   );
-  const articlePreviewContent = <Markdown className="article-preview-content" content={preview} />;
-  const moreBtn = (
-    <Link to={`/${year}/${month}/${day}/${url}/`} className="article-more-btn">
-      繼續閱讀
-    </Link>
+  const articlePreviewContent = (
+    <Markdown content={preview} />
   );
 
   return (
-    <div className="article-preview">
+    <main className={classes.articlePreview}>
       {articleTitle}
       {articleMeta}
       {articleTags}
       {articlePreviewContent}
-      {moreBtn}
-    </div>
+    </main>
   );
 };
 
 ArticlePreview.propTypes = {
+  classes: PropTypes.shape().isRequired,
   year: PropTypes.string.isRequired,
   month: PropTypes.string.isRequired,
   day: PropTypes.string.isRequired,
@@ -52,4 +105,4 @@ ArticlePreview.propTypes = {
   preview: PropTypes.string.isRequired
 };
 
-export default pure(ArticlePreview);
+export default injectSheet(styles)(pure(ArticlePreview));

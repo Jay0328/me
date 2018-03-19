@@ -1,16 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Input = ({ id, ...props }) => (
-  <div>
-    <input id={id} {...props} />
-  </div>
-);
-
-Input.propTypes = {
-  id: PropTypes.string.isRequired
-};
-
 const ErrorMessage = ({ content }) => (
   <div className="error message">
     <div className="content">
@@ -25,8 +15,10 @@ ErrorMessage.propTypes = {
 
 const InputField = ({ id, validationState, label, errMsg, ...props }) => (
   <div className={validationState ? 'error field' : 'field'}>
-    <label htmlFor={id}>{label}</label>
-    <Input id={id} {...props} />
+    <label htmlFor={id}>
+      {label}
+      <input id={id} {...props} />
+    </label>
     {!!validationState && <ErrorMessage content={errMsg} />}
   </div>
 );

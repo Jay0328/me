@@ -49,7 +49,8 @@ const fetchArticle = (year, month, day, url) => async dispatch => {
       {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
-      });
+      }
+    );
     dispatch(receiveArticle(year, month, day, title, url, tags, content));
   }
   catch ({ err }) {

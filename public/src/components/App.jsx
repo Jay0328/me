@@ -1,22 +1,48 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Route } from 'react-router-dom';
+import injectSheet from 'react-jss';
 import { pure } from 'recompose';
 import Navbar from './Navbar';
-import { FooterContainer } from '../containers';
+import Header from './Header';
+import Footer from './Footer';
+import Home from './Home';
+import Tags from './Tags';
+import Article from './Article';
+import Login from './Login';
+/*
+  <Route exact strict path='/categories/' component={CategoriesContainer} />
+*/
+const styles = {
+  '@global': {
+    '*': {
+      boxSizing: 'border-box'
+    },
+    body: {
+      fontFamily: '-apple-system, "PingFang SC", sans-serif'
+    }
+  },
+  main: {
+    width: '100vw'
+  }
+};
 
-const App = ({ children }) => (
-  <div className="wrapper">
+const App = ({ classes }) => (
+  <main className={classes.main}>
     <Navbar />
-    <main>
-      {children}
-    </main>
-    <FooterContainer />
-  </div>
+    <Header />
+    <Route exact strict path='/' component={Home} />
+    <Route exact strict path='/page/:page/' component={Home} />
+    <Route exact strict path='/tags/' component={Tags} />
+    <Route exact strict path='/tags/:tag/' component={Tags} />
+    <Route exact strict path='/:year/:month/:day/:url/' component={Article} />
+    <Route exact strict path='/login/' component={Login} />
+    <Footer />
+  </main>
 );
 
 App.propTypes = {
-  children: PropTypes.node.isRequired,
+  classes: PropTypes.shape().isRequired
 };
 
-export default withRouter(pure(App));
+export default injectSheet(styles)(withRouter(pure(App)));

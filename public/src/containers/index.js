@@ -7,11 +7,11 @@ import ArticleContainer from './ArticleContainer';
 import FooterContainer from './FooterContainer';
 
 export {
-	HomeContainer,
-	TagsContainer,
-	CategoriesContainer,
-	ArchivesContainer,
-	LoginContainer,
-	ArticleContainer,
-	FooterContainer
+  HomeContainer,
+  TagsContainer,
+  CategoriesContainer,
+  ArchivesContainer,
+  LoginContainer,
+  ArticleContainer,
+  FooterContainer
 };

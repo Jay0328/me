@@ -28,7 +28,8 @@ const Markdown = ({ className, content }) => (
     dangerouslySetInnerHTML={{
       __html: md.render(content)
     }}
-  ></div>
+  >
+  </div>
 );
 
 Markdown.propTypes = {
