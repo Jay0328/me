@@ -7,22 +7,64 @@ import { withRouter } from 'react-router';
 import RoutePage from './hoc/RoutePage';
 import TagLabel from './TagLabel';
 import { fetchTagsIfNeed } from '../actions/tagsActions';
-import { themeColor } from './theme/colors';
+import { themeColor, grey } from './theme/colors';
+import { xs, sm, md, lg } from './theme/rwd';
 
 const styles = {
+  containerWidth: {
+    width: '60%',
+    [`@media (max-width: ${xs - 1}px)`]: {
+      width: '100%'
+    },
+    [`@media (min-width: ${xs}px) and (max-width: ${sm - 1}px)`]: {
+      width: '90%'
+    },
+    [`@media (min-width: ${sm}px) and (max-width: ${md - 1}px)`]: {
+      width: '80%'
+    },
+    [`@media (min-width: ${md}px) and (max-width: ${lg - 1}px)`]: {
+      width: '70%'
+    }
+  },
   cloud: {
-    width: '85%',
+    extend: 'containerWidth',
     margin: '0 auto',
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center'
+  },
+  lists: {
+    extend: 'containerWidth',
+    margin: '25px auto 0 auto'
+  },
+  listName: {
+    fontSize: '20px',
+    color: themeColor,
+    '& i': {
+      marginRight: '10px'
+    }
+  },
+  article: {
+    marginLeft: '25px',
+    '& a': {
+      textDecoration: 'none',
+      color: grey,
+      '&:hover': {
+        color: themeColor
+      }
+    },
+    '& hr': {
+      margin: '20px 0',
+      border: '0',
+      borderTop: '1px solid #eee'
+    }
   }
 };
 
 const Tags = ({ classes, match, tags }) => {
   const tagFilter = match.params.tag;
   const tagsCloud = (
-    <div className={classes.cloud}>
+    <section className={classes.cloud}>
       {Object.keys(tags).map(tagName => (
         <TagLabel
           key={tagName}
@@ -31,32 +73,35 @@ const Tags = ({ classes, match, tags }) => {
           articleNum={tags[tagName].size}
         />
       ))}
-    </div>
+    </section>
   );
   const tagsLists = (
-    <div className="tags-lists">
+    <section className={classes.lists}>
       {Object.keys(tags)
         .filter(tagName => !tagFilter || tagFilter === tagName.replace(' ', ''))
         .map(tagName => (
-          <div id={tagName.replace(' ', '')} className="tag-list" key={tagName}>
-            <section>
+          <section key={tagName}>
+            <span className={classes.listName}>
               <i className="fa fa-tag" aria-hidden="true"></i>
               {tagName}
-            </section>
+            </span>
             {tags[tagName].map(({ year, month, day, title, url }) => (
-              <div className="tag-article" key={`/${year}/${month}/${day}/${url}`}>
+              <main
+                className={classes.article}
+                key={`/${year}/${month}/${day}/${url}`}
+              >
                 <Link to={`/${year}/${month}/${day}/${url}/`}>
-                  <h3 className="tag-article-title">{title}</h3>
+                  <h3>{title}</h3>
                 </Link>
                 <hr />
-              </div>
+              </main>
             ))}
-          </div>
+          </section>
         ))}
-    </div>
+    </section>
   );
   return (
-    <main className="tags-container">
+    <main>
       {tagsCloud}
       {tagsLists}
     </main>
