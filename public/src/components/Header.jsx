@@ -4,6 +4,7 @@ import { withRouter, Route } from 'react-router-dom';
 import injectSheet from 'react-jss';
 import { pure } from 'recompose';
 import { connect } from 'react-redux';
+import TagLabel from './TagLabel';
 import { lightGrey } from './theme/colors';
 import { sm } from './theme/rwd';
 
@@ -32,7 +33,19 @@ const styles = {
     alignItems: 'center',
     width: '100vw',
     height: '100%',
-    top: '0',
+    top: '0'
+  },
+  tags: {
+    display: 'flex',
+    flexWrap: 'wrap'
+  },
+  title: {
+    fontSize: '55px',
+    color: 'white'
+  },
+  date: {
+    fontSize: '18px',
+    color: 'white'
   }
 };
 
@@ -71,9 +84,19 @@ const HeaderContent = connect(state => ({
   }
   return (
     <section className={classes.content}>
-      {mode === 'article' ? tags.map(tag => <div>{tag.tagName}</div>) : null}
-      <h1>{headerTitle}</h1>
-      {mode === 'article' ? <h4>{date}</h4> : null}
+      <section className={classes.tags}>
+        {mode === 'article' ? tags.map(({ tagName }) => (
+          <TagLabel
+            key={tagName}
+            tagName={tagName}
+            backgroundColor="transparent"
+            hoverBackgroundColor="rgba(255, 255, 255, .4)"
+            borderColor="white"
+          />
+        )) : null}
+      </section>
+      <h1 className={classes.title}>{headerTitle}</h1>
+      {mode === 'article' && <span className={classes.date}>{date}</span>}
     </section>
   );
 }));
