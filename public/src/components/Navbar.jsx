@@ -156,6 +156,10 @@ class Navbar extends Component {
     }
   }
 
+  closeMenu = () => {
+    this.setState({ isOpen: false });
+  }
+
   toggleMenu = () => {
     const { isOpen } = this.state;
     this.setState({ isOpen: !isOpen });
@@ -165,7 +169,10 @@ class Navbar extends Component {
     const { isOpen, linkUrl, transparent } = this.state;
     const { classes } = this.props;
     return (
-      <nav className={`${classes.navbar} ${transparent ? 'transparent' : ''}`}>
+      <nav
+        className={`${classes.navbar} ${transparent ? 'transparent' : ''}`}
+        onBlur={this.closeMenu}
+      >
         <div className={classes.brand}>
           <Link to="/">YC Blog</Link>
         </div>
