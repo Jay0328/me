@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import RoutePage from './hoc/RoutePage';
-import ArticlePreview from './ArticlePreview';
-import Pagination from './Pagination';
-import { fetchArticlesListIfNeed } from '../actions/articleActions';
+import RoutePage from '../hoc/RoutePage';
+import ArticlePreview from '../ArticlePreview';
+import Pagination from '../Pagination';
+import { fetchArticlesListIfNeed } from '../../actions/articleActions';
 
 const Home = ({ articlesList, page, totalPage }) => (
   <main>

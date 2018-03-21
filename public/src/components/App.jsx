@@ -6,11 +6,14 @@ import { pure } from 'recompose';
 import Navbar from './Navbar';
 import Header from './Header';
 import Footer from './Footer';
-import Home from './Home';
-import Tags from './Tags';
-import Categories from './Categories';
-import Article from './Article';
-import Login from './Login';
+
+import {
+  Article,
+  Categories,
+  Home,
+  Login,
+  Tags
+} from './pages';
 
 const styles = {
   '@global': {

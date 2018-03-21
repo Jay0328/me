@@ -4,11 +4,11 @@ import injectSheet from 'react-jss';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import RoutePage from './hoc/RoutePage';
-import TagLabel from './TagLabel';
-import { fetchTagsIfNeed } from '../actions/tagsActions';
-import { themeColor, grey } from './theme/colors';
-import { xs, sm, md, lg } from './theme/rwd';
+import RoutePage from '../hoc/RoutePage';
+import TagLabel from '../TagLabel';
+import { fetchTagsIfNeed } from '../../actions/tagsActions';
+import { themeColor, grey } from '../theme/colors';
+import { xs, sm, md, lg } from '../theme/rwd';
 
 const styles = {
   containerWidth: {

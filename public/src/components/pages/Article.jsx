@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import RoutePage from './hoc/RoutePage';
-import Markdown from './Markdown';
-import { fetchArticleIfNeed } from '../actions/articleActions';
+import RoutePage from '../hoc/RoutePage';
+import Markdown from '../Markdown';
+import { fetchArticleIfNeed } from '../../actions/articleActions';
 
 const styles = {
   article: {

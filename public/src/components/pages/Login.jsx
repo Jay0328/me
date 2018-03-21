@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import { connect } from 'react-redux';
-import InputField from './InputField';
-import { pristineLoginForm, loginOnChange, login } from '../actions/authActions';
+import InputField from '../InputField';
+import { pristineLoginForm, loginOnChange, login } from '../../actions/authActions';
 
 const styles = {
   form: {

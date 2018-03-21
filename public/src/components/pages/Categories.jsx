@@ -4,8 +4,8 @@ import injectSheet from 'react-jss';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
-import RoutePage from './hoc/RoutePage';
-import { fetchCategoriesIfNeed } from '../actions/categoriesActions';
+import RoutePage from '../hoc/RoutePage';
+import { fetchCategoriesIfNeed } from '../../actions/categoriesActions';
 
 const styles = {
 
