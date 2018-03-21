@@ -146,13 +146,16 @@ class Navbar extends Component {
 
   handleScroll = e => {
     e.preventDefault();
-    const { transparent } = this.state;
+    const { transparent, isOpen } = this.state;
     const isScrolled = document.body.scrollTop > 80 || document.documentElement.scrollTop > 80;
     if (isScrolled && transparent) {
       this.setState({ transparent: false });
     }
     else if (!isScrolled && !transparent) {
       this.setState({ transparent: true });
+    }
+    if (isOpen) {
+      this.setState({ isOpen: false });
     }
   }
 
