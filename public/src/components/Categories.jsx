@@ -1,59 +1,50 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-//  import { Link } from 'react-route r-dom';
-import { pure } from 'recompose';
-import Header from './Header';
-import Profile from './Profile';
+import injectSheet from 'react-jss';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
+import RoutePage from './hoc/RoutePage';
+import { fetchCategoriesIfNeed } from '../actions/categoriesActions';
 
-const CategoriesItem = pure(({ category }) => (
-  <div>
-    <div>{category.categoryName}</div>
-    <div>{category.articlesCount}</div>
-  </div>
-));
+const styles = {
 
-CategoriesItem.propTypes = {
-  category: PropTypes.shape().isRequired
 };
 
-class Categories extends React.Component {
-  constructor(props) {
-    super(props);
-    this.props.fetchCategories();
-  }
-
-  componentDidMount() {
-    scrollTo(0, 0);
-    document.title = '分類 | Taku\'s blog';
-  }
-
-  render() {
-    const categoryFilter = this.props.match.params.category;
-    const { categories } = this.props;
-    console.log(categories, categoryFilter);
-
-    const categoriesList = categories.map(category =>
-      (<CategoriesItem key={category.categoryName} category={category} />)
-    );
-
-    return (
-      <section className="categories">
-        <Header mode="categories" />
-        <div className="container">
-          <div className="categories-container">
-            {categoriesList}
-          </div>
-          <Profile />
-        </div>
-      </section>
-    );
-  }
-}
+const Categories = ({ categories }) => (
+  <main>
+    {categories.map(({ categoryName, articlesCount }) => (
+      <Link
+        key={categoryName}
+        to={`/categories/${categoryName}/`}
+      >
+        <div>{categoryName}</div>
+        <div>{articlesCount}</div>
+      </Link>
+    ))}
+  </main>
+);
 
 Categories.propTypes = {
-  match: PropTypes.shape().isRequired,
-  categories: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  fetchCategories: PropTypes.func.isRequired
+  categories: PropTypes.arrayOf(PropTypes.shape()).isRequired
 };
 
-export default Categories;
+const CategoriesPage = RoutePage(injectSheet(styles)(Categories));
+
+const mapStateToProps = state => ({
+  categories: state.getIn(['categories', 'categories']).toArray()
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchData() {
+    dispatch(fetchCategoriesIfNeed());
+  }
+});
+
+const CategoriesContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CategoriesPage);
+
+export default withRouter(CategoriesContainer);
+

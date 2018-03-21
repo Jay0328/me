@@ -119,9 +119,8 @@ const Header = () => (
   <header>
     <Route exact strict path='/' component={HeaderComponent('home')} />
     <Route exact strict path='/page/:page/' component={HeaderComponent('home')} />
-    <Route exact strict path='/tags/' component={HeaderComponent('tags')} />
-    <Route exact strict path='/tags/:tag/' component={HeaderComponent('tags')} />
-    <Route exact strict path='/categories/' component={HeaderComponent('categories')} />
+    <Route strict path='/tags/' component={HeaderComponent('tags')} />
+    <Route strict path='/categories/' component={HeaderComponent('categories')} />
     <Route exact strict path='/:year/:month/:day/:url/' component={HeaderComponent('article')} />
   </header>
 );

@@ -8,11 +8,10 @@ import Header from './Header';
 import Footer from './Footer';
 import Home from './Home';
 import Tags from './Tags';
+import Categories from './Categories';
 import Article from './Article';
 import Login from './Login';
-/*
-  <Route exact strict path='/categories/' component={CategoriesContainer} />
-*/
+
 const styles = {
   '@global': {
     '*': {
@@ -35,6 +34,7 @@ const App = ({ classes }) => (
     <Route exact strict path='/page/:page/' component={Home} />
     <Route exact strict path='/tags/' component={Tags} />
     <Route exact strict path='/tags/:tag/' component={Tags} />
+    <Route exact strict path='/categories/' component={Categories} />
     <Route exact strict path='/:year/:month/:day/:url/' component={Article} />
     <Route exact strict path='/login/' component={Login} />
     <Footer />
