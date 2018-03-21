@@ -4,7 +4,7 @@ import Home from './Home';
 import Login from './Login';
 import Tags from './Tags';
 
-export default {
+export {
   Article,
   Categories,
   Home,
