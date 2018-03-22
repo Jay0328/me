@@ -3,22 +3,12 @@ import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import { Link } from 'react-router-dom';
 import { pure } from 'recompose';
+import Card from './Card';
 import TagLabel from './TagLabel';
 import Markdown from './Markdown';
-import { themeColor, lightGrey, opacityColor } from './theme/colors';
+import { themeColor, lightGrey } from './theme/colors';
 
 const styles = {
-  articlePreview: {
-    padding: '15px 20px',
-    margin: '20px 0',
-    cursor: 'pointer',
-    transition: 'all 0.1s',
-    boxShadow: '5px 5px 10px -5px rgba(14, 14, 14, .26)',
-    '&:hover': {
-      transform: 'scale(1.05, 1.05)',
-      boxShadow: `10px 10px 30px -5px ${opacityColor(themeColor, 0.5)}`
-    }
-  },
   link: {
     display: 'block',
     textDecoration: 'none',
@@ -85,12 +75,12 @@ const ArticlePreview = ({ classes, year, month, day, title, url, tags, preview }
   );
 
   return (
-    <main className={classes.articlePreview}>
+    <Card>
       {articleTitle}
       {articleMeta}
       {articleTags}
       {articlePreviewContent}
-    </main>
+    </Card>
   );
 };
 
