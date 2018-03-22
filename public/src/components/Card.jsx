@@ -18,15 +18,20 @@ const styles = {
   }
 };
 
-const Card = ({ classes, children }) => (
-  <main className={classes.card}>
+const Card = ({ classes, className, children }) => (
+  <main className={`${classes.card}${` ${className}`}`}>
     {children}
   </main>
 );
 
 Card.propTypes = {
   classes: PropTypes.shape().isRequired,
+  className: PropTypes.string,
   children: PropTypes.node.isRequired
+};
+
+Card.defaultProps = {
+  className: ''
 };
 
 export default injectSheet(styles)(pure(Card));
