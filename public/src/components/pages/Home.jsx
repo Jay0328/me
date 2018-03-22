@@ -31,7 +31,7 @@ const HomePage = RoutePage(
 );
 
 const mapStateToProps = state => ({
-  articlesList: state.getIn(['articlesList', 'list']).toArray(),
+  articlesList: state.getIn(['articlesList', 'articles']).toArray(),
   page: state.getIn(['articlesList', 'page']),
   totalPage: state.getIn(['articlesList', 'totalPage'])
 });
@@ -40,7 +40,7 @@ const mapDispatchToProps = dispatch => ({
   fetchData(props) {
     let { page } = props.match.params;
     page = page ? page | 0 : 1;
-    dispatch(fetchArticlesListIfNeed(page));
+    dispatch(fetchArticlesListIfNeed({ page }));
   }
 });
 
