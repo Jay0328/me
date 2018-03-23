@@ -24,8 +24,8 @@ categoriesSchema.statics.getCategories = async function () {
     });
 };
 
-categoriesSchema.statics.getCategoryArchive = async function (categoryName) {
-  const archive = await this
+categoriesSchema.statics.getArticlesInCategory = async function (categoryName) {
+  return await this
     .findOne({ categoryName })
     .populate({
       path: 'articles',
@@ -35,7 +35,6 @@ categoriesSchema.statics.getCategoryArchive = async function (categoryName) {
       }
     })
     .exec();
-  return archive;
 };
 
 const Categories = mongoose.model('Categories', categoriesSchema, 'Categories');
