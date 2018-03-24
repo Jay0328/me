@@ -28,9 +28,8 @@ router.route('/:category')
     const categoryName = decodeURIComponent(req.params.category);
     try {
       await mongoose.connect(database);
-      const categoryArchive = await Categories.getCategoryArchive(categoryName);
-      const totalArticlesCount = categoryArchive.articles.length;
-      res.status(200).json({ categoryArchive, totalArticlesCount });
+      const { articles } = await Categories.getArticlesInCategory(categoryName);
+      res.status(200).json({ articles });
     }
     catch (err) {
       res.status(404).json({ err: '取得分類錯誤' });

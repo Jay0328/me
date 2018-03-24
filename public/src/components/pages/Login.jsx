@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
-import { connect } from 'react-redux';
-import InputField from './InputField';
-import { pristineLoginForm, loginOnChange, login } from '../actions/authActions';
+import ConnectWithToJS from '../hoc/ConnectWithToJS';
+import InputField from '../InputField';
+import { pristineLoginForm, loginOnChange, login } from '../../actions/authActions';
 
 const styles = {
   form: {
@@ -70,9 +70,9 @@ Login.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  username: state.getIn(['login', 'username']).toObject(),
-  pwd1: state.getIn(['login', 'password1']).toObject(),
-  pwd2: state.getIn(['login', 'password2']).toObject()
+  username: state.getIn(['login', 'username']),
+  pwd1: state.getIn(['login', 'password1']),
+  pwd2: state.getIn(['login', 'password2'])
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -90,9 +90,10 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-const LoginContainer = connect(
+const LoginContainer = ConnectWithToJS(
   mapStateToProps,
-  mapDispatchToProps
-)(Login);
+  mapDispatchToProps,
+  Login
+);
 
 export default injectSheet(styles)(LoginContainer);

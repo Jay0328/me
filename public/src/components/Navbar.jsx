@@ -146,7 +146,7 @@ class Navbar extends Component {
 
   handleScroll = e => {
     e.preventDefault();
-    const { transparent } = this.state;
+    const { transparent, isOpen } = this.state;
     const isScrolled = document.body.scrollTop > 80 || document.documentElement.scrollTop > 80;
     if (isScrolled && transparent) {
       this.setState({ transparent: false });
@@ -154,6 +154,13 @@ class Navbar extends Component {
     else if (!isScrolled && !transparent) {
       this.setState({ transparent: true });
     }
+    if (isOpen) {
+      this.setState({ isOpen: false });
+    }
+  }
+
+  closeMenu = () => {
+    this.setState({ isOpen: false });
   }
 
   toggleMenu = () => {
@@ -165,7 +172,10 @@ class Navbar extends Component {
     const { isOpen, linkUrl, transparent } = this.state;
     const { classes } = this.props;
     return (
-      <nav className={`${classes.navbar} ${transparent ? 'transparent' : ''}`}>
+      <nav
+        className={`${classes.navbar} ${transparent ? 'transparent' : ''}`}
+        onBlur={this.closeMenu}
+      >
         <div className={classes.brand}>
           <Link to="/">YC Blog</Link>
         </div>

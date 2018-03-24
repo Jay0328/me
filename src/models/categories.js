@@ -24,18 +24,18 @@ categoriesSchema.statics.getCategories = async function () {
     });
 };
 
-categoriesSchema.statics.getCategoryArchive = async function (categoryName) {
-  const archive = await this
+categoriesSchema.statics.getArticlesInCategory = async function (categoryName) {
+  return await this
     .findOne({ categoryName })
     .populate({
       path: 'articles',
       select: ['year', 'month', 'day', 'title', 'url'],
       options: {
         sort: { year: 'desc', month: 'desc', day: 'desc' }
-      }
+      },
+      populate: { path: 'tags', select: ['tagName'] }
     })
     .exec();
-  return archive;
 };
 
 const Categories = mongoose.model('Categories', categoriesSchema, 'Categories');

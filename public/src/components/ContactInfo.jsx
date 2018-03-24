@@ -8,11 +8,11 @@ import { themeColor } from './theme/colors';
 const contacts = [
   {
     url: facebook,
-    icon: 'fa fa-facebook-square'
+    icon: 'fab fa-facebook'
   },
   {
     url: github,
-    icon: 'fa fa-github'
+    icon: 'fab fa-github'
   }
 ];
 

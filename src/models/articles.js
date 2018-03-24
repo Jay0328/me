@@ -51,13 +51,6 @@ articlesSchema.statics.getArticle = async function (year, month, day, url) {
     .exec();
 };
 
-articlesSchema.statics.getArchive = async function () {
-  return await this
-    .find()
-    .select(['year', 'month', 'day', 'title', 'url'])
-    .sort({ year: 'desc', month: 'desc', day: 'desc' });
-};
-
 const Articles = mongoose.model('Articles', articlesSchema, 'Articles');
 
 module.exports = Articles;

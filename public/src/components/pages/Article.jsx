@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import RoutePage from './hoc/RoutePage';
-import Markdown from './Markdown';
-import { fetchArticleIfNeed } from '../actions/articleActions';
+import RoutePage from '../hoc/RoutePage';
+import ConnectWithToJS from '../hoc/ConnectWithToJS';
+import Markdown from '../Markdown';
+import { fetchArticleIfNeed } from '../../actions/articleActions';
 
 const styles = {
   article: {
@@ -26,22 +26,20 @@ Article.propTypes = {
 const ArticlePage = RoutePage(injectSheet(styles)(Article));
 
 const mapStateToProps = state => ({
-  date: state.getIn(['article', 'date']),
-  title: state.getIn(['article', 'title']),
-  tags: state.getIn(['article', 'tags']).toArray(),
   content: state.getIn(['article', 'content'])
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchData(props) {
     const { year, month, day, url } = props.match.params;
-    dispatch(fetchArticleIfNeed(year, month, day, url));
+    dispatch(fetchArticleIfNeed({ year, month, day, url }));
   }
 });
 
-const ArticleContainer = connect(
+const ArticleContainer = ConnectWithToJS(
   mapStateToProps,
-  mapDispatchToProps
-)(ArticlePage);
+  mapDispatchToProps,
+  ArticlePage
+);
 
 export default withRouter(ArticleContainer);

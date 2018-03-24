@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import RoutePage from './hoc/RoutePage';
-import TagLabel from './TagLabel';
-import { fetchTagsIfNeed } from '../actions/tagsActions';
-import { themeColor, grey } from './theme/colors';
-import { xs, sm, md, lg } from './theme/rwd';
+import RoutePage from '../hoc/RoutePage';
+import ConnectWithToJS from '../hoc/ConnectWithToJS';
+import TagLabel from '../TagLabel';
+import { fetchTagsIfNeed } from '../../actions/tagsActions';
+import { themeColor, grey } from '../theme/colors';
+import { xs, sm, md, lg } from '../theme/rwd';
 
 const styles = {
   containerWidth: {
@@ -65,27 +65,27 @@ const Tags = ({ classes, match, tags }) => {
   const tagFilter = match.params.tag;
   const tagsCloud = (
     <section className={classes.cloud}>
-      {Object.keys(tags).map(tagName => (
+      {tags.map(({ tagName, articles }) => (
         <TagLabel
           key={tagName}
           tagName={tagName}
           hoverBackgroundColor={themeColor}
-          articleNum={tags[tagName].size}
+          articleNum={articles.length}
         />
       ))}
     </section>
   );
   const tagsLists = (
     <section className={classes.lists}>
-      {Object.keys(tags)
-        .filter(tagName => !tagFilter || tagFilter === tagName.replace(' ', ''))
-        .map(tagName => (
+      {tags
+        .filter(({ tagName }) => !tagFilter || tagFilter === tagName.replace(' ', ''))
+        .map(({ tagName, articles }) => (
           <section key={tagName}>
             <span className={classes.listName}>
               <i className="fa fa-tag" aria-hidden="true"></i>
               {tagName}
             </span>
-            {tags[tagName].map(({ year, month, day, title, url }) => (
+            {articles.map(({ year, month, day, title, url }) => (
               <main
                 className={classes.article}
                 key={`/${year}/${month}/${day}/${url}`}
@@ -111,13 +111,13 @@ const Tags = ({ classes, match, tags }) => {
 Tags.propTypes = {
   classes: PropTypes.shape().isRequired,
   match: PropTypes.shape().isRequired,
-  tags: PropTypes.shape().isRequired
+  tags: PropTypes.arrayOf(PropTypes.shape()).isRequired
 };
 
 const TagsPage = RoutePage(injectSheet(styles)(Tags));
 
 const mapStateToProps = state => ({
-  tags: state.get('tags').toObject()
+  tags: state.get('tags')
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -126,10 +126,11 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-const TagsContainer = connect(
+const TagsContainer = ConnectWithToJS(
   mapStateToProps,
-  mapDispatchToProps
-)(TagsPage);
+  mapDispatchToProps,
+  TagsPage
+);
 
 export default withRouter(TagsContainer);
 

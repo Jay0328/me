@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter, Route } from 'react-router-dom';
 import injectSheet from 'react-jss';
 import { pure } from 'recompose';
-import { connect } from 'react-redux';
+import ConnectWithToJS from './hoc/ConnectWithToJS';
 import TagLabel from './TagLabel';
 import { lightGrey } from './theme/colors';
 import { sm } from './theme/rwd';
@@ -67,11 +67,7 @@ HeaderBackground.propTypes = {
   mode: PropTypes.string.isRequired
 };
 
-const HeaderContent = connect(state => ({
-  date: state.getIn(['article', 'date']),
-  title: state.getIn(['article', 'title']),
-  tags: state.getIn(['article', 'tags']).toArray(),
-}))(injectSheet(styles)(({ classes, mode, date, title, tags }) => {
+const HeaderContent = injectSheet(styles)(({ classes, mode, date, title, tags }) => {
   let headerTitle;
   if (mode === 'home') {
     headerTitle = 'YC Blog';
@@ -99,13 +95,23 @@ const HeaderContent = connect(state => ({
       {mode === 'article' && <span className={classes.date}>{date}</span>}
     </section>
   );
-}));
+});
+
+const HeaderContentContainer = ConnectWithToJS(
+  state => ({
+    date: state.getIn(['article', 'date']),
+    title: state.getIn(['article', 'title']),
+    tags: state.getIn(['article', 'tags'])
+  }),
+  null,
+  HeaderContent
+);
 
 const HeaderComponent = mode => {
   const Component = ({ classes, match }) => (
     <main className={classes.header}>
       <HeaderBackground mode={mode} match={match} />
-      <HeaderContent mode={mode} />
+      <HeaderContentContainer mode={mode} />
     </main>
   );
   Component.propTypes = {
@@ -119,9 +125,8 @@ const Header = () => (
   <header>
     <Route exact strict path='/' component={HeaderComponent('home')} />
     <Route exact strict path='/page/:page/' component={HeaderComponent('home')} />
-    <Route exact strict path='/tags/' component={HeaderComponent('tags')} />
-    <Route exact strict path='/tags/:tag/' component={HeaderComponent('tags')} />
-    <Route exact strict path='/categories/' component={HeaderComponent('categories')} />
+    <Route strict path='/tags/' component={HeaderComponent('tags')} />
+    <Route strict path='/categories/' component={HeaderComponent('categories')} />
     <Route exact strict path='/:year/:month/:day/:url/' component={HeaderComponent('article')} />
   </header>
 );
