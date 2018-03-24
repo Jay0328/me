@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import RoutePage from '../hoc/RoutePage';
+import ConnectWithToJS from '../hoc/ConnectWithToJS';
 import ArticlePreview from '../ArticlePreview';
 import Pagination from '../Pagination';
 import { fetchArticlesListIfNeed } from '../../actions/articleActions';
@@ -31,7 +31,7 @@ const HomePage = RoutePage(
 );
 
 const mapStateToProps = state => ({
-  articlesList: state.getIn(['articlesList', 'articles']).toArray(),
+  articlesList: state.getIn(['articlesList', 'articles']),
   page: state.getIn(['articlesList', 'page']),
   totalPage: state.getIn(['articlesList', 'totalPage'])
 });
@@ -44,9 +44,10 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-const HomeContainer = connect(
+const HomeContainer = ConnectWithToJS(
   mapStateToProps,
-  mapDispatchToProps
-)(HomePage);
+  mapDispatchToProps,
+  HomePage
+);
 
 export default withRouter(HomeContainer);
