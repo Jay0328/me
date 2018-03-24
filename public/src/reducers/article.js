@@ -1,4 +1,4 @@
-import { fromJS, List } from 'immutable';
+import { fromJS } from 'immutable';
 import { RECEIVE_ARTICLE } from '../actions/articleActions';
 
 const initialState = fromJS({
@@ -16,7 +16,8 @@ const Article = (state = initialState, action) => {
       return state
         .set('date', `${year}-${month}-${day}`)
         .set('title', title)
-        .set('url', url).set('tags', List(tags))
+        .set('url', url)
+        .set('tags', fromJS(tags))
         .set('content', content);
     default:
       return state;
