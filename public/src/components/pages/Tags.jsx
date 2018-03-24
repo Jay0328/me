@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import RoutePage from '../hoc/RoutePage';
+import ConnectWithToJS from '../hoc/ConnectWithToJS';
 import TagLabel from '../TagLabel';
 import { fetchTagsIfNeed } from '../../actions/tagsActions';
 import { themeColor, grey } from '../theme/colors';
@@ -126,10 +126,11 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-const TagsContainer = connect(
+const TagsContainer = ConnectWithToJS(
   mapStateToProps,
-  mapDispatchToProps
-)(TagsPage);
+  mapDispatchToProps,
+  TagsPage
+);
 
 export default withRouter(TagsContainer);
 
