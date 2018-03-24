@@ -6,5 +6,5 @@ export const fetchTagsIfNeed = pageActions(
   RECEIVE_TAGS,
   '/api/tags',
   ['tags'],
-  state => state.get('tags').isEmpty()
+  state => !state.get('tags').size
 );
