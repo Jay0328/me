@@ -32,7 +32,8 @@ categoriesSchema.statics.getArticlesInCategory = async function (categoryName) {
       select: ['year', 'month', 'day', 'title', 'url'],
       options: {
         sort: { year: 'desc', month: 'desc', day: 'desc' }
-      }
+      },
+      populate: { path: 'tags', select: ['tagName'] }
     })
     .exec();
 };

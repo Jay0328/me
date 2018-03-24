@@ -37,7 +37,7 @@ const styles = {
   }
 };
 
-const ArticlePreview = ({ classes, year, month, day, title, url, tags, preview }) => {
+const ArticlePreview = ({ classes, className, year, month, day, title, url, tags, preview }) => {
   const articleTitle = (
     <Link
       className={classes.title}
@@ -75,7 +75,7 @@ const ArticlePreview = ({ classes, year, month, day, title, url, tags, preview }
   );
 
   return (
-    <Card>
+    <Card className={className}>
       {articleTitle}
       {articleMeta}
       {articleTags}
@@ -86,13 +86,19 @@ const ArticlePreview = ({ classes, year, month, day, title, url, tags, preview }
 
 ArticlePreview.propTypes = {
   classes: PropTypes.shape().isRequired,
+  className: PropTypes.string,
   year: PropTypes.string.isRequired,
   month: PropTypes.string.isRequired,
   day: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  preview: PropTypes.string.isRequired
+  preview: PropTypes.string
+};
+
+ArticlePreview.defaultProps = {
+  className: '',
+  preview: ''
 };
 
 export default injectSheet(styles)(pure(ArticlePreview));

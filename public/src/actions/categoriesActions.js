@@ -8,3 +8,12 @@ export const fetchCategoriesIfNeed = pageActions(
   ['categories'],
   state => state.getIn(['categories', 'categories']).isEmpty()
 );
+
+export const RECEIVE_ARTICLES_IN_CATEGORY = 'RECEIVE_ARTICLES_IN_CATEGORY';
+
+export const fetchArticlesInCategory = pageActions(
+  RECEIVE_ARTICLES_IN_CATEGORY,
+  ({ categoryName }) => `/api/categories/${categoryName}`,
+  ['articles'],
+  (state, { categoryName }) => !state.getIn(['categories', categoryName])
+);

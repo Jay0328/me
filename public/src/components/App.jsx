@@ -9,6 +9,7 @@ import Footer from './Footer';
 
 import {
   Article,
+  Category,
   Categories,
   Home,
   Login,
@@ -38,6 +39,7 @@ const App = ({ classes }) => (
     <Route exact strict path='/tags/' component={Tags} />
     <Route exact strict path='/tags/:tag/' component={Tags} />
     <Route exact strict path='/categories/' component={Categories} />
+    <Route exact strict path='/categories/:category/' component={Category} />
     <Route exact strict path='/:year/:month/:day/:url/' component={Article} />
     <Route exact strict path='/login/' component={Login} />
     <Footer />
