@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import RoutePage from '../hoc/RoutePage';
+import ConnectWithToJS from '../hoc/ConnectWithToJS';
 import Card from '../Card';
 import { sm } from '../theme/rwd';
 import { themeColor, lightGrey } from '../theme/colors';
@@ -88,7 +88,7 @@ Categories.propTypes = {
 const CategoriesPage = RoutePage(injectSheet(styles)(Categories));
 
 const mapStateToProps = state => ({
-  categories: state.getIn(['categories', 'categories']).toArray()
+  categories: state.getIn(['categories', 'categories'])
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -97,10 +97,11 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-const CategoriesContainer = connect(
+const CategoriesContainer = ConnectWithToJS(
   mapStateToProps,
-  mapDispatchToProps
-)(CategoriesPage);
+  mapDispatchToProps,
+  CategoriesPage
+);
 
 export default withRouter(CategoriesContainer);
 

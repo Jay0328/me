@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
-import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import RoutePage from '../hoc/RoutePage';
+import ConnectWithToJS from '../hoc/ConnectWithToJS';
 import ArticlePreview from '../ArticlePreview';
 import { themeColor } from '../theme/colors';
 import { fetchArticlesInCategory } from '../../actions/categoriesActions';
@@ -30,7 +30,8 @@ const styles = {
   },
   articles: {
     display: 'flex',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    justifyContent: 'center'
   },
   article: {
     width: 'fit-content'
@@ -66,7 +67,7 @@ Category.propTypes = {
 const CategoryPage = RoutePage(injectSheet(styles)(Category));
 
 const mapStateToProps = state => ({
-  articles: state.getIn(['categories', 'articles']).toObject()
+  articles: state.getIn(['categories', 'articles'])
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -76,10 +77,11 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-const CategoryContainer = connect(
+const CategoryContainer = ConnectWithToJS(
   mapStateToProps,
-  mapDispatchToProps
-)(CategoryPage);
+  mapDispatchToProps,
+  CategoryPage
+);
 
 export default withRouter(CategoryContainer);
 
