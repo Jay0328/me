@@ -51,7 +51,7 @@ const ArticlePreview = ({ classes, className, year, month, day, title, url, tags
       className={classes.meta}
       to={`/${year}/${month}/${day}/${url}/`}
     >
-      <i className="fa fa-calendar" aria-hidden="true"></i>
+      <i className="far fa-calendar-alt" aria-hidden="true"></i>
       {`${year}/${month}/${day}`}
     </Link>
   );
