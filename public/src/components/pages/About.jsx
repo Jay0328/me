@@ -26,6 +26,9 @@ About.propTypes = {
   classes: PropTypes.shape().isRequired
 };
 
-const AboutPage = RoutePage(injectSheet(styles)(About));
+const AboutPage = RoutePage(
+  injectSheet(styles)(About),
+  { title: 'About' }
+);
 
 export default AboutPage;

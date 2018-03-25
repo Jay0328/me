@@ -23,9 +23,15 @@ Article.propTypes = {
   content: PropTypes.string.isRequired
 };
 
-const ArticlePage = RoutePage(injectSheet(styles)(Article));
+const ArticlePage = RoutePage(
+  injectSheet(styles)(Article),
+  {
+    title: ({ title }) => title
+  }
+);
 
 const mapStateToProps = state => ({
+  title: state.getIn(['article', 'title']),
   content: state.getIn(['article', 'content'])
 });
 

@@ -64,7 +64,12 @@ Category.propTypes = {
   articles: PropTypes.shape().isRequired
 };
 
-const CategoryPage = RoutePage(injectSheet(styles)(Category));
+const CategoryPage = RoutePage(
+  injectSheet(styles)(Category),
+  {
+    title: ({ match }) => match.params.category
+  }
+);
 
 const mapStateToProps = state => ({
   articles: state.getIn(['categories', 'articles'])

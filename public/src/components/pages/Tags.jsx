@@ -114,7 +114,12 @@ Tags.propTypes = {
   tags: PropTypes.arrayOf(PropTypes.shape()).isRequired
 };
 
-const TagsPage = RoutePage(injectSheet(styles)(Tags));
+const TagsPage = RoutePage(
+  injectSheet(styles)(Tags),
+  {
+    title: ({ match }) => match.params.tag || 'Tags'
+  }
+);
 
 const mapStateToProps = state => ({
   tags: state.get('tags')

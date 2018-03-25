@@ -7,10 +7,11 @@ const styles = {
   container
 };
 
-const routePage = (WrappedComponent, shouldRefetchData) => {
+const routePage = (WrappedComponent, { title, shouldRefetchData }) => {
   class RoutePage extends Component {
     constructor(props) {
       super(props);
+      document.title = this.handleTitle(title);
     }
 
     componentDidMount() {
@@ -26,6 +27,12 @@ const routePage = (WrappedComponent, shouldRefetchData) => {
         this.props.fetchData(nextProps);
       }
     }
+
+    componentDidUpdate() {
+      document.title = this.handleTitle(title);
+    }
+
+    handleTitle = t => typeof t === 'function' ? `${t(this.props)} | YC Blog` : `${t ? `${t} | ` : ''}YC Blog`
 
     render() {
       const { classes } = this.props;
