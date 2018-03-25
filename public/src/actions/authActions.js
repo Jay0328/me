@@ -23,7 +23,7 @@ const check = data => new Promise((resolve, reject) => {
     }
   });
   if (err) reject({ err: rejectReason });
-  else resolve();
+  resolve();
 });
 
 const loginSuccess = token => ({
@@ -72,23 +72,23 @@ export const login = data => async dispatch => {
   }
 };
 
-export const verifyAuth = () => dispatch => new Promise((resolve, reject) => {
+export const verifyAuth = () => async dispatch => {
   const token = localStorage.getItem('token');
   if (token) {
-    request('/api/authenticate', {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
-      .then(() => {
-        dispatch(loginSuccess(token));
-        resolve();
-      })
-      .catch(() => reject('token錯誤'));
+    try {
+      await request('/api/authenticate', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      dispatch(loginSuccess(token));
+    }
+    catch (err) {
+      Promise.reject('token錯誤');
+    }
   }
-  else resolve();
-});
+};
 
 export const logout = () => {
   localStorage.removeItem('token');

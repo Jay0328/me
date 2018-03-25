@@ -1,53 +1,51 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import injectSheet from 'react-jss';
 import { Link } from 'react-router-dom';
 
-class TagLabel extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    const { mode, articleNum } = this.props;
-    /* 1(187, 187, 238) to 10(41, 140, 180) */
-    const labelColor = {
-      r: articleNum < 10 ? Math.round(187 - (articleNum * 14.6)) : 41,
-      g: articleNum < 10 ? Math.round(187 - (articleNum * 4.7)) : 140,
-      b: articleNum < 10 ? Math.round(238 - (articleNum * 5.8)) : 180,
-    };
-    this.state = {
-      labelStyle: mode === 'cloud' && articleNum > 0 ? {
-        backgroundColor: `rgba(${labelColor.r}, ${labelColor.g}, ${labelColor.b}, 1)`
-      } : null
-    };
+const styles = {
+  tagLabel: {
+    userSelect: 'none',
+    height: 'fit-content',
+    cursor: 'pointer',
+    color: ({ color = 'white' }) => color,
+    textDecoration: 'none',
+    border: ({ borderColor }) => borderColor ? `1px solid ${borderColor}` : 'none',
+    borderRadius: '10px',
+    margin: '5px',
+    padding: '0 10px',
+    textAlign: 'center',
+    fontSize: '14px',
+    lineHeight: '28px',
+    whiteSpace: 'nowrap',
+    backgroundColor: ({ backgroundColor, articleNum = 0 }) => {
+      if (backgroundColor) return backgroundColor;
+      /* 1(187, 187, 238) to 10(41, 110, 180) */
+      const r = articleNum < 10 ? Math.round(187 - (articleNum * 14.6)) : 41;
+      const g = articleNum < 10 ? Math.round(187 - (articleNum * 7.7)) : 110;
+      const b = articleNum < 10 ? Math.round(238 - (articleNum * 5.8)) : 180;
+      return `rgba(${r}, ${g}, ${b}, 1)`;
+    },
+    '&:hover': {
+      color: ({ hoverColor, color = 'white' }) => hoverColor || color,
+      backgroundColor: ({ hoverBackgroundColor = 'none' }) => hoverBackgroundColor,
+      borderColor: ({ hoverBorderColor, borderColor }) => hoverBorderColor || borderColor
+    }
   }
+};
 
-  render() {
-    const { mode, tagName, articleNum, fromTags } = this.props;
-    const { labelStyle } = this.state;
-    const Component = mode === 'cloud' ? Link : 'div';
-
-    return (
-      <Component
-        className="tag-label"
-        style={labelStyle}
-        to={mode === 'cloud' ? { pathname: `/tags/${tagName.replace(' ', '')}/`, state: { fromTags } } : ''}
-      >
-        {mode === 'label' && <i className="fa fa-tag" aria-hidden="true"></i>}
-        {mode === 'cloud' && articleNum > 0 ? `${tagName} (${articleNum})` : `${tagName}`}
-      </Component>
-    );
-  }
-}
+const TagLabel = ({ classes, tagName }) => (
+  <Link
+    className={classes.tagLabel}
+    to={`/tags/${tagName.replace(' ', '')}/`}
+  >
+    {tagName}
+  </Link>
+);
 
 TagLabel.propTypes = {
-  mode: PropTypes.string.isRequired,
+  classes: PropTypes.shape().isRequired,
   tagName: PropTypes.string.isRequired,
-  articleNum: PropTypes.number,
-  fromTags: PropTypes.bool
 };
 
-TagLabel.defaultProps = {
-  articleNum: 0,
-  fromTags: false
-};
-
-export default TagLabel;
+export default injectSheet(styles)(TagLabel);

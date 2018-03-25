@@ -40,7 +40,7 @@ const ask = question => {
 
 async function run() {
   try {
-    await mongoose.connect(config.database, { useMongoClient: true });
+    await mongoose.connect(config.database);
     ask(questions[questionsCount].question);
   }
   catch (err) {

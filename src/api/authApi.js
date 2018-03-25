@@ -42,20 +42,21 @@ const handleUserError = (err, res) => {
 }
 
 router.route('/')
-  .get((req, res) => {
+  .get(asyncMiddleware(async (req, res) => {
     if (!req.headers.authorization) res.status(401).json({});
     const token = req.headers.authorization.split(' ')[1];
     try {
-      const decoded = jwt.verify(token, secret);
-      res.status(200).json({});
+      const _id = jwt.verify(token, secret);
+      const user = await User.findOne({ _id });
+      res.status(user ? 200 : 401).json({});
     }
     catch (err) {
       throw err;
       res.status(401).json({});
     }
-  })
+  }))
   .post(asyncMiddleware(async (req, res, next) => {
-    await mongoose.connect(database, { useMongoClient: true });
+    await mongoose.connect(database);
     const { username: { value: username } } = req.body;
     const { password1: { value: password1 } } = req.body;
     const { password2: { value: password2 } } = req.body;

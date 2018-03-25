@@ -1,22 +1,54 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter, Route } from 'react-router-dom';
+import injectSheet from 'react-jss';
+import { pure } from 'recompose';
 import Navbar from './Navbar';
-import { FooterContainer } from '../containers';
+import Header from './Header';
+import Footer from './Footer';
 
-const App = ({ children }) => {
-  return (
-    <div className="wrapper">
-      <Navbar />
-      <main>
-        {children}
-      </main>
-      <FooterContainer />
-    </div>
-  );
+import {
+  About,
+  Article,
+  Category,
+  Categories,
+  Home,
+  Login,
+  Tags
+} from './pages';
+
+const styles = {
+  '@global': {
+    '*': {
+      boxSizing: 'border-box'
+    },
+    body: {
+      fontFamily: '-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,"PingFang SC","Hiragino Sans GB",STHeiti,"Microsoft YaHei","Microsoft JhengHei","Source Han Sans SC","Noto Sans CJK SC","Source Han Sans CN","Noto Sans SC","Source Han Sans TC","Noto Sans CJK TC","WenQuanYi Micro Hei",SimSun,sans-serif;'
+    }
+  },
+  main: {
+    width: '100vw'
+  }
 };
+
+const App = ({ classes }) => (
+  <main className={classes.main}>
+    <Navbar />
+    <Header />
+    <Route exact strict path='/' component={Home} />
+    <Route exact strict path='/page/:page/' component={Home} />
+    <Route exact strict path='/about/' component={About} />
+    <Route exact strict path='/tags/:tag?/' component={Tags} />
+    <Route exact strict path='/categories/' component={Categories} />
+    <Route exact strict path='/categories/:category/' component={Category} />
+    <Route exact strict path='/:year/:month/:day/:url/' component={Article} />
+    <Route exact strict path='/login/' component={Login} />
+    <Footer />
+  </main>
+);
 
 App.propTypes = {
-  children: PropTypes.node.isRequired,
+  classes: PropTypes.shape().isRequired
 };
 
-export default App;
+export default injectSheet(styles)(withRouter(pure(App)));

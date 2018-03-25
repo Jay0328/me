@@ -1,14 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import injectSheet from 'react-jss';
 import { Link } from 'react-router-dom';
 import { pure } from 'recompose';
+import { themeColor, grey } from './theme/colors';
 
-const toTop = () => {
-  document.body.scrollTop = 0;
-  document.documentElement.scrollTop = 0;
+const styles = {
+  pagination: {
+    display: 'table',
+    minHeight: '32px',
+    border: '1px solid rgba(34, 36, 38, .15)',
+    boxShadow: '0 1px 2px 0 rgba(34, 36, 38, .15)',
+    borderRadius: '5px',
+    margin: '50px auto 0 auto'
+  },
+  item: {
+    display: 'table-cell',
+    textAlign: 'center',
+    textDecoration: 'none',
+    userSelect: 'none',
+    color: 'black',
+    height: '100%',
+    minWidth: '32px',
+    lineHeight: '32px',
+    '&.activated, &:hover': {
+      color: grey,
+      backgroundColor: themeColor
+    }
+  },
+  divider: {
+    userSelect: 'none',
+    textAlign: 'center',
+    height: '100 %',
+    minWidth: '32px',
+    lineHeight: '32px',
+    display: 'table - cell'
+  }
 };
 
-const Pagination = ({ baseUrl, page, totalPage }) => {
+const Pagination = ({ classes, baseUrl, page, totalPage }) => {
   let menu = [];
   let menuStart = page - 2;
   let menuEnd;
@@ -23,10 +53,9 @@ const Pagination = ({ baseUrl, page, totalPage }) => {
     menu = [
       ...menu,
       <Link
-        className="pagination-item"
+        className={classes.item}
         to={page > 2 ? `${baseUrl !== '/' ? baseUrl : ''}/page/${page - 1}/` : baseUrl}
         key={`link-page-${page - 1}`}
-        onClick={toTop}
       >
         &#x21E6;
       </Link>
@@ -35,38 +64,37 @@ const Pagination = ({ baseUrl, page, totalPage }) => {
   if (menuStart > 1) {
     menu = [
       ...menu,
-      <Link className="pagination-item" to={baseUrl} key='link-last-page' onClick={toTop}>1</Link>,
-      <div className="pagination-divider" key='page-divider-left'>...</div>
+      <Link className={classes.item} to={baseUrl} key='link-last-page'>1</Link>,
+      <div className={classes.divider} key='page-divider-left'>...</div>
     ];
   }
   /* page menu */
   menu = [
     ...menu,
-    Array.from({ length: (menuEnd - menuStart) + 1 }, (v, k) => k + menuStart)
-      .map(p => {
-        if (p === page) return <div className="pagination-item activated" key={`link-page-${p}`}>{p}</div>;
-        return (
+    Array
+      .from({ length: (menuEnd - menuStart) + 1 }, (v, k) => k + menuStart)
+      .map(p => p === page ?
+        <div className={`${classes.item} activated`} key={`link-page-${p}`}>{p}</div>
+        :
+        (
           <Link
-            className="pagination-item"
+            className={classes.item}
             to={p !== 1 ? `${baseUrl !== '/' ? baseUrl : ''}/page/${p}/` : baseUrl}
             key={`link-page-${p}`}
-            onClick={toTop}
           >
             {p}
           </Link>
-        );
-      })
+        ))
   ];
   /* next */
   if (menuEnd < totalPage) {
     menu = [
       ...menu,
-      <div className="pagination-divider" key='page-divider-right'>...</div>,
+      <div className={classes.divider} key='page-divider-right'>...</div>,
       <Link
-        className="pagination-item"
+        className={classes.item}
         to={`${baseUrl !== '/' ? baseUrl : ''}/page/${totalPage}/`}
         key={`link-page-${totalPage}`}
-        onClick={toTop}
       >
         {totalPage}
       </Link>
@@ -76,22 +104,22 @@ const Pagination = ({ baseUrl, page, totalPage }) => {
     menu = [
       ...menu,
       <Link
-        className="pagination-item"
+        className={classes.item}
         to={`${baseUrl !== '/' ? baseUrl : ''}/page/${page + 1}/`}
         key='link-next-page'
-        onClick={toTop}
       >
         &#x21E8;
-       </Link>
+      </Link>
     ];
   }
-  return <div className="pagination">{menu}</div>;
+  return <div className={classes.pagination}>{menu}</div>;
 };
 
 Pagination.propTypes = {
+  classes: PropTypes.shape().isRequired,
   baseUrl: PropTypes.string.isRequired,
   page: PropTypes.number.isRequired,
   totalPage: PropTypes.number.isRequired
 };
 
-export default pure(Pagination);
+export default injectSheet(styles)(pure(Pagination));

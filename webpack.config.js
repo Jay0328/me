@@ -26,37 +26,11 @@ const basicConfig = {
                 exclude: /node_modules/,
                 enforce: 'pre',
                 use: ['babel-loader', 'eslint-loader']
-            },
-            {
-                test: /\.css$/,
-                use: ['style-loader', 'css-loader']
-            },
-            {
-                test: /\.scss$/,
-                include: CSS_DIR,
-                exclude: /node_modules/,
-                use: ['style-loader', 'css-loader', 'sass-loader']
-            },
-            {
-                test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-                use: ['file-loader']
-            },
-            {
-                test: /\.(woff|woff2)$/,
-                loader: ["url-loader?prefix=font/&limit=5000"]
-            },
-            {
-                test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-                loader: ["url-loader?limit=10000&mimetype=application/octet-stream"]
-            },
-            {
-                test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-                loader: ["url-loader?limit=10000&mimetype=image/svg+xml"]
             }
         ]
     },
     resolve: {
-        extensions: ['.js', '.jsx', '.scss', '.css']
+        extensions: ['.js', '.jsx']
     },
     plugins: [
         new CleanWebpackPlugin([BUILD_DIR]),
