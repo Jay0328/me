@@ -85,7 +85,12 @@ Categories.propTypes = {
   categories: PropTypes.arrayOf(PropTypes.shape()).isRequired
 };
 
-const CategoriesPage = RoutePage(injectSheet(styles)(Categories));
+const CategoriesPage = RoutePage(
+  injectSheet(styles)(Categories),
+  {
+    title: 'Categories'
+  }
+);
 
 const mapStateToProps = state => ({
   categories: state.getIn(['categories', 'categories'])

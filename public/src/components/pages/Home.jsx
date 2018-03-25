@@ -46,7 +46,9 @@ Home.propTypes = {
 
 const HomePage = RoutePage(
   injectSheet(styles)(Home),
-  (props, nextProps) => props.match.params.page !== nextProps.match.params.page
+  {
+    shouldRefetchData: (props, nextProps) => props.match.params.page !== nextProps.match.params.page
+  }
 );
 
 const mapStateToProps = state => ({
