@@ -18,7 +18,8 @@ const contacts = [
 
 const styles = {
   contactInfo: {
-    width: '200px'
+    width: '200px',
+    textAlign: 'center'
   },
   icon: {
     color: props => props.color,

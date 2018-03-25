@@ -14,8 +14,10 @@ const routePage = (WrappedComponent, shouldRefetchData) => {
     }
 
     componentDidMount() {
+      const { props } = this;
+      const { fetchData } = props;
       scrollTo(0, 0);
-      this.props.fetchData(this.props);
+      if (fetchData) fetchData(props);
     }
 
     componentWillReceiveProps(nextProps) {
