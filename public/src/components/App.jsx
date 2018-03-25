@@ -8,6 +8,7 @@ import Header from './Header';
 import Footer from './Footer';
 
 import {
+  About,
   Article,
   Category,
   Categories,
@@ -36,6 +37,7 @@ const App = ({ classes }) => (
     <Header />
     <Route exact strict path='/' component={Home} />
     <Route exact strict path='/page/:page/' component={Home} />
+    <Route exact strict path='/about/' component={About} />
     <Route exact strict path='/tags/:tag?/' component={Tags} />
     <Route exact strict path='/categories/' component={Categories} />
     <Route exact strict path='/categories/:category/' component={Category} />
