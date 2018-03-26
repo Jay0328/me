@@ -18,7 +18,7 @@ const routePage = (WrappedComponent, { title, shouldRefetchData }) => {
       const { props } = this;
       const { fetchData } = props;
       scrollTo(0, 0);
-      if (fetchData) fetchData(props);
+      fetchData(props);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -46,7 +46,10 @@ const routePage = (WrappedComponent, { title, shouldRefetchData }) => {
   RoutePage.displayName = `RoutePage(${WrappedComponent.displayName || WrappedComponent.name || 'Component'})`;
   RoutePage.propTypes = {
     classes: PropTypes.shape().isRequired,
-    fetchData: PropTypes.func.isRequired
+    fetchData: PropTypes.func
+  };
+  RoutePage.defaultProps = {
+    fetchData: () => { }
   };
   return injectSheet(styles)(RoutePage);
 };

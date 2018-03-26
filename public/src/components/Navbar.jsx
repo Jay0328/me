@@ -119,7 +119,7 @@ const styles = {
 };
 
 class Navbar extends Component {
-  propTypes = {
+  static propTypes = {
     classes: PropTypes.shape().isRequired
   }
 

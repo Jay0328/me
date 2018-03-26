@@ -33,8 +33,12 @@ const Markdown = ({ className, content }) => (
 );
 
 Markdown.propTypes = {
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   content: PropTypes.string.isRequired,
+};
+
+Markdown.defaultProps = {
+  className: ''
 };
 
 export default pure(Markdown);
