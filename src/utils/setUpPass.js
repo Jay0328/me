@@ -1,8 +1,8 @@
 const crypto = require('crypto');
 const mongoose = require('mongoose');
 const rl = require('readline').createInterface(process.stdin, process.stdout);
-const User = require('./models/user.js');
-const config = require('./config.js');
+const User = require('../models/user');
+const { database } = require('../config');
 
 mongoose.Promise = global.Promise;
 
@@ -19,7 +19,7 @@ async function setUpPass(username, password1, password2) {
     user.setUpPassword(password1, password2);
     const { salt1, salt2, hash1, hash2 } = user;
     await User.findOneAndUpdate({ username }, { salt1, salt2, hash1, hash2 }, { upsert: true });
-    console.log('set up success ! ');
+    console.info('set up success ! ');
     process.exit(0);
   }
   catch (err) {
@@ -40,7 +40,7 @@ const ask = question => {
 
 async function run() {
   try {
-    await mongoose.connect(config.database);
+    await mongoose.connect(database.uri);
     ask(questions[questionsCount].question);
   }
   catch (err) {
