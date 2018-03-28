@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const http = require('http');
+const path = require('path');
 const routes = require('../routes');
 const indexRoute = require('./indexRoute');
 
@@ -27,9 +28,9 @@ else {
   });
 }
 //  Static file
-app.use(express.static(__dirname + '../../public/build'));
-app.use(express.static(__dirname + '../../public/assets'));
-app.use(express.static(__dirname + '../../blog'));
+app.use(express.static(path.resolve(__dirname, '../../public/build')));
+app.use(express.static(path.resolve(__dirname, '../../public/assets')));
+app.use(express.static(path.resolve(__dirname, '../../blog')));
 
 //  Api Routes
 app.use('/api', routes);
