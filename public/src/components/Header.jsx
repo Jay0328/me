@@ -70,7 +70,7 @@ HeaderBackground.propTypes = {
 const HeaderContent = injectSheet(styles)(({ classes, mode, date, title, tags }) => {
   let headerTitle;
   if (mode === 'home') {
-    headerTitle = 'YC Blog';
+    headerTitle = 'Taku Blog';
   }
   else if (mode === 'article') {
     headerTitle = title;
