@@ -1,7 +1,7 @@
 const { readFile, readFileSync } = require('fs');
 const path = require('path');
 
-module.exports = articles => new Promise((resolve, reject) => {
+exports.readArticlePreviews = articles => new Promise((resolve, reject) => {
   const articleNum = articles.length;
   if (articleNum === 0) resolve(articles);
   let count = articleNum;
@@ -17,3 +17,8 @@ module.exports = articles => new Promise((resolve, reject) => {
     });
   }
 });
+
+exports.readArticleContent = async ({ year, month, day, title }) => {
+  const filePath = path.resolve(__dirname, `../../blog/articles/${year}-${month}-${day}-${title}.md`);
+  return await readFileSync(filePath, 'utf-8');
+};

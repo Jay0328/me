@@ -1,6 +1,6 @@
 const Articles = require('../models/articles');
 const asyncMiddleware = require('../utils/asyncMiddleware');
-const readArticlePreviews = require('../utils/readArticlePreview');
+const { readArticlePreviews, readArticleContent } = require('../utils/readArticleFile');
 
 exports.getArticlesInPage = asyncMiddleware(async (req, res, next) => {
   const page = parseInt(req.params.page, 10);
@@ -23,8 +23,7 @@ exports.getArticle = asyncMiddleware(async (req, res, next) => {
     const article = await Articles.getArticle(year, month, day, url);
     if (article) {
       const { title, tags } = article;
-      const filePath = resolve(__dirname, `../../blog/articles/${year}-${month}-${day}-${title}.md`);
-      const content = await readFileSync(filePath, 'utf-8');
+      const content = await readArticleContent(article);
       res.status(200).json({ title, tags, content });
     }
     else res.status(404).json({ err: '文章不存在' });
