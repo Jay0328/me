@@ -43,7 +43,7 @@ const Footer = ({ classes }) => (
     />
     <p className={classes.copyright}>
       <span>
-        Copyright © YC Blog {new Date().getFullYear()}
+        Copyright © Taku Blog {new Date().getFullYear()}
       </span>
       <br />
       <span>

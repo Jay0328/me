@@ -32,7 +32,7 @@ const routePage = (WrappedComponent, { title, shouldRefetchData }) => {
       document.title = this.handleTitle(title);
     }
 
-    handleTitle = t => typeof t === 'function' ? `${t(this.props)} | YC Blog` : `${t ? `${t} | ` : ''}YC Blog`
+    handleTitle = t => typeof t === 'function' ? `${t(this.props)} | Taku Blog` : `${t ? `${t} | ` : ''}Taku Blog`
 
     render() {
       const { classes } = this.props;
