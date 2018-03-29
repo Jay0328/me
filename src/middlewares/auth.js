@@ -40,16 +40,21 @@ exports.isAuth = asyncMiddleware(async (req, res, next) => {
   if (!authorization) {
     res.status(403).json({});
   }
-  const token = req.headers.authorization.split('Bearer ')[1];
+  const token = authorization.split('Bearer ')[1];
   try {
     const _id = jwt.verify(token, secret);
     const user = await User.findOne({ _id });
     req.isAuth = !!user;
-    next();
+    if (req.isAuth) {
+      next();
+    }
+    else {
+      res.status(401).json({});
+    }
   }
   catch (err) {
+    res.status(403).json({});
     throw err;
-    res.status(401).json({});
   }
 });
 

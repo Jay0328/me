@@ -51,6 +51,18 @@ articlesSchema.statics.getArticle = async function (year, month, day, url) {
     .exec();
 };
 
+articlesSchema.statics.postArticle = async function (articleInfo) {
+  try {
+    const article = new this(articleInfo);
+    const { _id } = article;
+    await article.save();
+    return _id;
+  }
+  catch (err) {
+    throw err;
+  }
+};
+
 const Articles = mongoose.model('Articles', articlesSchema, 'Articles');
 
 module.exports = Articles;

@@ -14,7 +14,7 @@ const categoriesSchema = new Schema({
   }
 });
 
-categoriesSchema.statics.getCategories = async function () {
+categoriesSchema.statics.getCategoriesAndArticlesCount = async function () {
   return await this
     .aggregate()
     .match({})
@@ -36,6 +36,21 @@ categoriesSchema.statics.getArticlesInCategory = async function (categoryName) {
       populate: { path: 'tags', select: ['tagName'] }
     })
     .exec();
+};
+
+categoriesSchema.statics.getCategoryByNameOrNewOne = async function (categoryName) {
+  try {
+    const category = await this.findOne({ categoryName });
+    return category || new this({ categoryName });
+  }
+  catch (err) {
+    throw err;
+  }
+};
+
+categoriesSchema.methods.addArticleToCategory = async function (article) {
+  this.articles.push(article);
+  await this.save();
 };
 
 const Categories = mongoose.model('Categories', categoriesSchema, 'Categories');

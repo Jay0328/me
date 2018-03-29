@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { getArticlesInPage, getArticle } = require('../middlewares/articles');
+const { getArticlesInPage, getArticle, postArticle } = require('../middlewares/articles');
+const { isAuth } = require('../middlewares/auth');
 
 router
   .route('/page/:page')
@@ -8,6 +9,7 @@ router
 
 router
   .route('/article')
-  .get(getArticle);
+  .get(getArticle)
+  .post(isAuth, postArticle);
 
 module.exports = router;
