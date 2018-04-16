@@ -3,7 +3,7 @@ const path = require('path');
 const router = express.Router();
 
 const sendIndex = (req, res) => {
-    res.sendFile(path.join(__dirname, '../../public', 'index.html'));
+    res.sendFile(path.join(__dirname, '../../build', 'index.html'));
 };
 
 // Routers will be solved by client

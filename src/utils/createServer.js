@@ -21,7 +21,7 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(morgan('dev'));
 }
 else {
-  app.use('/app.js', (req, res, next) => {
+  app.use('/*.js', (req, res, next) => {
     req.url = `${req.url}.gz`;
     res.set('Content-Encoding', 'gzip');
     next();
