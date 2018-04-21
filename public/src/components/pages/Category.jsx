@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import { withRouter } from 'react-router';
@@ -38,39 +38,6 @@ const styles = {
   }
 };
 
-const Category = ({ classes, match, articles }) => (
-  <main>
-    <section className={classes.categoryName}>
-      <Link to="/categories/">
-        <i className="far fa-arrow-alt-circle-left"></i>
-      </Link>
-      <h1>{match.params.category}</h1>
-    </section>
-    <section className={classes.articles}>
-      {(articles[match.params.category] || []).map(article => (
-        <ArticlePreview
-          key={`${article.year}-${article.month}-${article.day}-${article.url}`}
-          className={classes.article}
-          {...article}
-        />
-      ))}
-    </section>
-  </main>
-);
-
-Category.propTypes = {
-  classes: PropTypes.shape().isRequired,
-  match: PropTypes.shape().isRequired,
-  articles: PropTypes.shape().isRequired
-};
-
-const CategoryPage = RoutePage(
-  injectSheet(styles)(Category),
-  {
-    title: ({ match }) => match.params.category
-  }
-);
-
 const mapStateToProps = state => ({
   articles: state.getIn(['categories', 'articles'])
 });
@@ -82,11 +49,42 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-const CategoryContainer = ConnectWithToJS(
-  mapStateToProps,
-  mapDispatchToProps,
-  CategoryPage
-);
+@withRouter
+@ConnectWithToJS(mapStateToProps, mapDispatchToProps)
+@RoutePage({
+  title: ({ match }) => match.params.category
+})
+@injectSheet(styles)
+class Category extends PureComponent {
+  static propTypes = {
+    classes: PropTypes.shape().isRequired,
+    match: PropTypes.shape().isRequired,
+    articles: PropTypes.shape().isRequired
+  }
 
-export default withRouter(CategoryContainer);
+  render() {
+    const { classes, match, articles } = this.props;
+    return (
+      <main>
+        <section className={classes.categoryName}>
+          <Link to="/categories/">
+            <i className="far fa-arrow-alt-circle-left"></i>
+          </Link>
+          <h1>{match.params.category}</h1>
+        </section>
+        <section className={classes.articles}>
+          {(articles[match.params.category] || []).map(article => (
+            <ArticlePreview
+              key={`${article.year}-${article.month}-${article.day}-${article.url}`}
+              className={classes.article}
+              {...article}
+            />
+          ))}
+        </section>
+      </main>
+    );
+  }
+}
+
+export default Category;
 

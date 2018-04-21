@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import MarkdownIt from 'markdown-it';
 import hljs from 'highlight.js/lib/highlight';
-import { pure } from 'recompose';
 import { markdownLanguage } from '../../config';
 
 markdownLanguage.forEach(langName => {
@@ -22,23 +21,28 @@ const md = MarkdownIt({
   }
 });
 
-const Markdown = ({ className, content }) => (
-  <div
-    className={className}
-    dangerouslySetInnerHTML={{
-      __html: md.render(content)
-    }}
-  >
-  </div>
-);
+class Markdown extends PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    content: PropTypes.string.isRequired,
+  }
 
-Markdown.propTypes = {
-  className: PropTypes.string,
-  content: PropTypes.string.isRequired,
-};
+  static defaultProps = {
+    className: ''
+  }
 
-Markdown.defaultProps = {
-  className: ''
-};
+  render() {
+    const { className, content } = this.props;
+    return (
+      <div
+        className={className}
+        dangerouslySetInnerHTML={{
+          __html: md.render(content)
+        }}
+      >
+      </div>
+    );
+  }
+}
 
-export default pure(Markdown);
+export default Markdown;

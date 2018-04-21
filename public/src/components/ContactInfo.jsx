@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { pure } from 'recompose';
 import injectSheet from 'react-jss';
 import { facebook, github } from '../../config';
 import { themeColor } from './theme/colors';
@@ -31,26 +30,32 @@ const styles = {
   }
 };
 
-const ContactInfo = ({ classes }) => (
-  <div className={classes.contactInfo}>
-    {
-      contacts.map(({ url, icon }) => (
-        <a
-          key={url}
-          className={classes.icon}
-          target="_blank"
-          rel="external nofollow noopener noreferrer"
-          href={url}
-        >
-          <i className={icon} aria-hidden="true"></i>
-        </a>
-      ))
-    }
-  </div>
-);
+@injectSheet(styles)
+class ContactInfo extends PureComponent {
+  static propTypes = {
+    classes: PropTypes.shape().isRequired
+  }
 
-ContactInfo.propTypes = {
-  classes: PropTypes.shape().isRequired
-};
+  render() {
+    const { classes } = this.props;
+    return (
+      <div className={classes.contactInfo}>
+        {
+          contacts.map(({ url, icon }) => (
+            <a
+              key={url}
+              className={classes.icon}
+              target="_blank"
+              rel="external nofollow noopener noreferrer"
+              href={url}
+            >
+              <i className={icon} aria-hidden="true"></i>
+            </a>
+          ))
+        }
+      </div>
+    );
+  }
+}
 
-export default injectSheet(styles)(pure(ContactInfo));
+export default ContactInfo;

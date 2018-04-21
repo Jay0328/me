@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
-import { pure } from 'recompose';
 import AboutMe from './AboutMe';
 import { md } from './theme/rwd';
 
@@ -14,14 +13,20 @@ const styles = {
   }
 };
 
-const Profile = ({ classes }) => (
-  <aside className={classes.profile}>
-    <AboutMe />
-  </aside>
-);
+@injectSheet(styles)
+class Profile extends PureComponent {
+  static propTypes = {
+    classes: PropTypes.shape().isRequired
+  }
 
-Profile.propTypes = {
-  classes: PropTypes.shape().isRequired
-};
+  render() {
+    const { classes } = this.props;
+    return (
+      <aside className={classes.profile}>
+        <AboutMe />
+      </aside>
+    );
+  }
+}
 
-export default injectSheet(styles)(pure(Profile));
+export default Profile;

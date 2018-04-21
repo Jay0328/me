@@ -16,9 +16,8 @@ const ToJS = WrappedComponent => wrappedComponentProps => {
 
 const ConnectWithToJS = (
   mapStateToProps,
-  mapDispatchToProps,
-  WrappedComponent
-) => connect(
+  mapDispatchToProps
+) => WrappedComponent => connect(
   mapStateToProps,
   mapDispatchToProps
 )(ToJS(WrappedComponent));
