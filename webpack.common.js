@@ -17,7 +17,8 @@ module.exports = {
   },
   output: {
     path: BUILD_DIR,
-    filename: '[name].[chunkhash].js'
+    filename: '[name].[chunkhash].js',
+    publicPath: '/'
   },
   module: {
     rules: [
