@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { verifyAuth, register } = require('../middlewares/auth');
+const { isAuth, verifyAuth, login } = require('../middlewares/auth');
 
 router
   .route('/')
-  .get(verifyAuth)
-  .post(register);
+  .get(isAuth, verifyAuth)
+  .post(login);
 
 module.exports = router;

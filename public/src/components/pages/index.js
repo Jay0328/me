@@ -4,6 +4,7 @@ import Category from './Category';
 import Categories from './Categories';
 import Home from './Home';
 import Login from './Login';
+import PostArticle from './PostArticle';
 import Tags from './Tags';
 
 export {
@@ -13,5 +14,6 @@ export {
   Categories,
   Home,
   Login,
+  PostArticle,
   Tags
 };

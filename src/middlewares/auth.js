@@ -35,21 +35,34 @@ const handleUserError = (err, res) => {
   });
 };
 
-exports.verifyAuth = asyncMiddleware(async (req, res) => {
-  if (!req.headers.authorization) res.status(401).json({});
-  const token = req.headers.authorization.split(' ')[1];
+exports.isAuth = asyncMiddleware(async (req, res, next) => {
+  const { authorization } = req.headers;
+  if (!authorization) {
+    res.status(403).json({});
+  }
+  const token = authorization.split('Bearer ')[1];
   try {
     const _id = jwt.verify(token, secret);
     const user = await User.findOne({ _id });
-    res.status(user ? 200 : 401).json({});
+    req.isAuth = !!user;
+    if (req.isAuth) {
+      next();
+    }
+    else {
+      res.status(401).json({});
+    }
   }
   catch (err) {
+    res.status(403).json({});
     throw err;
-    res.status(401).json({});
   }
 });
 
-exports.register = asyncMiddleware(async (req, res, next) => {
+exports.verifyAuth = asyncMiddleware(async (req, res) => {
+  res.status(req.isAuth ? 200 : 401).json({});
+});
+
+exports.login = asyncMiddleware(async (req, res, next) => {
   const { username: { value: username } } = req.body;
   const { password1: { value: password1 } } = req.body;
   const { password2: { value: password2 } } = req.body;

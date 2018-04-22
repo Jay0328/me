@@ -1,9 +1,9 @@
 const Categories = require('../models/categories');
 const asyncMiddleware = require('../utils/asyncMiddleware');
 
-exports.getCategories = asyncMiddleware(async (req, res, next) => {
+exports.getCategoriesAndArticlesCount = asyncMiddleware(async (req, res, next) => {
   try {
-    const categories = await Categories.getCategories();
+    const categories = await Categories.getCategoriesAndArticlesCount();
     res.status(200).json({ categories });
   }
   catch (err) {

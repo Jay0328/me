@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import RoutePage from '../hoc/RoutePage';
@@ -16,19 +16,21 @@ const styles = {
   }
 };
 
-const About = ({ classes }) => (
-  <main className={classes.about}>
-    <p>Coming Soon...</p>
-  </main>
-);
+@RoutePage({ title: 'About' })
+@injectSheet(styles)
+class About extends PureComponent {
+  static propTypes = {
+    classes: PropTypes.shape().isRequired
+  }
 
-About.propTypes = {
-  classes: PropTypes.shape().isRequired
-};
+  render() {
+    const { classes } = this.props;
+    return (
+      <main className={classes.about}>
+        <p>Coming Soon...</p>
+      </main>
+    );
+  }
+}
 
-const AboutPage = RoutePage(
-  injectSheet(styles)(About),
-  { title: 'About' }
-);
-
-export default AboutPage;
+export default About;

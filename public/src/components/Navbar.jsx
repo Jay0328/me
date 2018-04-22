@@ -118,6 +118,7 @@ const styles = {
   }
 };
 
+@injectSheet(styles)
 class Navbar extends Component {
   static propTypes = {
     classes: PropTypes.shape().isRequired
@@ -193,4 +194,4 @@ class Navbar extends Component {
   }
 }
 
-export default injectSheet(styles)(Navbar);
+export default Navbar;

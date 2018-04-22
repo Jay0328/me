@@ -1,4 +1,4 @@
-const { readFile, readFileSync } = require('fs');
+const { readFile, readFileSync, writeFileSync } = require('fs');
 const path = require('path');
 
 exports.readArticlePreviews = articles => new Promise((resolve, reject) => {
@@ -21,4 +21,9 @@ exports.readArticlePreviews = articles => new Promise((resolve, reject) => {
 exports.readArticleContent = async ({ year, month, day, title }) => {
   const filePath = path.resolve(__dirname, `../../blog/articles/${year}-${month}-${day}-${title}.md`);
   return await readFileSync(filePath, 'utf-8');
+};
+
+exports.writeArticleFile = async ({ year, month, day, title, content }) => {
+  const filePath = path.resolve(__dirname, `../../blog/articles/${year}-${month}-${day}-${title}.md`);
+  await writeFileSync(filePath, content);
 };

@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import { Link } from 'react-router-dom';
-import { pure } from 'recompose';
 import Card from './Card';
 import TagLabel from './TagLabel';
 import Markdown from './Markdown';
@@ -37,68 +36,72 @@ const styles = {
   }
 };
 
-const ArticlePreview = ({ classes, className, year, month, day, title, url, tags, preview }) => {
-  const articleTitle = (
-    <Link
-      className={classes.title}
-      to={`/${year}/${month}/${day}/${url}/`}
-    >
-      {title}
-    </Link>
-  );
-  const articleMeta = (
-    <Link
-      className={classes.meta}
-      to={`/${year}/${month}/${day}/${url}/`}
-    >
-      <i className="far fa-calendar-alt" aria-hidden="true"></i>
-      {`${year}/${month}/${day}`}
-    </Link>
-  );
-  const articleTags = (
-    <section className={classes.tags}>
-      {tags.map(({ tagName }) => (
-        <TagLabel
-          key={tagName}
-          tagName={tagName}
-          color={lightGrey}
-          hoverColor={themeColor}
-          backgroundColor="white"
-          borderColor={lightGrey}
-          hoverBorderColor={themeColor}
-        />
-      ))}
-    </section>
-  );
-  const articlePreviewContent = (
-    <Markdown content={preview} />
-  );
+@injectSheet(styles)
+class ArticlePreview extends PureComponent {
+  static propTypes = {
+    classes: PropTypes.shape().isRequired,
+    className: PropTypes.string,
+    year: PropTypes.string.isRequired,
+    month: PropTypes.string.isRequired,
+    day: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
+    tags: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+    preview: PropTypes.string
+  }
 
-  return (
-    <Card className={className}>
-      {articleTitle}
-      {articleMeta}
-      {articleTags}
-      {articlePreviewContent}
-    </Card>
-  );
-};
+  static defaultProps = {
+    className: '',
+    preview: ''
+  }
 
-ArticlePreview.propTypes = {
-  classes: PropTypes.shape().isRequired,
-  className: PropTypes.string,
-  year: PropTypes.string.isRequired,
-  month: PropTypes.string.isRequired,
-  day: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
-  tags: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  preview: PropTypes.string
-};
+  render() {
+    const { classes, className, year, month, day, title, url, tags, preview } = this.props;
+    const articleTitle = (
+      <Link
+        className={classes.title}
+        to={`/${year}/${month}/${day}/${url}/`}
+      >
+        {title}
+      </Link>
+    );
+    const articleMeta = (
+      <Link
+        className={classes.meta}
+        to={`/${year}/${month}/${day}/${url}/`}
+      >
+        <i className="far fa-calendar-alt" aria-hidden="true"></i>
+        {`${year}/${month}/${day}`}
+      </Link>
+    );
+    const articleTags = (
+      <section className={classes.tags}>
+        {tags.map(({ tagName }) => (
+          <TagLabel
+            key={tagName}
+            tagName={tagName}
+            color={lightGrey}
+            hoverColor={themeColor}
+            backgroundColor="white"
+            borderColor={lightGrey}
+            hoverBorderColor={themeColor}
+          />
+        ))}
+      </section>
+    );
+    const articlePreviewContent = (
+      <Markdown content={preview} />
+    );
 
-ArticlePreview.defaultProps = {
-  className: '',
-  preview: ''
-};
+    return (
+      <Card className={className}>
+        {articleTitle}
+        {articleMeta}
+        {articleTags}
+        {articlePreviewContent}
+      </Card>
+    );
+  }
+}
 
-export default injectSheet(styles)(pure(ArticlePreview));
+export default ArticlePreview;
