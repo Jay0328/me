@@ -18,8 +18,8 @@ const fetchData = (type, url, keys, params) => async dispatch => {
     }, {});
     dispatch(receiveData(type, data, params));
   }
-  catch ({ err }) {
-    throw err;
+  catch ({ body: { message } }) {
+    throw message;
   }
 };
 
@@ -29,8 +29,8 @@ const pageActions = (type, url, keys, shouldFetchData) => params => async (dispa
       await dispatch(fetchData(type, url, keys, params));
     }
   }
-  catch (err) {
-    throw err;
+  catch ({ body: { message } }) {
+    throw message;
   }
 };
 

@@ -11,18 +11,20 @@ export const LOGOUT = 'LOGOUT';
 
 const check = data => new Promise((resolve, reject) => {
   const pattern = /^[A-Za-z0-9]{4,16}$/;
-  let rejectReason = [];
+  const message = [];
   let err = false;
   Object.keys(data).forEach(field => {
     if (!pattern.test(data[field].value) || !data[field].value) {
       err = true;
-      rejectReason = [...rejectReason, {
+      message.push({
         field,
         errMsg: '4~16英文或數字'
-      }];
+      });
     }
   });
-  if (err) reject({ err: rejectReason });
+  if (err) {
+    reject({ body: { message } });
+  }
   resolve();
 });
 
@@ -55,7 +57,7 @@ export const loginOnChange = (field, value) => ({
 export const login = data => async dispatch => {
   try {
     await check(data);
-    const { token } = await request('/api/authenticate', {
+    const { body: { token } } = await request('/api/authenticate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
@@ -65,8 +67,8 @@ export const login = data => async dispatch => {
     dispatch(loginSuccess(token));
     dispatch(push('/'));
   }
-  catch ({ err }) {
-    err.forEach(({ field, errMsg }) => {
+  catch ({ body: { message } }) {
+    message.forEach(({ field, errMsg }) => {
       dispatch(loginFail(field, errMsg));
     });
   }
@@ -76,16 +78,18 @@ export const verifyAuth = () => async dispatch => {
   const token = localStorage.getItem('token');
   if (token) {
     try {
-      await request('/api/authenticate', {
+      const { ok } = await request('/api/authenticate', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
-      dispatch(loginSuccess(token));
+      if (ok) {
+        dispatch(loginSuccess(token));
+      }
     }
     catch (err) {
-      Promise.reject('token錯誤');
+      throw new Error('token錯誤');
     }
   }
 };

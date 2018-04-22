@@ -1,13 +1,14 @@
-const express = require('express');
+const Router = require('koa-router');
+const send = require('koa-send');
 const path = require('path');
-const router = express.Router();
+const router = new Router();
 
-const sendIndex = (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../../public/build/index.html'));
+const sendIndex = async ctx => {
+    await send(ctx, 'index.html', { root: path.resolve(__dirname, '../../public/build') });
 };
 
 // Routers will be solved by client
-router.route('*')
-    .get(sendIndex);
+router
+    .get('*', sendIndex);
 
 module.exports = router;
