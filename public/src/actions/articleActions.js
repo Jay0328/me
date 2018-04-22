@@ -5,7 +5,7 @@ export const RECEIVE_ARTICLES_LIST = 'RECEIVE_ARTICLES_LIST';
 
 export const fetchArticlesListIfNeed = pageActions(
   RECEIVE_ARTICLES_LIST,
-  ({ page }) => `/api/articles/page/${page}`,
+  ({ page }) => `/api/articles?page=${page}`,
   ['articles', 'totalPage'],
   (state, { page }) => state.getIn(['articlesList', 'page']) !== page
 );

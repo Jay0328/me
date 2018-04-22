@@ -83,7 +83,7 @@ class PostArticle extends PureComponent {
     const { tagInput, tagOptions, ...body } = this.state;
     if (canUpload && token) {
       try {
-        await request('/api/articles/article', {
+        const { ok } = await request('/api/articles/article', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -91,7 +91,9 @@ class PostArticle extends PureComponent {
           },
           body: JSON.stringify(body)
         });
-        this.redirect(body);
+        if (ok) {
+          this.redirect(body);
+        }
       }
       catch (err) {
         throw err;
