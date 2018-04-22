@@ -8,12 +8,12 @@ const receiveData = (type, data, params) => ({
 
 const fetchData = (type, url, keys, params) => async dispatch => {
   try {
-    const response = await request(typeof url === 'function' ? url(params) : url, {
+    const { body } = await request(typeof url === 'function' ? url(params) : url, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     });
     const data = keys.reduce((acc, key) => {
-      acc[key] = response[key];
+      acc[key] = body[key];
       return acc;
     }, {});
     dispatch(receiveData(type, data, params));
