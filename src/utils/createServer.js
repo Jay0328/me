@@ -12,9 +12,6 @@ const indexRoute = require('./indexRoute');
 
 const createServer = () => {
   const app = new Koa();
-  const staticConfig = {
-    maxage: 604800000 // one week
-  };
 
   app.use(errorHandler);
   app.use(helmet());
@@ -27,9 +24,9 @@ const createServer = () => {
     app.use(logger());
   }
   //  Static file
-  app.use(serve(path.resolve(__dirname, '../../public/build'), staticConfig));
-  app.use(serve(path.resolve(__dirname, '../../public/assets'), staticConfig));
-  app.use(serve(path.resolve(__dirname, '../../blog'), staticConfig));
+  app.use(serve(path.resolve(__dirname, '../../public/build'), config.server.staticConfig));
+  app.use(serve(path.resolve(__dirname, '../../public/assets'), config.server.staticConfig));
+  app.use(serve(path.resolve(__dirname, '../../blog'), config.server.staticConfig));
 
   //  Api
   app.use(routers.routes());
