@@ -1,10 +1,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter, Route } from 'react-router-dom';
+import { withRouter, Switch, Route } from 'react-router-dom';
 import injectSheet from 'react-jss';
 import Navbar from './Navbar';
 import Header from './Header';
 import Footer from './Footer';
+import RedirectRoute from './hoc/RedirectRoute';
+import ConnecWithToJS from './hoc/ConnectWithToJS';
 
 import {
   About,
@@ -13,6 +15,7 @@ import {
   Categories,
   Home,
   Login,
+  PostArticle,
   Tags
 } from './pages';
 
@@ -30,27 +33,49 @@ const styles = {
   }
 };
 
-@injectSheet(styles)
+const mapStateToProps = state => ({
+  isAuthenticated: state.getIn(['auth', 'isAuthenticated']),
+});
+
 @withRouter
+@ConnecWithToJS(mapStateToProps, null)
+@injectSheet(styles)
 class App extends PureComponent {
   static propTypes = {
-    classes: PropTypes.shape().isRequired
+    classes: PropTypes.shape().isRequired,
+    isAuthenticated: PropTypes.bool.isRequired
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, isAuthenticated } = this.props;
     return (
       <main className={classes.main}>
         <Navbar />
         <Header />
-        <Route exact strict path='/' component={Home} />
-        <Route exact strict path='/page/:page/' component={Home} />
-        <Route exact strict path='/about/' component={About} />
-        <Route exact strict path='/tags/:tag?/' component={Tags} />
-        <Route exact strict path='/categories/' component={Categories} />
-        <Route exact strict path='/categories/:category/' component={Category} />
-        <Route exact strict path='/:year/:month/:day/:url/' component={Article} />
-        <Route exact strict path='/login/' component={Login} />
+        <Switch>
+          <Route exact strict path='/' component={Home} />
+          <Route exact strict path='/page/:page/' component={Home} />
+          <Route exact strict path='/about/' component={About} />
+          <Route exact strict path='/tags/:tag?/' component={Tags} />
+          <Route exact strict path='/categories/' component={Categories} />
+          <Route exact strict path='/categories/:category/' component={Category} />
+          <Route exact strict path='/:year/:month/:day/:url/' component={Article} />
+          <RedirectRoute
+            exact
+            strict
+            path='/login/'
+            redirect={isAuthenticated}
+            redirectUrl='/'
+            component={Login}
+          />
+          <RedirectRoute
+            exact
+            strict
+            path='/admin/post-article/'
+            redirect={!isAuthenticated}
+            component={PostArticle}
+          />
+        </Switch>
         <Footer />
       </main>
     );
