@@ -1,6 +1,6 @@
 import 'whatwg-fetch';
 
-const parseResponse = res => new Promise(resolve => {
+const parseResponse = async res => {
   const resType = res.headers.get('Content-Type');
   const result = {
     status: res.status,
@@ -17,22 +17,30 @@ const parseResponse = res => new Promise(resolve => {
     bodyHandler = 'blob';
   }
 
-  if (!bodyHandler) {
-    resolve({ ...result });
+  try {
+    if (!bodyHandler) {
+      return result;
+    }
+    const body = await res[bodyHandler]();
+    return { ...result, body };
   }
-  else {
-    res[bodyHandler]().then(body => resolve({ ...result, body }));
+  catch (e) {
+    throw e;
   }
-});
+};
 
-const request = (url, options) => new Promise((resolve, reject) => {
-  fetch(url, options)
-    .then(parseResponse)
-    .then(res => {
-      if (res.ok) return resolve(res);
-      return reject(res);
-    })
-    .catch(error => reject(error));
-});
+const request = async (url, options) => {
+  try {
+    const response = await fetch(url, options);
+    const result = await parseResponse(response);
+    if (result.ok) {
+      return result;
+    }
+    throw result;
+  }
+  catch (e) {
+    throw e;
+  }
+};
 
 export default request;
