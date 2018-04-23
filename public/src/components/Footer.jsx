@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { pure } from 'recompose';
 import injectSheet from 'react-jss';
 import ContactInfo from './ContactInfo';
 import { themeColor, grey, lightGrey } from './theme/colors';
@@ -17,14 +16,7 @@ const styles = {
     color: lightGrey,
     marginTop: '20px',
     lineHeight: 1.8,
-    '& span': {
-      '&:first-child': {
-        marginRight: '10px'
-      },
-      '&:nth-child(3)': {
-        marginLeft: '30px'
-      }
-    },
+    textAlign: 'center',
     '& a': {
       textDecoration: 'none',
       color: themeColor,
@@ -35,33 +27,39 @@ const styles = {
   }
 };
 
-const Footer = ({ classes }) => (
-  <footer className={classes.footer}>
-    <ContactInfo
-      color={grey}
-      fontSize={50}
-    />
-    <p className={classes.copyright}>
-      <span>
-        Copyright © YC Blog {new Date().getFullYear()}
-      </span>
-      <br />
-      <span>
-        Theme by&nbsp;
-        <a
-          target="_blank"
-          rel="external nofollow noopener noreferrer"
-          href="http://huangxuan.me/"
-        >
-          Hux
-        </a>
-      </span>
-    </p>
-  </footer>
-);
+@injectSheet(styles)
+class Footer extends PureComponent {
+  static propTypes = {
+    classes: PropTypes.shape().isRequired
+  }
 
-Footer.propTypes = {
-  classes: PropTypes.shape().isRequired
-};
+  render() {
+    const { classes } = this.props;
+    return (
+      <footer className={classes.footer}>
+        <ContactInfo
+          color={grey}
+          fontSize={50}
+        />
+        <p className={classes.copyright}>
+          <span>
+            Copyright © Taku Blog {new Date().getFullYear()}
+          </span>
+          <br />
+          <span>
+            Theme by&nbsp;
+            <a
+              target="_blank"
+              rel="external nofollow noopener noreferrer"
+              href="http://huangxuan.me/"
+            >
+              Hux
+            </a>
+          </span>
+        </p>
+      </footer>
+    );
+  }
+}
 
-export default injectSheet(styles)(pure(Footer));
+export default Footer;

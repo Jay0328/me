@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import { Link } from 'react-router-dom';
@@ -61,66 +61,6 @@ const styles = {
   }
 };
 
-const Tags = ({ classes, match, tags }) => {
-  const tagFilter = match.params.tag;
-  const tagsCloud = (
-    <section className={classes.cloud}>
-      {tags.map(({ tagName, articles }) => (
-        <TagLabel
-          key={tagName}
-          tagName={tagName}
-          hoverBackgroundColor={themeColor}
-          articleNum={articles.length}
-        />
-      ))}
-    </section>
-  );
-  const tagsLists = (
-    <section className={classes.lists}>
-      {tags
-        .filter(({ tagName }) => !tagFilter || tagFilter === tagName.replace(' ', ''))
-        .map(({ tagName, articles }) => (
-          <section key={tagName}>
-            <span className={classes.listName}>
-              <i className="fa fa-tag" aria-hidden="true"></i>
-              {tagName}
-            </span>
-            {articles.map(({ year, month, day, title, url }) => (
-              <main
-                className={classes.article}
-                key={`/${year}/${month}/${day}/${url}`}
-              >
-                <Link to={`/${year}/${month}/${day}/${url}/`}>
-                  <h3>{title}</h3>
-                </Link>
-                <hr />
-              </main>
-            ))}
-          </section>
-        ))}
-    </section>
-  );
-  return (
-    <main>
-      {tagsCloud}
-      {tagsLists}
-    </main>
-  );
-};
-
-Tags.propTypes = {
-  classes: PropTypes.shape().isRequired,
-  match: PropTypes.shape().isRequired,
-  tags: PropTypes.arrayOf(PropTypes.shape()).isRequired
-};
-
-const TagsPage = RoutePage(
-  injectSheet(styles)(Tags),
-  {
-    title: ({ match }) => match.params.tag || 'Tags'
-  }
-);
-
 const mapStateToProps = state => ({
   tags: state.get('tags')
 });
@@ -131,11 +71,66 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-const TagsContainer = ConnectWithToJS(
-  mapStateToProps,
-  mapDispatchToProps,
-  TagsPage
-);
+@withRouter
+@ConnectWithToJS(mapStateToProps, mapDispatchToProps)
+@RoutePage({
+  title: ({ match }) => match.params.tag || 'Tags'
+})
+@injectSheet(styles)
+class Tags extends PureComponent {
+  static propTypes = {
+    classes: PropTypes.shape().isRequired,
+    match: PropTypes.shape().isRequired,
+    tags: PropTypes.arrayOf(PropTypes.shape()).isRequired
+  }
 
-export default withRouter(TagsContainer);
+  render() {
+    const { classes, match, tags } = this.props;
+    const tagFilter = match.params.tag;
+    const tagsCloud = (
+      <section className={classes.cloud}>
+        {tags.map(({ tagName, articles }) => (
+          <TagLabel
+            key={tagName}
+            tagName={tagName}
+            hoverBackgroundColor={themeColor}
+            articleNum={articles.length}
+          />
+        ))}
+      </section>
+    );
+    const tagsLists = (
+      <section className={classes.lists}>
+        {tags
+          .filter(({ tagName }) => !tagFilter || tagFilter === tagName.replace(' ', ''))
+          .map(({ tagName, articles }) => (
+            <section key={tagName}>
+              <span className={classes.listName}>
+                <i className="fa fa-tag" aria-hidden="true"></i>
+                {tagName}
+              </span>
+              {articles.map(({ year, month, day, title, url }) => (
+                <main
+                  className={classes.article}
+                  key={`/${year}/${month}/${day}/${url}`}
+                >
+                  <Link to={`/${year}/${month}/${day}/${url}/`}>
+                    <h3>{title}</h3>
+                  </Link>
+                  <hr />
+                </main>
+              ))}
+            </section>
+          ))}
+      </section>
+    );
+    return (
+      <main>
+        {tagsCloud}
+        {tagsLists}
+      </main>
+    );
+  }
+}
 
+export default Tags;

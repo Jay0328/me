@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import { withRouter } from 'react-router';
@@ -22,35 +22,6 @@ const styles = {
   }
 };
 
-const Home = ({ classes, articlesList, page, totalPage }) => (
-  <main className={classes.home}>
-    <section className={classes.list}>
-      {articlesList.map(article => (
-        <ArticlePreview
-          key={`${article.year}-${article.month}-${article.day}-${article.url}`}
-          {...article}
-        />
-      ))}
-      <Pagination baseUrl='/' page={page} totalPage={totalPage} />
-    </section>
-    <Profile />
-  </main>
-);
-
-Home.propTypes = {
-  classes: PropTypes.shape().isRequired,
-  articlesList: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  page: PropTypes.number.isRequired,
-  totalPage: PropTypes.number.isRequired
-};
-
-const HomePage = RoutePage(
-  injectSheet(styles)(Home),
-  {
-    shouldRefetchData: (props, nextProps) => props.match.params.page !== nextProps.match.params.page
-  }
-);
-
 const mapStateToProps = state => ({
   articlesList: state.getIn(['articlesList', 'articles']),
   page: state.getIn(['articlesList', 'page']),
@@ -65,10 +36,37 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-const HomeContainer = ConnectWithToJS(
-  mapStateToProps,
-  mapDispatchToProps,
-  HomePage
-);
+@withRouter
+@ConnectWithToJS(mapStateToProps, mapDispatchToProps)
+@RoutePage({
+  shouldRefetchData: (props, nextProps) => props.match.params.page !== nextProps.match.params.page
+})
+@injectSheet(styles)
+class Home extends PureComponent {
+  static propTypes = {
+    classes: PropTypes.shape().isRequired,
+    articlesList: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+    page: PropTypes.number.isRequired,
+    totalPage: PropTypes.number.isRequired
+  }
 
-export default withRouter(HomeContainer);
+  render() {
+    const { classes, articlesList, page, totalPage } = this.props;
+    return (
+      <main className={classes.home}>
+        <section className={classes.list}>
+          {articlesList.map(article => (
+            <ArticlePreview
+              key={`${article.year}-${article.month}-${article.day}-${article.url}`}
+              {...article}
+            />
+          ))}
+          <Pagination baseUrl='/' page={page} totalPage={totalPage} />
+        </section>
+        <Profile />
+      </main>
+    );
+  }
+}
+
+export default Home;

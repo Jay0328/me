@@ -118,8 +118,9 @@ const styles = {
   }
 };
 
+@injectSheet(styles)
 class Navbar extends Component {
-  propTypes = {
+  static propTypes = {
     classes: PropTypes.shape().isRequired
   }
 
@@ -177,7 +178,7 @@ class Navbar extends Component {
         onBlur={this.closeMenu}
       >
         <div className={classes.brand}>
-          <Link to="/">YC Blog</Link>
+          <Link to="/">Taku Blog</Link>
         </div>
         <div className={`${classes.links} ${isOpen ? 'is-open' : ''}`}>
           {linkUrl.map(l => <Link to={l.url} key={l.name}>{l.name}</Link>)}
@@ -193,4 +194,4 @@ class Navbar extends Component {
   }
 }
 
-export default injectSheet(styles)(Navbar);
+export default Navbar;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import { withRouter } from 'react-router';
@@ -56,42 +56,6 @@ const styles = {
   }
 };
 
-const Categories = ({ classes, categories }) => (
-  <main className={classes.categories}>
-    {categories.map(({ categoryCover, categoryName, articlesCount }) => (
-      <Link
-        className={classes.link}
-        key={categoryName}
-        to={`/categories/${categoryName}/`}
-      >
-        <Card className={classes.category}>
-          <section
-            className={classes.categoryCover}
-            style={{
-              backgroundImage: categoryCover
-            }}
-          >
-            <span className={classes.categoryName}>{categoryName}</span>
-          </section>
-          <span className={classes.count}>共有{articlesCount}篇文章</span>
-        </Card>
-      </Link>
-    ))}
-  </main>
-);
-
-Categories.propTypes = {
-  classes: PropTypes.shape().isRequired,
-  categories: PropTypes.arrayOf(PropTypes.shape()).isRequired
-};
-
-const CategoriesPage = RoutePage(
-  injectSheet(styles)(Categories),
-  {
-    title: 'Categories'
-  }
-);
-
 const mapStateToProps = state => ({
   categories: state.getIn(['categories', 'categories'])
 });
@@ -102,11 +66,45 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-const CategoriesContainer = ConnectWithToJS(
-  mapStateToProps,
-  mapDispatchToProps,
-  CategoriesPage
-);
+@withRouter
+@ConnectWithToJS(mapStateToProps, mapDispatchToProps)
+@RoutePage({
+  title: 'Categories'
+})
+@injectSheet(styles)
+class Categories extends PureComponent {
+  static propTypes = {
+    classes: PropTypes.shape().isRequired,
+    categories: PropTypes.arrayOf(PropTypes.shape()).isRequired
+  }
 
-export default withRouter(CategoriesContainer);
+  render() {
+    const { classes, categories } = this.props;
+    return (
+      <main className={classes.categories}>
+        {categories.map(({ categoryCover, categoryName, articlesCount }) => (
+          <Link
+            className={classes.link}
+            key={categoryName}
+            to={`/categories/${categoryName}/`}
+          >
+            <Card className={classes.category}>
+              <section
+                className={classes.categoryCover}
+                style={{
+                  backgroundImage: categoryCover
+                }}
+              >
+                <span className={classes.categoryName}>{categoryName}</span>
+              </section>
+              <span className={classes.count}>共有{articlesCount}篇文章</span>
+            </Card>
+          </Link>
+        ))}
+      </main>
+    );
+  }
+}
+
+export default Categories;
 

@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
-import { pure } from 'recompose';
 import { themeColor, opacityColor } from './theme/colors';
 
 const styles = {
@@ -18,20 +17,26 @@ const styles = {
   }
 };
 
-const Card = ({ classes, className, children }) => (
-  <main className={`${classes.card}${` ${className}`}`}>
-    {children}
-  </main>
-);
+@injectSheet(styles)
+class Card extends PureComponent {
+  static propTypes = {
+    classes: PropTypes.shape().isRequired,
+    className: PropTypes.string,
+    children: PropTypes.node.isRequired
+  }
 
-Card.propTypes = {
-  classes: PropTypes.shape().isRequired,
-  className: PropTypes.string,
-  children: PropTypes.node.isRequired
-};
+  static defaultProps = {
+    className: ''
+  }
 
-Card.defaultProps = {
-  className: ''
-};
+  render() {
+    const { classes, className, children } = this.props;
+    return (
+      <main className={`${classes.card}${` ${className}`}`}>
+        {children}
+      </main>
+    );
+  }
+}
 
-export default injectSheet(styles)(pure(Card));
+export default Card;

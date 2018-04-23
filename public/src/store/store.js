@@ -7,7 +7,9 @@ import reducers from '../reducers';
 const initialState = Map();
 
 const create = history => {
-  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  const isProduction = process.env.NODE_ENV === 'production';
+  const composeEnhancers = (!isProduction && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__)
+    || compose;
   const middleware = [routerMiddleware(history), reduxThunk];
   return createStore(
     reducers,

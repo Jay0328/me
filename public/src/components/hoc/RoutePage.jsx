@@ -7,8 +7,20 @@ const styles = {
   container
 };
 
-const routePage = (WrappedComponent, { title, shouldRefetchData }) => {
+const routePage = ({ title, shouldRefetchData }) => WrappedComponent => {
+  @injectSheet(styles)
   class RoutePage extends Component {
+    static propTypes = {
+      classes: PropTypes.shape().isRequired,
+      fetchData: PropTypes.func
+    }
+
+    static defaultProps = {
+      fetchData: () => { }
+    }
+
+    static displayName = `RoutePage(${WrappedComponent.displayName || WrappedComponent.name || 'Component'})`
+
     constructor(props) {
       super(props);
       document.title = this.handleTitle(title);
@@ -18,7 +30,7 @@ const routePage = (WrappedComponent, { title, shouldRefetchData }) => {
       const { props } = this;
       const { fetchData } = props;
       scrollTo(0, 0);
-      if (fetchData) fetchData(props);
+      fetchData(props);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -32,7 +44,7 @@ const routePage = (WrappedComponent, { title, shouldRefetchData }) => {
       document.title = this.handleTitle(title);
     }
 
-    handleTitle = t => typeof t === 'function' ? `${t(this.props)} | YC Blog` : `${t ? `${t} | ` : ''}YC Blog`
+    handleTitle = t => typeof t === 'function' ? `${t(this.props)} | Taku Blog` : `${t ? `${t} | ` : ''}Taku Blog`
 
     render() {
       const { classes } = this.props;
@@ -43,12 +55,7 @@ const routePage = (WrappedComponent, { title, shouldRefetchData }) => {
       );
     }
   }
-  RoutePage.displayName = `RoutePage(${WrappedComponent.displayName || WrappedComponent.name || 'Component'})`;
-  RoutePage.propTypes = {
-    classes: PropTypes.shape().isRequired,
-    fetchData: PropTypes.func.isRequired
-  };
-  return injectSheet(styles)(RoutePage);
+  return RoutePage;
 };
 
 export default routePage;

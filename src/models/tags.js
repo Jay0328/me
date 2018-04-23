@@ -27,6 +27,26 @@ tagsSchema.statics.getArticlesInTags = async function () {
     .exec();
 };
 
+tagsSchema.statics.getTagsByNameOrNewSome = async function (tags) {
+  try {
+    const ret = [];
+    await tags.reduce(async (acc, tagName) => {
+      const tag = await this.findOne({ tagName }) || new this({ tagName });
+      ret.push(tag);
+      return acc;
+    }, null);
+    return ret;
+  }
+  catch (err) {
+    throw err;
+  }
+};
+
+tagsSchema.methods.addArticleToTag = async function (article) {
+  this.articles.push(article);
+  await this.save();
+};
+
 const Tags = mongoose.model('Tags', tagsSchema, 'Tags');
 
 module.exports = Tags;
