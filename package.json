@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/8497107117/me.git"
+    "url": "git+https://github.com/Jay0328/me.git"
   },
   "author": "YuChieh Chen",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/8497107117/me/issues"
+    "url": "https://github.com/Jay0328/me/issues"
   },
-  "homepage": "https://github.com/8497107117/me#readme",
+  "homepage": "https://github.com/Jay0328/me#readme",
   "dependencies": {
     "highlight.js": "^9.12.0",
     "history": "^4.7.2",

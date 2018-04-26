@@ -93,7 +93,7 @@ class HeaderContent extends PureComponent {
     const { classes, mode, date, title, tags } = this.props;
     let headerTitle;
     if (mode === 'home') {
-      headerTitle = 'Taku Blog';
+      headerTitle = 'Jay Blog';
     }
     else if (mode === 'article') {
       headerTitle = title;
