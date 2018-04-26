@@ -178,7 +178,7 @@ class Navbar extends Component {
         onBlur={this.closeMenu}
       >
         <div className={classes.brand}>
-          <Link to="/">Taku Blog</Link>
+          <Link to="/">Jay Blog</Link>
         </div>
         <div className={`${classes.links} ${isOpen ? 'is-open' : ''}`}>
           {linkUrl.map(l => <Link to={l.url} key={l.name}>{l.name}</Link>)}

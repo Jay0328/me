@@ -34,7 +34,7 @@ class PostArticle extends PureComponent {
 
   constructor(props) {
     super(props);
-    document.title = 'Post Article | Taku Blog';
+    document.title = 'Post Article | Jay Blog';
     this.state = {
       year: '',
       month: '',
