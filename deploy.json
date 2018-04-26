@@ -3,10 +3,7 @@
     {
       "name": "blog-server",
       "script": "index.js",
-      "args": [
-        "-i",
-        "4"
-      ],
+      "instances": 4,
       "env_production": {
         "NODE_ENV": "production"
       },
