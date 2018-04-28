@@ -4,14 +4,16 @@ import injectSheet from 'react-jss';
 import ConnectWithToJS from '../hoc/ConnectWithToJS';
 import InputField from '../InputField';
 import { pristineLoginForm, loginOnChange, login } from '../../actions/authActions';
+import { navHeight } from '../theme/navbar';
 
 const styles = {
   form: {
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 'calc(50% - 150px)',
-    paddingBottom: 'calc(150px)'
+    height: '100vh',
+    paddingTop: navHeight
   }
 };
 
