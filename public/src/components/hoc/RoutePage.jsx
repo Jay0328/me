@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
+import ConnectWithToJS from './ConnectWithToJS';
+import Loading from '../Loading';
 import getDisplayName from '../../utils/getDisplayName';
 import container from '../theme/container';
 
@@ -8,11 +10,17 @@ const styles = {
   container
 };
 
+const mapStateToProps = state => ({
+  isFetching: state.getIn(['UI', 'isFetching'])
+});
+
 const routePage = ({ title, shouldRefetchData }) => WrappedComponent => {
+  @ConnectWithToJS(mapStateToProps)
   @injectSheet(styles)
   class RoutePage extends Component {
     static propTypes = {
       classes: PropTypes.shape().isRequired,
+      isFetching: PropTypes.bool.isRequired,
       fetchData: PropTypes.func
     }
 
@@ -45,10 +53,10 @@ const routePage = ({ title, shouldRefetchData }) => WrappedComponent => {
     handleTitle = t => typeof t === 'function' ? `${t(this.props)} | Jay Blog` : `${t ? `${t} | ` : ''}Jay Blog`
 
     render() {
-      const { classes } = this.props;
+      const { classes, isFetching } = this.props;
       return (
         <main className={classes.container}>
-          <WrappedComponent {...this.props} />
+          {!isFetching ? <WrappedComponent {...this.props} /> : <Loading />}
         </main>
       );
     }
