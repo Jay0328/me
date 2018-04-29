@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
+import getDisplayName from '../../utils/getDisplayName';
 import container from '../theme/container';
 
 const styles = {
@@ -19,7 +20,7 @@ const routePage = ({ title, shouldRefetchData }) => WrappedComponent => {
       fetchData: () => { }
     }
 
-    static displayName = `RoutePage(${WrappedComponent.displayName || WrappedComponent.name || 'Component'})`
+    static displayName = `RoutePage(${getDisplayName(WrappedComponent)})`
 
     constructor(props) {
       super(props);
