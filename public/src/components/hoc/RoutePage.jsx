@@ -33,15 +33,15 @@ const routePage = ({ title, shouldRefetchData }) => WrappedComponent => {
       fetchData(props);
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentDidUpdate() {
       scrollTo(0, 0);
-      if (shouldRefetchData && shouldRefetchData(this.props, nextProps)) {
-        this.props.fetchData(nextProps);
-      }
     }
 
-    componentDidUpdate() {
-      document.title = this.handleTitle(title);
+    getSnapshotBeforeUpdate(prevProps) {
+      if (shouldRefetchData && shouldRefetchData(prevProps, this.props)) {
+        this.props.fetchData(this.props);
+      }
+      return null;
     }
 
     handleTitle = t => typeof t === 'function' ? `${t(this.props)} | Jay Blog` : `${t ? `${t} | ` : ''}Jay Blog`
