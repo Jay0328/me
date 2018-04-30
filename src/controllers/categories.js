@@ -13,6 +13,17 @@ exports.getCategoriesAndArticlesCount = async (ctx, next) => {
   }
 };
 
+exports.getCategoryNames = async ctx => {
+  try {
+    const categories = await Categories.getCategoriesAndArticlesCount();
+    ctx.status = 200;
+    ctx.body = categories.map(({ categoryName }) => categoryName);
+  }
+  catch (e) {
+    ctx.throw(e.status || 500, e);
+  }
+};
+
 exports.getArticlesInCategory = async (ctx, next) => {
   const categoryName = decodeURIComponent(ctx.params.category);
   try {
