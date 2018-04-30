@@ -48,44 +48,46 @@ class PostArticle extends PureComponent {
       category: '',
       tags: [],
       content: '',
+
+      categoryInput: '',
+      categoryOptions: [],
       tagInput: '',
       tagOptions: [],
       imageName: ''
     };
   }
 
+  componentDidMount() {
+    this.fetchOptions('category')();
+    this.fetchOptions('tag')();
+  }
+
   onFieldChange = field => e => {
-    this.setState({
-      [field]: e.target.value.trim()
-    });
+    this.setState({ [field]: e.target.value.trim() });
   }
 
   onDateChange = e => {
     const [year, month, day] = e.target.value.split('-');
-    this.setState({
-      year,
-      month,
-      day
-    });
+    this.setState({ year, month, day });
   }
 
-  onOptionChange = e => {
+  onOptionChange = (mode, multiple) => e => {
     const { options } = e.target;
-    const tags = [];
+    const ret = [];
     for (let i = 0; i < options.length; i += 1) {
       const opt = options[i];
       if (opt.selected) {
-        tags.push(opt.value);
+        ret.push(opt.value);
       }
     }
-    this.setState({ tags });
+    this.setState({ [mode]: multiple ? ret : ret[0] });
   }
 
   onSubmit = async e => {
     e.preventDefault();
     const canUpload = this.canUpload();
     const token = localStorage.getItem('token');
-    const { tagInput, tagOptions, ...body } = this.state;
+    const { categoryInput, categoryOptions, tagInput, tagOptions, imageName, ...body } = this.state;
     if (canUpload && token) {
       try {
         const { ok } = await request('/api/articles/article', {
@@ -106,11 +108,24 @@ class PostArticle extends PureComponent {
     }
   }
 
-  addOption = e => {
+  fetchOptions = mode => async () => {
+    const url = mode === 'category' ? '/api/categories/names' : `/api/${mode}s/names`;
+    try {
+      const { body } = await request(url, { method: 'GET' });
+      this.setState({ [`${mode}Options`]: body[`${mode}Names`] });
+    }
+    catch (err) {
+      throw err;
+    }
+  }
+
+  addOption = mode => e => {
     e.preventDefault();
+    const optionName = `${mode}Options`;
+    const inputName = `${mode}Input`;
     this.setState({
-      tagOptions: [...this.state.tagOptions, this.state.tagInput],
-      tagInput: ''
+      [optionName]: [...this.state[optionName], this.state[inputName]],
+      [inputName]: ''
     });
   }
 
@@ -145,17 +160,22 @@ class PostArticle extends PureComponent {
 
   canUpload = () => {
     const { year, month, day, title, url, category, tags } = this.state;
-    return (year && month && day && title && url && category && tags.length);
+    return !!(year && month && day && title && url && category && tags.length);
   }
 
-  redirect = ({ year, month, day, url }) => {
-    this.props.dispatch(push(`/${year}/${month}/${day}/${url}/`));
-  }
+  redirect = ({ year, month, day, url }) => this.props.dispatch(push(`/${year}/${month}/${day}/${url}/`))
 
   render() {
     const { classes } = this.props;
-    const { content, tagOptions } = this.state;
-    const { onSubmit, onFieldChange, onDateChange, onOptionChange, addOption, uploadImage } = this;
+    const { content, categoryOptions, tagOptions } = this.state;
+    const {
+      onSubmit,
+      onFieldChange,
+      onDateChange,
+      onOptionChange,
+      addOption,
+      uploadImage
+    } = this;
     return (
       <main className={classes.container}>
         <form className={classes.form}>
@@ -179,9 +199,18 @@ class PostArticle extends PureComponent {
             分類
             <input
               name="category"
+              value={this.state.categoryInput}
               type="text"
-              onChange={onFieldChange('category')}
+              onChange={onFieldChange('categoryInput')}
             />
+            <button onClick={addOption('category')}>新增category選項</button>
+            <select
+              defaultValue=''
+              onChange={onOptionChange('category')}
+            >
+              <option value='' disabled>請選擇</option>
+              {categoryOptions.map(o => <option key={o} value={o}>{o}</option>)}
+            </select>
           </label>
           <label htmlFor="tags">
             標籤
@@ -191,14 +220,10 @@ class PostArticle extends PureComponent {
               type="text"
               onChange={onFieldChange('tagInput')}
             />
-            <button
-              onClick={addOption}
-            >
-              新增tag選項
-            </button>
+            <button onClick={addOption('tag')}>新增tag選項</button>
             <select
               multiple
-              onChange={onOptionChange}
+              onChange={onOptionChange('tag', true)}
             >
               {tagOptions.map(o => <option key={o} value={o}>{o}</option>)}
             </select>
