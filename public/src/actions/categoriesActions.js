@@ -15,5 +15,5 @@ export const fetchArticlesInCategory = pageActions(
   RECEIVE_ARTICLES_IN_CATEGORY,
   ({ categoryName }) => `/api/categories/${categoryName}`,
   ['articles'],
-  (state, { categoryName }) => !state.getIn(['categories', categoryName])
+  (state, { categoryName }) => !state.getIn(['categories', 'articles', categoryName])
 );

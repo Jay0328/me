@@ -1,4 +1,4 @@
-import { navHeight } from './navbar';
+import { navHeight } from './size';
 import { xs, sm, md, lg } from './rwd';
 
 export default {

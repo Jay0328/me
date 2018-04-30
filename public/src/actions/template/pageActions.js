@@ -1,5 +1,12 @@
 import request from '../../utils/api';
 
+export const IS_FETCHING_DATA = 'IS_FETCHING_DATA';
+
+const isFetchingData = isFetching => ({
+  type: IS_FETCHING_DATA,
+  isFetching
+});
+
 const receiveData = (type, data, params) => ({
   type,
   ...data,
@@ -26,7 +33,9 @@ const fetchData = (type, url, keys, params) => async dispatch => {
 const pageActions = (type, url, keys, shouldFetchData) => params => async (dispatch, getState) => {
   try {
     if (shouldFetchData(getState(), params)) {
+      dispatch(isFetchingData(true));
       await dispatch(fetchData(type, url, keys, params));
+      setTimeout(() => dispatch(isFetchingData(false)), 1000);
     }
   }
   catch ({ body: { message } }) {

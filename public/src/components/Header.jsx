@@ -5,6 +5,7 @@ import injectSheet from 'react-jss';
 import ConnectWithToJS from './hoc/ConnectWithToJS';
 import TagLabel from './TagLabel';
 import { lightGrey } from './theme/colors';
+import { headerHeight } from './theme/size';
 import { sm } from './theme/rwd';
 
 const styles = {
@@ -17,7 +18,7 @@ const styles = {
     backgroundPosition: '50% 50%',
     backgroundColor: lightGrey,
     width: 'inherit',
-    height: '500px',
+    height: `${headerHeight}px`,
     maxWidth: '100%',
     margin: '0 auto',
     [`@media (max-width: ${sm - 1}px)`]: {
@@ -73,6 +74,7 @@ class HeaderBackground extends PureComponent {
 
 @ConnectWithToJS(
   state => ({
+    isFetching: state.getIn(['UI', 'isFetching']),
     date: state.getIn(['article', 'date']),
     title: state.getIn(['article', 'title']),
     tags: state.getIn(['article', 'tags'])
@@ -84,13 +86,14 @@ class HeaderContent extends PureComponent {
   static propTypes = {
     classes: PropTypes.shape().isRequired,
     mode: PropTypes.string.isRequired,
+    isFetching: PropTypes.bool.isRequired,
     date: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     tags: PropTypes.arrayOf(PropTypes.shape()).isRequired
   }
 
   render() {
-    const { classes, mode, date, title, tags } = this.props;
+    const { classes, mode, isFetching, date, title, tags } = this.props;
     let headerTitle;
     if (mode === 'home') {
       headerTitle = 'Jay Blog';
@@ -104,7 +107,7 @@ class HeaderContent extends PureComponent {
     return (
       <section className={classes.content}>
         <section className={classes.tags}>
-          {mode === 'article' ? tags.map(({ tagName }) => (
+          {mode === 'article' && !isFetching ? tags.map(({ tagName }) => (
             <TagLabel
               key={tagName}
               tagName={tagName}
@@ -114,8 +117,8 @@ class HeaderContent extends PureComponent {
             />
           )) : null}
         </section>
-        <h1 className={classes.title}>{headerTitle}</h1>
-        {mode === 'article' && <span className={classes.date}>{date}</span>}
+        {mode !== 'article' || !isFetching ? <h1 className={classes.title}>{headerTitle}</h1> : null}
+        {mode === 'article' && !isFetching ? <span className={classes.date}>{date}</span> : null}
       </section>
     );
   }

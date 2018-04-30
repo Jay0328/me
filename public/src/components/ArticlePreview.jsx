@@ -89,9 +89,9 @@ class ArticlePreview extends PureComponent {
         ))}
       </section>
     );
-    const articlePreviewContent = (
+    const articlePreviewContent = preview ? (
       <Markdown content={preview} />
-    );
+    ) : null;
 
     return (
       <Card className={className}>
