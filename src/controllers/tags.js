@@ -12,3 +12,14 @@ exports.getArticlesInTags = async ctx => {
     ctx.throw(e.status || 500, e);
   }
 };
+
+exports.getTagNames = async ctx => {
+  try {
+    const tagNames = await Tags.getTagNames();
+    ctx.status = 200;
+    ctx.body = tagNames;
+  }
+  catch (e) {
+    ctx.throw(e.status || 500, e);
+  }
+};
