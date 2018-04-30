@@ -1,17 +1,26 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
+import ConnectWithToJS from './ConnectWithToJS';
+import Loading from '../Loading';
+import getDisplayName from '../../utils/getDisplayName';
 import container from '../theme/container';
 
 const styles = {
   container
 };
 
+const mapStateToProps = state => ({
+  isFetching: state.getIn(['UI', 'isFetching'])
+});
+
 const routePage = ({ title, shouldRefetchData }) => WrappedComponent => {
+  @ConnectWithToJS(mapStateToProps)
   @injectSheet(styles)
   class RoutePage extends Component {
     static propTypes = {
       classes: PropTypes.shape().isRequired,
+      isFetching: PropTypes.bool.isRequired,
       fetchData: PropTypes.func
     }
 
@@ -19,7 +28,7 @@ const routePage = ({ title, shouldRefetchData }) => WrappedComponent => {
       fetchData: () => { }
     }
 
-    static displayName = `RoutePage(${WrappedComponent.displayName || WrappedComponent.name || 'Component'})`
+    static displayName = `RoutePage(${getDisplayName(WrappedComponent)})`
 
     constructor(props) {
       super(props);
@@ -33,26 +42,23 @@ const routePage = ({ title, shouldRefetchData }) => WrappedComponent => {
       fetchData(props);
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentDidUpdate(prevProps) {
       scrollTo(0, 0);
-      if (shouldRefetchData && shouldRefetchData(this.props, nextProps)) {
-        this.props.fetchData(nextProps);
-      }
-    }
-
-    componentDidUpdate() {
       document.title = this.handleTitle(title);
+      if (shouldRefetchData && shouldRefetchData(prevProps, this.props)) {
+        this.props.fetchData(this.props);
+      }
     }
 
     handleTitle = t => typeof t === 'function' ? `${t(this.props)} | Jay Blog` : `${t ? `${t} | ` : ''}Jay Blog`
 
     render() {
-      const { classes } = this.props;
-      return (
+      const { classes, isFetching } = this.props;
+      return !isFetching ? (
         <main className={classes.container}>
           <WrappedComponent {...this.props} />
         </main>
-      );
+      ) : (<Loading />);
     }
   }
   return RoutePage;

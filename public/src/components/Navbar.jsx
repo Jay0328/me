@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import { Link } from 'react-router-dom';
 import { themeColor, grey } from './theme/colors';
-import { navHeight } from './theme/navbar';
+import { navHeight } from './theme/size';
 import { sm } from './theme/rwd';
 
 const linkStyle = (color, hoverColor) => ({
