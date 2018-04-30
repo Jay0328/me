@@ -20,6 +20,15 @@ const styles = {
       flexDirection: 'column'
     }
   },
+  imageUpload: {
+    width: 'fit-content',
+    border: '1px solid #ccc',
+    padding: '6px 12px',
+    cursor: 'pointer',
+    '& input[type="file"]': {
+      display: 'none'
+    }
+  },
   preview: {
     marginLeft: '40px',
     maxWidth: '40vw',
@@ -83,6 +92,14 @@ class PostArticle extends PureComponent {
     this.setState({ [mode]: multiple ? ret : ret[0] });
   }
 
+  onImageChange = type => async e => {
+    const file = e.target.files[0];
+    if (file) {
+      const url = await this.readFile(file);
+      this.uploadImage(type, url);
+    }
+  }
+
   onSubmit = async e => {
     e.preventDefault();
     const canUpload = this.canUpload();
@@ -105,6 +122,19 @@ class PostArticle extends PureComponent {
       catch (err) {
         throw err;
       }
+    }
+  }
+
+  getRemoteImage = type => async e => {
+    const remoteUrl = e.target.value;
+    if (!remoteUrl) return;
+    try {
+      const { body } = await request(remoteUrl, { method: 'GET' });
+      const url = await this.readFile(body);
+      this.uploadImage(type, url);
+    }
+    catch (err) {
+      throw err;
     }
   }
 
@@ -135,26 +165,22 @@ class PostArticle extends PureComponent {
     reader.readAsDataURL(file);
   })
 
-  uploadImage = type => async e => {
-    const file = e.target.files[0];
-    if (file) {
-      const url = await this.readFile(file);
-      const { imageName } = this.state;
-      const token = localStorage.getItem('token');
-      const body = { type, imageName, url };
-      try {
-        await request('/api/images', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-          body: JSON.stringify(body)
-        });
-      }
-      catch (err) {
-        throw err;
-      }
+  uploadImage = async (type, url) => {
+    const { imageName } = this.state;
+    const token = localStorage.getItem('token');
+    const body = { type, imageName, url };
+    try {
+      await request('/api/images', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(body)
+      });
+    }
+    catch (err) {
+      throw err;
     }
   }
 
@@ -173,8 +199,9 @@ class PostArticle extends PureComponent {
       onFieldChange,
       onDateChange,
       onOptionChange,
+      onImageChange,
       addOption,
-      uploadImage
+      getRemoteImage
     } = this;
     return (
       <main className={classes.container}>
@@ -255,22 +282,30 @@ class PostArticle extends PureComponent {
                 onChange={onFieldChange('imageName')}
               />
             </label>
-            <label htmlFor="cover">
+            <label className={classes.imageUpload}>
+              <i className="fas fa-cloud-upload-alt"></i>
               封面上傳
               <input
-                name="cover"
                 type="file"
                 accept="image/*"
-                onChange={uploadImage('covers')}
+                onChange={onImageChange('covers')}
+              />
+              <input
+                type="text"
+                onChange={getRemoteImage('covers')}
               />
             </label>
-            <label htmlFor="image">
+            <label className={classes.imageUpload}>
+              <i className="fas fa-cloud-upload-alt"></i>
               圖片上傳
               <input
-                name="image"
                 type="file"
                 accept="image/*"
-                onChange={uploadImage('images')}
+                onChange={onImageChange('images')}
+              />
+              <input
+                type="text"
+                onChange={getRemoteImage('images')}
               />
             </label>
           </aside>

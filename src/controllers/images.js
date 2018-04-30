@@ -7,7 +7,6 @@ exports.uploadImage = async ctx => {
     if (!type || !imageName || !url) {
       ctx.throw(400, 'Type, ImageName and url should not be empty');
     }
-    console.log(type, imageName);
     await uploadImage(type, imageName, url);
     ctx.status = 200;
   }
