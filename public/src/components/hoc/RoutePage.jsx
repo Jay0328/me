@@ -54,11 +54,11 @@ const routePage = ({ title, shouldRefetchData }) => WrappedComponent => {
 
     render() {
       const { classes, isFetching } = this.props;
-      return (
+      return !isFetching ? (
         <main className={classes.container}>
-          {!isFetching ? <WrappedComponent {...this.props} /> : <Loading />}
+          <WrappedComponent {...this.props} />
         </main>
-      );
+      ) : (<Loading />);
     }
   }
   return RoutePage;

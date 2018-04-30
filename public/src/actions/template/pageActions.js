@@ -35,7 +35,7 @@ const pageActions = (type, url, keys, shouldFetchData) => params => async (dispa
     if (shouldFetchData(getState(), params)) {
       dispatch(isFetchingData(true));
       await dispatch(fetchData(type, url, keys, params));
-      setTimeout(() => dispatch(isFetchingData(false)), 300);
+      setTimeout(() => dispatch(isFetchingData(false)), 1000);
     }
   }
   catch ({ body: { message } }) {

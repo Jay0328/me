@@ -5,6 +5,7 @@ import injectSheet from 'react-jss';
 import ConnectWithToJS from './hoc/ConnectWithToJS';
 import TagLabel from './TagLabel';
 import { lightGrey } from './theme/colors';
+import { headerHeight } from './theme/size';
 import { sm } from './theme/rwd';
 
 const styles = {
@@ -17,7 +18,7 @@ const styles = {
     backgroundPosition: '50% 50%',
     backgroundColor: lightGrey,
     width: 'inherit',
-    height: '500px',
+    height: `${headerHeight}px`,
     maxWidth: '100%',
     margin: '0 auto',
     [`@media (max-width: ${sm - 1}px)`]: {

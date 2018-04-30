@@ -4,7 +4,7 @@ import injectSheet from 'react-jss';
 import ConnectWithToJS from '../hoc/ConnectWithToJS';
 import InputField from '../InputField';
 import { pristineLoginForm, loginOnChange, login } from '../../actions/authActions';
-import { navHeight } from '../theme/navbar';
+import { navHeight } from '../theme/size';
 
 const styles = {
   form: {
