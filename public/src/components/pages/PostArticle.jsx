@@ -14,7 +14,11 @@ const styles = {
   },
   form: {
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    '& aside': {
+      display: 'flex',
+      flexDirection: 'column'
+    }
   },
   preview: {
     marginLeft: '40px',
@@ -45,7 +49,8 @@ class PostArticle extends PureComponent {
       tags: [],
       content: '',
       tagInput: '',
-      tagOptions: []
+      tagOptions: [],
+      imageName: ''
     };
   }
 
@@ -109,6 +114,35 @@ class PostArticle extends PureComponent {
     });
   }
 
+  readFile = file => new Promise(resolve => {
+    const reader = new FileReader();
+    reader.onload = e => resolve(e.target.result);
+    reader.readAsDataURL(file);
+  })
+
+  uploadImage = type => async e => {
+    const file = e.target.files[0];
+    if (file) {
+      const url = await this.readFile(file);
+      const { imageName } = this.state;
+      const token = localStorage.getItem('token');
+      const body = { type, imageName, url };
+      try {
+        await request('/api/images', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(body)
+        });
+      }
+      catch (err) {
+        throw err;
+      }
+    }
+  }
+
   canUpload = () => {
     const { year, month, day, title, url, category, tags } = this.state;
     return (year && month && day && title && url && category && tags.length);
@@ -121,7 +155,7 @@ class PostArticle extends PureComponent {
   render() {
     const { classes } = this.props;
     const { content, tagOptions } = this.state;
-    const { onSubmit, onFieldChange, onDateChange, onOptionChange, addOption } = this;
+    const { onSubmit, onFieldChange, onDateChange, onOptionChange, addOption, uploadImage } = this;
     return (
       <main className={classes.container}>
         <form className={classes.form}>
@@ -187,6 +221,34 @@ class PostArticle extends PureComponent {
           >
             發文囉
           </button>
+          <aside>
+            <label htmlFor="imageName">
+              圖片名稱
+              <input
+                name="imageName"
+                type="text"
+                onChange={onFieldChange('imageName')}
+              />
+            </label>
+            <label htmlFor="cover">
+              封面上傳
+              <input
+                name="cover"
+                type="file"
+                accept="image/*"
+                onChange={uploadImage('covers')}
+              />
+            </label>
+            <label htmlFor="image">
+              圖片上傳
+              <input
+                name="image"
+                type="file"
+                accept="image/*"
+                onChange={uploadImage('images')}
+              />
+            </label>
+          </aside>
         </form>
         <Markdown className={classes.preview} content={content} />
       </main>
