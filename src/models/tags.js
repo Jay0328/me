@@ -27,6 +27,22 @@ tagsSchema.statics.getArticlesInTags = async function () {
     .exec();
 };
 
+tagsSchema.statics.getTagNames = async function () {
+  try {
+    const tags = await this
+      .aggregate()
+      .match({})
+      .project({
+        _id: false,
+        tagName: true
+      });
+    return tags.map(({ tagName }) => tagName);
+  }
+  catch (err) {
+    throw err;
+  }
+};
+
 tagsSchema.statics.getTagsByNameOrNewSome = async function (tags) {
   try {
     const ret = [];

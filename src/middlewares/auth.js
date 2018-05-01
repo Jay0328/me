@@ -4,12 +4,12 @@ const { secret } = require('../config');
 
 exports.isAuth = async (ctx, next) => {
   const { authorization } = ctx.request.headers;
-  const token = authorization.split('Bearer ')[1];
 
   if (!authorization) {
     ctx.throw(403);
   }
   try {
+    const token = authorization.split('Bearer ')[1];
     const _id = jwt.verify(token, secret);
     const user = await User.findOne({ _id });
     ctx.state.isAuth = !!user;

@@ -4,7 +4,6 @@ import { withRouter, Route } from 'react-router-dom';
 import injectSheet from 'react-jss';
 import ConnectWithToJS from './hoc/ConnectWithToJS';
 import TagLabel from './TagLabel';
-import { lightGrey } from './theme/colors';
 import { headerHeight } from './theme/size';
 import { sm } from './theme/rwd';
 
@@ -13,15 +12,15 @@ const styles = {
     position: 'relative'
   },
   img: {
+    backgroundSize: `100vw ${headerHeight}px`,
     backgroundAttachment: 'fixed',
-    backgroundSize: 'cover',
-    backgroundPosition: '50% 50%',
-    backgroundColor: lightGrey,
+    backgroundRepeat: 'no-repeat',
     width: 'inherit',
     height: `${headerHeight}px`,
     maxWidth: '100%',
     margin: '0 auto',
     [`@media (max-width: ${sm - 1}px)`]: {
+      backgroundSize: '100vw 100vh',
       height: '100vh'
     }
   },
@@ -41,7 +40,8 @@ const styles = {
   },
   title: {
     fontSize: '55px',
-    color: 'white'
+    color: 'white',
+    textAlign: 'center'
   },
   date: {
     fontSize: '18px',
@@ -57,15 +57,21 @@ class HeaderBackground extends PureComponent {
     mode: PropTypes.string.isRequired
   }
 
-  render() {
-    const { classes, match, mode } = this.props;
+  handleBackgroundImage = () => {
+    const { mode, match } = this.props;
     const { year, month, day, url } = match.params;
+    return mode === 'article' ?
+      `linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),
+      url("/covers/${year}-${month}-${day}-${url}.jpg")` :
+      `url(/covers/${mode}.jpg)`;
+  }
+
+  render() {
+    const { classes } = this.props;
     return (
       <section
         className={classes.img}
-        style={{
-          backgroundImage: `url(${mode === 'article' ? `/covers/${year}-${month}-${day}-${url}` : `/images/${mode}`}.jpg)`
-        }}
+        style={{ backgroundImage: this.handleBackgroundImage() }}
       >
       </section>
     );

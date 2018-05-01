@@ -4,7 +4,7 @@ import injectSheet from 'react-jss';
 import MarkdownIt from 'markdown-it';
 import hljs from 'highlight.js/lib/highlight';
 import { markdownLanguage } from '../../config';
-import { themeColor } from './theme/colors';
+import { themeColor, opacityColor } from './theme/colors';
 
 markdownLanguage.forEach(langName => {
   const langModule = require(`highlight.js/lib/languages/${langName}`);
@@ -25,6 +25,13 @@ const md = MarkdownIt({
 
 const styles = {
   markdown: {
+    '& a': {
+      color: themeColor,
+      textDecoration: 'none',
+      '&:hover': {
+        color: opacityColor(themeColor, 0.8)
+      }
+    },
     '& blockquote': {
       borderLeft: `4px solid ${themeColor}`,
       margin: '20px 0',
@@ -61,7 +68,6 @@ const styles = {
     },
     '& table': {
       'borderCollapse': 'collapse',
-      'borderSpacing': '0px',
       '& tr': {
         borderTop: '1px solid #cccccc',
         '&:nth-child(2n)': {
