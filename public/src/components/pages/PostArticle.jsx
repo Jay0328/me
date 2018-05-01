@@ -89,7 +89,7 @@ class PostArticle extends PureComponent {
         ret.push(opt.value);
       }
     }
-    this.setState({ [mode]: multiple ? ret : ret[0] });
+    this.setState({ [`${mode}${multiple ? 's' : ''}`]: multiple ? ret : ret[0] });
   }
 
   onImageChange = type => async e => {
