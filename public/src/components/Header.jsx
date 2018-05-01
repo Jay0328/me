@@ -12,13 +12,15 @@ const styles = {
     position: 'relative'
   },
   img: {
-    backgroundSize: 'cover',
-    backgroundPosition: '50% 50%',
+    backgroundSize: `100vw ${headerHeight}px`,
+    backgroundAttachment: 'fixed',
+    backgroundRepeat: 'no-repeat',
     width: 'inherit',
     height: `${headerHeight}px`,
     maxWidth: '100%',
     margin: '0 auto',
     [`@media (max-width: ${sm - 1}px)`]: {
+      backgroundSize: '100vw 100vh',
       height: '100vh'
     }
   },
@@ -38,7 +40,8 @@ const styles = {
   },
   title: {
     fontSize: '55px',
-    color: 'white'
+    color: 'white',
+    textAlign: 'center'
   },
   date: {
     fontSize: '18px',
@@ -59,8 +62,7 @@ class HeaderBackground extends PureComponent {
     const { year, month, day, url } = match.params;
     return mode === 'article' ?
       `linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),
-      url("/covers/${year}-${month}-${day}-${url}.jpg"),
-      url("/covers/home.jpg")` :
+      url("/covers/${year}-${month}-${day}-${url}.jpg")` :
       `url(/covers/${mode}.jpg)`;
   }
 
