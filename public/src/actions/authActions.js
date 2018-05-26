@@ -39,14 +39,7 @@ const loginFail = (field, errMsg) => ({
   errMsg
 });
 
-export const pristineLoginForm = () => {
-  document.getElementById('username').value = '';
-  document.getElementById('password1').value = '';
-  document.getElementById('password2').value = '';
-  return {
-    type: PRISTINE_LOGIN_FORM
-  };
-};
+export const pristineLoginForm = () => ({ type: PRISTINE_LOGIN_FORM });
 
 export const loginOnChange = (field, value) => ({
   type: LOGIN_ONCHANGE,

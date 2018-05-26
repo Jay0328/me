@@ -28,10 +28,7 @@ const mapDispatchToProps = dispatch => ({
     e.preventDefault();
     dispatch(pristineLoginForm());
   },
-  handleOnChange: field => e => {
-    e.preventDefault();
-    dispatch(loginOnChange(field, e.target.value));
-  },
+  handleOnChange: field => e => dispatch(loginOnChange(field, e.target.value)),
   handleOnSubmit: (username, password1, password2) => e => {
     e.preventDefault();
     dispatch(login({ username, password1, password2 }));
@@ -65,6 +62,7 @@ class Login extends PureComponent {
           label="使用者帳號"
           type="text"
           placeholder="請輸入使用者帳號"
+          value={username.value}
           onChange={handleOnChange('username')}
         />
         <InputField
@@ -74,6 +72,7 @@ class Login extends PureComponent {
           label="密碼 1"
           type="password"
           placeholder="請輸入密碼"
+          value={pwd1.value}
           onChange={handleOnChange('password1')}
         />
         <InputField
@@ -83,6 +82,7 @@ class Login extends PureComponent {
           label="密碼 2"
           type="password"
           placeholder="請輸入密碼"
+          value={pwd2.value}
           onChange={handleOnChange('password2')}
         />
         <section className="actions">
