@@ -37,9 +37,9 @@ exports.verifyAuth = async ctx => {
 
 exports.login = async ctx => {
   const {
-    username: { value: username },
-    password1: { value: password1 },
-    password2: { value: password2 }
+    username,
+    password1,
+    password2,
   } = ctx.request.body;
   try {
     const user = await User.findOne({ username });

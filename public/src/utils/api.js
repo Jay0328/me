@@ -36,7 +36,11 @@ const request = async (url, options) => {
     if (result.ok) {
       return result;
     }
-    throw result;
+    const err = {
+      status: result.status,
+      message: result.body.message
+    };
+    throw err;
   }
   catch (e) {
     throw e;

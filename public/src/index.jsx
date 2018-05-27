@@ -8,7 +8,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import App from './components/App';
 //  redux
 import creatStore from './store';
-import { verifyAuth } from './actions/authActions';
+import { verifyAuth } from './actions/auth';
 
 const history = createBrowserHistory();
 const store = creatStore(history);

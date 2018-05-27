@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import ConnectWithToJS from '../hoc/ConnectWithToJS';
 import InputField from '../InputField';
-import { pristineLoginForm, loginOnChange, login } from '../../actions/authActions';
+import { pristineLoginForm, loginOnChange, login } from '../../actions/auth';
 import { navHeight } from '../theme/size';
 
 const styles = {
@@ -28,10 +28,10 @@ const mapDispatchToProps = dispatch => ({
     e.preventDefault();
     dispatch(pristineLoginForm());
   },
-  handleOnChange: field => e => dispatch(loginOnChange(field, e.target.value)),
-  handleOnSubmit: (username, password1, password2) => e => {
+  onChange: field => e => dispatch(loginOnChange(field, e.target.value)),
+  onSubmit: (e) => {
     e.preventDefault();
-    dispatch(login({ username, password1, password2 }));
+    dispatch(login());
   }
 });
 
@@ -44,16 +44,16 @@ class Login extends PureComponent {
     pwd1: PropTypes.shape().isRequired,
     pwd2: PropTypes.shape().isRequired,
     pristine: PropTypes.func.isRequired,
-    handleOnChange: PropTypes.func.isRequired,
-    handleOnSubmit: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired
   }
 
   render() {
-    const { classes, username, pwd1, pwd2, pristine, handleOnChange, handleOnSubmit } = this.props;
+    const { classes, username, pwd1, pwd2, pristine, onChange, onSubmit } = this.props;
     return (
       <form
         className={classes.form}
-        onSubmit={handleOnSubmit(username, pwd1, pwd2)}
+        onSubmit={onSubmit}
       >
         <InputField
           id="username"
@@ -63,7 +63,7 @@ class Login extends PureComponent {
           type="text"
           placeholder="請輸入使用者帳號"
           value={username.value}
-          onChange={handleOnChange('username')}
+          onChange={onChange('username')}
         />
         <InputField
           id="password1"
@@ -73,7 +73,7 @@ class Login extends PureComponent {
           type="password"
           placeholder="請輸入密碼"
           value={pwd1.value}
-          onChange={handleOnChange('password1')}
+          onChange={onChange('password1')}
         />
         <InputField
           id="password2"
@@ -83,12 +83,12 @@ class Login extends PureComponent {
           type="password"
           placeholder="請輸入密碼"
           value={pwd2.value}
-          onChange={handleOnChange('password2')}
+          onChange={onChange('password2')}
         />
         <section className="actions">
           <button
             className="positive"
-            onClick={handleOnSubmit(username, pwd1, pwd2)}
+            onClick={onSubmit}
           >
             read my name
           </button>

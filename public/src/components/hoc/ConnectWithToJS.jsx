@@ -19,12 +19,7 @@ const toJS = WrappedComponent => {
   return ToJS;
 };
 
-const ConnectWithToJS = (
-  mapStateToProps,
-  mapDispatchToProps
-) => WrappedComponent => connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(toJS(WrappedComponent));
+const ConnectWithToJS = (...params) => WrappedComponent =>
+  connect(...params)(toJS(WrappedComponent));
 
 export default ConnectWithToJS;

@@ -1,5 +1,6 @@
 import { fromJS } from 'immutable';
-import { PRISTINE_LOGIN_FORM, LOGIN_ONCHANGE, LOGIN_FAIL, LOGOUT } from '../actions/authActions';
+import { PRISTINE_LOGIN_FORM, LOGIN_ON_CHANGE, LOGIN_FAIL, LOGOUT } from '../actions/auth';
+import { createReducer } from '../utils/redux';
 
 const initialState = fromJS({
   username: {
@@ -19,27 +20,22 @@ const initialState = fromJS({
   }
 });
 
-const login = (state = initialState, action) => {
-  switch (action.type) {
-    case PRISTINE_LOGIN_FORM:
-      return initialState;
-    case LOGIN_ONCHANGE:
-      return state.set(action.field, fromJS({
+const login = createReducer({
+  [[PRISTINE_LOGIN_FORM, LOGOUT]]: () => initialState,
+  [LOGIN_ON_CHANGE]: (state, { payload }) =>
+    state
+      .set(payload.field, fromJS({
         status: false,
         errMsg: '',
-        value: action.value
-      }));
-    case LOGIN_FAIL:
-      return state.set(action.field, fromJS({
+        value: payload.value
+      })),
+  [LOGIN_FAIL]: (state, { payload }) =>
+    state
+      .set(payload.field, fromJS({
         status: true,
-        errMsg: action.errMsg,
-        value: state.getIn([action.field, 'value'])
-      }));
-    case LOGOUT:
-      return initialState;
-    default:
-      return state;
-  }
-};
+        errMsg: payload.errMsg,
+        value: state.getIn([payload.field, 'value'])
+      })),
+}, initialState);
 
 export default login;
