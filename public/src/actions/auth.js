@@ -7,7 +7,7 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/catch';
-import request from '../utils/api';
+import ajax from '../utils/api';
 import { createActions, createActionTypes } from '../utils/redux';
 
 export const {
@@ -91,12 +91,10 @@ export const loginEpic = (action$, store) =>
         .defer(async () => {
           await check(data);
           const body = JSON.stringify(data);
-          const { body: { token } } = await request('/api/authenticate', {
-            method: 'POST',
+          return await ajax.post('/api/authenticate', {
             headers: { 'Content-Type': 'application/json' },
             body
           });
-          return token;
         })
         .switchMap(token =>
           Observable
@@ -120,12 +118,7 @@ export const verifyAuthEpic = action$ =>
     .switchMap(token =>
       Observable
         .defer(async () => {
-          await request('/api/authenticate', {
-            method: 'GET',
-            headers: {
-              'Authorization': `Bearer ${token}`
-            }
-          });
+          await ajax.get('/api/authenticate', { headers: { 'Authorization': `Bearer ${token}` } });
           return token;
         })
         .map(loginSuccess)

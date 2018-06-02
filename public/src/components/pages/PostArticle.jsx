@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import request from '../../utils/api';
+import ajax from '../../utils/api';
 import Markdown from '../Markdown';
 import container from '../theme/container';
 
@@ -107,8 +107,7 @@ class PostArticle extends PureComponent {
     const { categoryInput, categoryOptions, tagInput, tagOptions, imageName, ...body } = this.state;
     if (canUpload && token) {
       try {
-        const { ok } = await request('/api/articles/article', {
-          method: 'POST',
+        const { ok } = await ajax.post('/api/articles/article', {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
@@ -129,7 +128,7 @@ class PostArticle extends PureComponent {
     const remoteUrl = e.target.value;
     if (!remoteUrl) return;
     try {
-      const { body } = await request(remoteUrl, { method: 'GET' });
+      const { body } = await ajax.get(remoteUrl);
       const url = await this.readFile(body);
       this.uploadImage(type, url);
     }
@@ -141,7 +140,7 @@ class PostArticle extends PureComponent {
   fetchOptions = mode => async () => {
     const url = mode === 'category' ? '/api/categories/names' : `/api/${mode}s/names`;
     try {
-      const { body } = await request(url, { method: 'GET' });
+      const { body } = await ajax.get(url);
       this.setState({ [`${mode}Options`]: body[`${mode}Names`] });
     }
     catch (err) {
@@ -170,8 +169,7 @@ class PostArticle extends PureComponent {
     const token = localStorage.getItem('token');
     const body = { type, imageName, url };
     try {
-      await request('/api/images', {
-        method: 'POST',
+      await ajax.post('/api/images', {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`

@@ -25,9 +25,7 @@ const handleUser = (user, password1, password2, ctx) => {
   }
   else {
     ctx.status = 200;
-    ctx.body = {
-      token: user.generateJwt()
-    };
+    ctx.body = user.generateJwt();
   }
 };
 

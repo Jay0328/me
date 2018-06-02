@@ -29,12 +29,12 @@ const parseResponse = async res => {
   }
 };
 
-const request = async (url, options) => {
+const request = (method) => async (url, options) => {
   try {
-    const response = await fetch(url, options);
+    const response = await fetch(url, { method, ...options });
     const result = await parseResponse(response);
     if (result.ok) {
-      return result;
+      return result.body;
     }
     const err = {
       status: result.status,
@@ -47,4 +47,9 @@ const request = async (url, options) => {
   }
 };
 
-export default request;
+const ajax = {
+  get: request('GET'),
+  post: request('POST')
+};
+
+export default ajax;
