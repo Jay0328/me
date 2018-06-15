@@ -32,6 +32,15 @@ module.exports = {
     ]
   },
   resolve: {
+    alias: {
+      Config$: resolve(__dirname, 'public/config.js'),
+      Actions: resolve(__dirname, 'public/src/actions'),
+      Components: resolve(__dirname, 'public/src/components'),
+      Layouts: resolve(__dirname, 'public/src/layouts'),
+      Routes: resolve(__dirname, 'public/src/routes'),
+      Theme: resolve(__dirname, 'public/src/theme'),
+      Utils: resolve(__dirname, 'public/src/utils'),
+    },
     extensions: ['.js', '.jsx']
   },
   optimization: {

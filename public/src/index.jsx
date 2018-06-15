@@ -1,12 +1,9 @@
-//  react
 import React from 'react';
 import { Provider } from 'react-redux';
 import { render } from 'react-dom';
 import { createBrowserHistory } from 'history';
 import { ConnectedRouter } from 'react-router-redux';
-//  components
-import App from './components/App';
-//  redux
+import App from './app';
 import creatStore from './store';
 import { verifyAuth } from './actions/auth';
 

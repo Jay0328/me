@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "baseUrl": "./",
+    "paths": {
+      "Config": ["public/config.js"],
+      "Actions/*": ["public/src/actions/*"],
+      "Components/*": ["public/src/components/*"],
+      "Routes/*": ["public/src/routes/*"],
+      "Theme/*": ["public/src/theme/*"],
+      "Utils/*": ["public/src/utils/*"]
+    },
+    "experimentalDecorators": true
+  }
+}
