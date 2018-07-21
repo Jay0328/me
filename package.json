@@ -9,8 +9,8 @@
     "watch": "webpack --watch --progress --colors --config webpack.dev.js",
     "dev": "webpack-dev-server --devtool eval --progress --colors --hot --inline",
     "start": "pm2 start deploy.json --env production",
-    "start:dev": "NODE_ENV=development supervisor --watch src/ --harmony index",
-    "set-up-pass": "node src/utils/setUpPass"
+    "start:dev": "NODE_ENV=development supervisor --watch server/ --harmony index",
+    "set-up-pass": "node server/utils/setUpPass"
   },
   "repository": {
     "type": "git",

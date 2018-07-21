@@ -1,5 +1,5 @@
-const connectDB = require('./src/utils/connectDB');
-const createServer = require('./src/utils/createServer');
+const connectDB = require('./server/utils/connectDB');
+const createServer = require('./server/utils/createServer');
 
 const run = async () => {
   try {
