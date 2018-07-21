@@ -6,6 +6,7 @@
       "Config": ["public/config.js"],
       "Actions/*": ["public/src/actions/*"],
       "Components/*": ["public/src/components/*"],
+      "Layouts/*": ["public/src/layouts/*"],
       "Routes/*": ["public/src/routes/*"],
       "Theme/*": ["public/src/theme/*"],
       "Utils/*": ["public/src/utils/*"]

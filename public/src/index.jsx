@@ -21,14 +21,9 @@ const renderDom = () => {
   );
 };
 
-const run = async () => {
-  try {
-    await store.dispatch(verifyAuth());
-    renderDom();
-  }
-  catch (err) {
-    throw err;
-  }
+const run = () => {
+  store.dispatch(verifyAuth());
+  renderDom();
 };
 
 run();

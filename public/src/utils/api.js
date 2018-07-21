@@ -1,26 +1,23 @@
 import 'whatwg-fetch';
 
+const getBodyHandler = (resType) => {
+  if (resType.includes('text')) {
+    return 'text';
+  }
+  else if (resType.includes('json')) {
+    return 'json';
+  }
+  return 'blob';
+};
+
 const parseResponse = async res => {
   const resType = res.headers.get('Content-Type');
   const result = {
     status: res.status,
     ok: res.status >= 200 && res.status < 300
   };
-  let bodyHandler = '';
-  if (resType.includes('text')) {
-    bodyHandler = 'text';
-  }
-  else if (resType.includes('json')) {
-    bodyHandler = 'json';
-  }
-  else {
-    bodyHandler = 'blob';
-  }
-
+  const bodyHandler = getBodyHandler(resType);
   try {
-    if (!bodyHandler) {
-      return result;
-    }
     const body = await res[bodyHandler]();
     return { ...result, body };
   }
@@ -36,14 +33,12 @@ const request = (method) => async (url, options) => {
     if (result.ok) {
       return result.body;
     }
-    const err = {
-      status: result.status,
-      message: result.body.message
-    };
+    const err = new Error(result.body.message);
+    err.status = result.status;
     throw err;
   }
-  catch (e) {
-    throw e;
+  catch (err) {
+    throw err;
   }
 };
 

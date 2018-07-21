@@ -1,4 +1,6 @@
-export default ({ size: { navHeight } }) => ({
+import { navHeight } from 'Theme/size';
+
+export default {
   form: {
     display: 'flex',
     flexDirection: 'column',
@@ -7,4 +9,4 @@ export default ({ size: { navHeight } }) => ({
     height: '100vh',
     paddingTop: navHeight
   }
-});
+};

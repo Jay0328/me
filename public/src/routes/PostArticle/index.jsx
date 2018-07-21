@@ -3,46 +3,21 @@ import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import ajax from '../../utils/api';
-import Markdown from '../Markdown';
-import container from '../theme/container';
+import Markdown from 'Components/molecules/Markdown';
+import ajax from 'Utils/api';
 
-const styles = {
-  container: {
-    ...container,
-    display: 'flex'
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    '& aside': {
-      display: 'flex',
-      flexDirection: 'column'
-    }
-  },
-  imageUpload: {
-    width: 'fit-content',
-    border: '1px solid #ccc',
-    padding: '6px 12px',
-    cursor: 'pointer',
-    '& input[type="file"]': {
-      display: 'none'
-    }
-  },
-  preview: {
-    marginLeft: '40px',
-    maxWidth: '40vw',
-    height: '90vh',
-    overflow: 'auto'
-  }
-};
+import styles from './styles';
 
-@connect(null, dispatch => ({ dispatch }))
+const mapDispatchToProps = (dispatch) => ({
+  redirectToArticle: ({ year, month, day, url }) => dispatch(push(`/${year}/${month}/${day}/${url}/`))
+});
+
+@connect(null, mapDispatchToProps)
 @injectSheet(styles)
 class PostArticle extends PureComponent {
   static propTypes = {
     classes: PropTypes.shape().isRequired,
-    dispatch: PropTypes.func.isRequired
+    redirectToArticle: PropTypes.func.isRequired
   }
 
   constructor(props) {
@@ -115,7 +90,7 @@ class PostArticle extends PureComponent {
           body: JSON.stringify(body)
         });
         if (ok) {
-          this.redirect(body);
+          this.props.redirectToArticle(body);
         }
       }
       catch (err) {
@@ -140,8 +115,8 @@ class PostArticle extends PureComponent {
   fetchOptions = mode => async () => {
     const url = mode === 'category' ? '/api/categories/names' : `/api/${mode}s/names`;
     try {
-      const { body } = await ajax.get(url);
-      this.setState({ [`${mode}Options`]: body[`${mode}Names`] });
+      const res = await ajax.get(url);
+      this.setState({ [`${mode}Options`]: res[`${mode}Names`] });
     }
     catch (err) {
       throw err;
@@ -187,7 +162,6 @@ class PostArticle extends PureComponent {
     return !!(year && month && day && title && url && category && tags.length);
   }
 
-  redirect = ({ year, month, day, url }) => this.props.dispatch(push(`/${year}/${month}/${day}/${url}/`))
 
   render() {
     const { classes } = this.props;

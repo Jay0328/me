@@ -2,15 +2,11 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import { withRouter } from 'react-router';
-import RoutePage from '../hoc/RoutePage';
-import ConnectWithToJS from '../hoc/ConnectWithToJS';
-import Markdown from '../Markdown';
-import { fetchArticleIfNeed } from '../../actions/articleActions';
-
-const styles = {
-  article: {
-  }
-};
+import RoutePage from 'Layouts/RoutePage';
+import ConnectWithToJS from 'Layouts/ConnectWithToJS';
+import Markdown from 'Components/molecules/Markdown';
+import { fetchArticleIfNeed } from 'Actions/articleActions';
+import styles from './styles';
 
 const mapStateToProps = state => ({
   title: state.getIn(['article', 'title']),

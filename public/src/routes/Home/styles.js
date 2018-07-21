@@ -1,4 +1,6 @@
-export default ({ size: { md } }) => ({
+import { md } from 'Theme/media';
+
+export default {
   home: {
     display: 'flex'
   },
@@ -8,4 +10,4 @@ export default ({ size: { md } }) => ({
       marginRight: '50px'
     }
   }
-});
+};

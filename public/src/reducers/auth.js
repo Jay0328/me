@@ -3,8 +3,8 @@ import { LOGIN_SUCCESS, LOGOUT } from '../actions/auth';
 import { createReducer } from '../utils/redux';
 
 const initialState = fromJS({
-  isAuthenticated: false,
-  token: ''
+  isAuthenticated: null,
+  token: null,
 });
 
 const Authentication = createReducer({
@@ -12,7 +12,10 @@ const Authentication = createReducer({
     state
       .set('token', token)
       .set('isAuthenticated', true),
-  [LOGOUT]: () => initialState
+  [LOGOUT]: (state) =>
+    state
+      .set('token', null)
+      .set('isAuthenticated', false),
 }, initialState);
 
 export default Authentication;

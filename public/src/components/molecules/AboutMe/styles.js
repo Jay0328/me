@@ -1,4 +1,6 @@
-export default ({ colors: { themeColor, lighterGrey } }) => ({
+import { themeColor, lighterGrey } from 'Theme/colors';
+
+export default {
   aboutMe: {
     color: lighterGrey,
     '& > hr': {
@@ -20,4 +22,4 @@ export default ({ colors: { themeColor, lighterGrey } }) => ({
       color: themeColor
     }
   }
-});
+};

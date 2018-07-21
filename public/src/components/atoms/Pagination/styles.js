@@ -1,4 +1,6 @@
-export default ({ color: { grey, themeColor } }) => ({
+import { grey, themeColor } from 'Theme/colors';
+
+export default {
   pagination: {
     display: 'table',
     minHeight: '32px',
@@ -29,4 +31,4 @@ export default ({ color: { grey, themeColor } }) => ({
     lineHeight: '32px',
     display: 'table - cell'
   }
-});
+};

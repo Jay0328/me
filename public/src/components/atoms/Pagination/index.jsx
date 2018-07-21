@@ -51,7 +51,7 @@ class Pagination extends PureComponent {
       Array
         .from({ length: (menuEnd - menuStart) + 1 }, (v, k) => k + menuStart)
         .map(p => p === page ?
-          <div className={cx(classes.item, 'activated')} key={`link-page-${p}`}>{p}</div>
+          <div className={cx(classes.item, 'active')} key={`link-page-${p}`}>{p}</div>
           :
           (
             <Link
