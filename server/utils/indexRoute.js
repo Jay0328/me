@@ -4,7 +4,7 @@ const path = require('path');
 const router = new Router();
 
 const sendIndex = async ctx => {
-    await send(ctx, 'index.html', { root: path.resolve(__dirname, '../../public/build') });
+    await send(ctx, 'index.html', { root: path.resolve(__dirname, '../../build') });
 };
 
 // Routers will be solved by client

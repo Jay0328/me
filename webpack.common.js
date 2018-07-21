@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { resolve } = require('path');
 const { markdownLanguage } = require('./client/config.js');
 
-const BUILD_DIR = resolve(__dirname, 'client/build');
+const BUILD_DIR = resolve(__dirname, 'build');
 const APP_DIR = resolve(__dirname, 'client/src');
 
 module.exports = {
