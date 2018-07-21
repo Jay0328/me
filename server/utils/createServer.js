@@ -24,8 +24,8 @@ const createServer = () => {
     app.use(logger());
   }
   //  Static file
-  app.use(serve(path.resolve(__dirname, '../../public/build'), config.server.staticConfig));
-  app.use(serve(path.resolve(__dirname, '../../public/assets'), config.server.staticConfig));
+  app.use(serve(path.resolve(__dirname, '../../client/build'), config.server.staticConfig));
+  app.use(serve(path.resolve(__dirname, '../../client/assets'), config.server.staticConfig));
   app.use(serve(path.resolve(__dirname, '../../blog'), config.server.staticConfig));
 
   //  Api

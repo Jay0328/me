@@ -3,13 +3,13 @@
     "target": "es2017",
     "baseUrl": "./",
     "paths": {
-      "Config": ["public/config.js"],
-      "Actions/*": ["public/src/actions/*"],
-      "Components/*": ["public/src/components/*"],
-      "Layouts/*": ["public/src/layouts/*"],
-      "Routes/*": ["public/src/routes/*"],
-      "Theme/*": ["public/src/theme/*"],
-      "Utils/*": ["public/src/utils/*"]
+      "Config": ["client/config.js"],
+      "Actions/*": ["client/src/actions/*"],
+      "Components/*": ["client/src/components/*"],
+      "Layouts/*": ["client/src/layouts/*"],
+      "Routes/*": ["client/src/routes/*"],
+      "Theme/*": ["client/src/theme/*"],
+      "Utils/*": ["client/src/utils/*"]
     },
     "experimentalDecorators": true
   }

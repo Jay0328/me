@@ -2,10 +2,10 @@ const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { resolve } = require('path');
-const { markdownLanguage } = require('./public/config.js');
+const { markdownLanguage } = require('./client/config.js');
 
-const BUILD_DIR = resolve(__dirname, 'public/build');
-const APP_DIR = resolve(__dirname, 'public/src');
+const BUILD_DIR = resolve(__dirname, 'client/build');
+const APP_DIR = resolve(__dirname, 'client/src');
 
 module.exports = {
   entry: {
@@ -33,13 +33,13 @@ module.exports = {
   },
   resolve: {
     alias: {
-      Config$: resolve(__dirname, 'public/config.js'),
-      Actions: resolve(__dirname, 'public/src/actions'),
-      Components: resolve(__dirname, 'public/src/components'),
-      Layouts: resolve(__dirname, 'public/src/layouts'),
-      Routes: resolve(__dirname, 'public/src/routes'),
-      Theme: resolve(__dirname, 'public/src/theme'),
-      Utils: resolve(__dirname, 'public/src/utils'),
+      Config$: resolve(__dirname, 'client/config.js'),
+      Actions: resolve(__dirname, 'client/src/actions'),
+      Components: resolve(__dirname, 'client/src/components'),
+      Layouts: resolve(__dirname, 'client/src/layouts'),
+      Routes: resolve(__dirname, 'client/src/routes'),
+      Theme: resolve(__dirname, 'client/src/theme'),
+      Utils: resolve(__dirname, 'client/src/utils'),
     },
     extensions: ['.js', '.jsx']
   },
@@ -81,7 +81,7 @@ module.exports = {
       new RegExp(`^./(${markdownLanguage.join('|')})$`)
     ),
     new HtmlWebpackPlugin({
-      template: './public/index.html'
+      template: './client/index.html'
     })
   ]
 };
