@@ -1,19 +1,6 @@
 import { push } from 'react-router-redux';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/from';
-import 'rxjs/add/observable/defer';
-import 'rxjs/add/observable/empty';
-import 'rxjs/add/observable/concat';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/mergeMapTo';
-import 'rxjs/add/operator/catch';
-import ajax from '../utils/api';
-import { createActions, createActionTypes } from '../utils/redux';
+import ajax from 'Utils/api';
+import { createActions, createActionTypes } from 'Utils/redux';
 
 export const {
   PRISTINE_LOGIN_FORM,
@@ -79,67 +66,83 @@ const check = async data => {
   }
 };
 
-const getLoginFormData = (store) => {
-  const state = store.getState();
+const getLoginFormData = (state) => {
   const username = state.getIn(['login', 'username', 'value']);
   const password1 = state.getIn(['login', 'password1', 'value']);
   const password2 = state.getIn(['login', 'password2', 'value']);
   return { username, password1, password2 };
 };
 
-export const loginEpic = (action$, store) => (
-  action$
-    .ofType(LOGIN)
-    .map(() => getLoginFormData(store))
-    .switchMap(data => (
-      Observable
-        .defer(async () => {
-          await check(data);
-          const body = JSON.stringify(data);
-          return await ajax.post('/api/authenticate', {
-            headers: { 'Content-Type': 'application/json' },
-            body
-          });
-        })
-        .switchMap(token => (
-          Observable
-            .of(
-              pristineLoginForm(),
-              loginSuccess(token),
-              push('/')
-            )
-        ))
-        .catch(({ message }) => (
-          Observable
-            .from(message.map(({ field, errMsg }) => loginFail(field, errMsg)))
-        ))
-    ))
-);
+export const loginEpic = (action$, state$, {
+  ofType$,
+  of$,
+  from$,
+  defer$,
+  map$,
+  switchMap$,
+  catch$
+}) =>
+  action$.pipe(
+    ofType$(LOGIN),
+    map$(() => getLoginFormData(state$.value)),
+    switchMap$(data =>
+      defer$(async () => {
+        await check(data);
+        const body = JSON.stringify(data);
+        return await ajax.post('/api/authenticate', {
+          headers: { 'Content-Type': 'application/json' },
+          body
+        });
+      }).pipe(
+        switchMap$(token =>
+          of$(
+            pristineLoginForm(),
+            loginSuccess(token),
+            push('/')
+          )
+        ),
+        catch$(({ message }) =>
+          from$(message.map(({ field, errMsg }) => loginFail(field, errMsg)))
+        )
+      )
+    )
+  );
 
-export const verifyAuthEpic = action$ => (
-  action$
-    .ofType(VERIFY_AUTH)
-    .switchMap(({ payload: { render, token } }) => {
+export const verifyAuthEpic = (action$, state$, {
+  ofType$,
+  empty$,
+  defer$,
+  concat$,
+  of$,
+  tap$,
+  switchMap$,
+  mergeMap$,
+  mergeMapTo$,
+  catch$
+}) =>
+  action$.pipe(
+    ofType$(VERIFY_AUTH),
+    switchMap$(({ payload: { render, token } }) => {
       if (!token) {
         render();
-        return Observable.empty();
+        return empty$();
       }
-      return Observable
-        .defer(async () => (
-          await ajax.get('/api/authenticate', { headers: { Authorization: `Bearer ${token}` } })
-        ))
-        .mergeMap(() => (
-          Observable.concat(
-            Observable.of(loginSuccess(token)),
-            Observable
-              .of(null)
-              .do(render)
-              .mergeMapTo(Observable.empty())
+      return defer$(async () =>
+        await ajax.get('/api/authenticate', { headers: { Authorization: `Bearer ${token}` } })
+      ).pipe(
+        mergeMap$(() =>
+          concat$(
+            of$(loginSuccess(token)),
+            of$(null).pipe(
+              tap$(render),
+              mergeMapTo$(empty$())
+            )
           )
-        ))
-        .catch((err) => {
+        ),
+        catch$((err) => {
           console.error(err);
-          return Observable.of(logout());
-        });
+          return of$(logout());
+        })
+      );
     })
-);
+  );
