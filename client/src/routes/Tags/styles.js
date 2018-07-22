@@ -1,4 +1,9 @@
-import { xs, sm, md, lg } from 'Theme/media';
+import {
+  xs,
+  sm,
+  md,
+  lg
+} from 'Theme/media';
 
 export default {
   tags: {

@@ -1,5 +1,10 @@
 import { navHeight } from './size';
-import { xs, sm, md, lg } from './media';
+import {
+  xs,
+  sm,
+  md,
+  lg
+} from './media';
 
 export default {
   padding: `${navHeight}px 15px 0 15px`,

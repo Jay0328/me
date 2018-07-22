@@ -15,8 +15,18 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchData(props) {
-    const { year, month, day, url } = props.match.params;
-    dispatch(fetchArticleIfNeed({ year, month, day, url }));
+    const {
+      year,
+      month,
+      day,
+      url
+    } = props.match.params;
+    dispatch(fetchArticleIfNeed({
+      year,
+      month,
+      day,
+      url
+    }));
   }
 });
 

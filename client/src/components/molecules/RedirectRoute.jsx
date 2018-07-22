@@ -15,7 +15,12 @@ class RedirectRoute extends PureComponent {
   }
 
   render() {
-    const { component: Component, redirect, redirectUrl, ...rest } = this.props;
+    const {
+      component: Component,
+      redirect,
+      redirectUrl,
+      ...rest
+    } = this.props;
     if (redirect === null) {
       return null;
     }

@@ -27,7 +27,13 @@ class TagArticle extends PureComponent {
           />
           {tagName}
         </span>
-        {articles.map(({ year, month, day, title, url }) => (
+        {articles.map(({
+          year,
+          month,
+          day,
+          title,
+          url
+        }) => (
           <main
             className={classes.article}
             key={`/${year}/${month}/${day}/${url}`}
@@ -36,7 +42,9 @@ class TagArticle extends PureComponent {
               className={classes.link}
               to={`/${year}/${month}/${day}/${url}/`}
             >
-              <h3>{title}</h3>
+              <h3>
+                {title}
+              </h3>
             </Link>
             <hr />
           </main>

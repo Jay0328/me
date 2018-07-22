@@ -15,7 +15,9 @@ class About extends PureComponent {
     const { classes } = this.props;
     return (
       <main className={classes.about}>
-        <p>Coming Soon...</p>
+        <p>
+          Coming Soon...
+        </p>
       </main>
     );
   }

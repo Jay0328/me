@@ -43,7 +43,9 @@ class Category extends PureComponent {
           <Link to="/categories/">
             <Icon name="far fa-arrow-alt-circle-left" />
           </Link>
-          <h1>{match.params.category}</h1>
+          <h1>
+            {match.params.category}
+          </h1>
         </section>
         <section className={classes.articles}>
           {articlesInCategory.map(article => (
@@ -60,4 +62,3 @@ class Category extends PureComponent {
 }
 
 export default Category;
-

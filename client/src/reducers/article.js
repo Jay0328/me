@@ -12,7 +12,16 @@ const initialState = fromJS({
 const Article = (state = initialState, action) => {
   switch (action.type) {
     case RECEIVE_ARTICLE:
-      const { year, month, day, title, url, tags, content } = action;
+      /*  eslint no-case-declarations: 0  */
+      const {
+        year,
+        month,
+        day,
+        title,
+        url,
+        tags,
+        content
+      } = action;
       return state
         .set('date', `${year}-${month}-${day}`)
         .set('title', title)

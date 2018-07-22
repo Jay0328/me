@@ -18,9 +18,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchData(props) {
-    let { page } = props.match.params;
-    page = page ? page | 0 : 1;
-    dispatch(fetchArticlesListIfNeed({ page }));
+    const { page } = props.match.params;
+    dispatch(fetchArticlesListIfNeed({ page: parseInt(page, 10) || 1 }));
   }
 });
 
@@ -39,7 +38,12 @@ class Home extends PureComponent {
   }
 
   render() {
-    const { classes, articlesList, page, totalPage } = this.props;
+    const {
+      classes,
+      articlesList,
+      page,
+      totalPage
+    } = this.props;
     return (
       <main className={classes.home}>
         <section className={classes.list}>
@@ -49,7 +53,7 @@ class Home extends PureComponent {
               {...article}
             />
           ))}
-          <Pagination baseUrl='/' page={page} totalPage={totalPage} />
+          <Pagination baseUrl="/" page={page} totalPage={totalPage} />
         </section>
         <Profile />
       </main>

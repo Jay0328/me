@@ -10,8 +10,9 @@ const initialState = Map();
 
 const create = history => {
   const isProduction = process.env.NODE_ENV === 'production';
-  const composeEnhancers = (!isProduction && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__)
-    || compose;
+  /*  eslint no-underscore-dangle: 0  */
+  const composeEnhancers = (!isProduction && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+    compose;
   const middleware = [routerMiddleware(history), reduxThunk, createEpicMiddleware(rootEpic)];
   return createStore(
     reducers,

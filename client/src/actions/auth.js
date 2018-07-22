@@ -87,11 +87,11 @@ const getLoginFormData = (store) => {
   return { username, password1, password2 };
 };
 
-export const loginEpic = (action$, store) =>
+export const loginEpic = (action$, store) => (
   action$
     .ofType(LOGIN)
     .map(() => getLoginFormData(store))
-    .switchMap(data =>
+    .switchMap(data => (
       Observable
         .defer(async () => {
           await check(data);
@@ -101,21 +101,22 @@ export const loginEpic = (action$, store) =>
             body
           });
         })
-        .switchMap(token =>
+        .switchMap(token => (
           Observable
             .of(
               pristineLoginForm(),
               loginSuccess(token),
               push('/')
             )
-        )
-        .catch(({ message }) =>
+        ))
+        .catch(({ message }) => (
           Observable
             .from(message.map(({ field, errMsg }) => loginFail(field, errMsg)))
-        )
-    );
+        ))
+    ))
+);
 
-export const verifyAuthEpic = action$ =>
+export const verifyAuthEpic = action$ => (
   action$
     .ofType(VERIFY_AUTH)
     .switchMap(({ payload: { render, token } }) => {
@@ -124,10 +125,10 @@ export const verifyAuthEpic = action$ =>
         return Observable.empty();
       }
       return Observable
-        .defer(async () =>
-          await ajax.get('/api/authenticate', { headers: { 'Authorization': `Bearer ${token}` } })
-        )
-        .mergeMap(() =>
+        .defer(async () => (
+          await ajax.get('/api/authenticate', { headers: { Authorization: `Bearer ${token}` } })
+        ))
+        .mergeMap(() => (
           Observable.concat(
             Observable.of(loginSuccess(token)),
             Observable
@@ -135,9 +136,10 @@ export const verifyAuthEpic = action$ =>
               .do(render)
               .mergeMapTo(Observable.empty())
           )
-        )
+        ))
         .catch((err) => {
           console.error(err);
           return Observable.of(logout());
         });
-    });
+    })
+);

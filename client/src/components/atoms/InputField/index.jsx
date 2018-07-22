@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 const ErrorMessage = ({ content }) => (
   <div className="error message">
     <div className="content">
-      <p>{content}</p>
+      <p>
+        {content}
+      </p>
     </div>
   </div>
 );
@@ -13,7 +15,13 @@ ErrorMessage.propTypes = {
   content: PropTypes.string.isRequired
 };
 
-const InputField = ({ id, validationState, label, errMsg, ...props }) => (
+const InputField = ({
+  id,
+  validationState,
+  label,
+  errMsg,
+  ...props
+}) => (
   <div className={validationState ? 'error field' : 'field'}>
     <label htmlFor={id}>
       {label}

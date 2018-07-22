@@ -15,12 +15,25 @@ export const RECEIVE_ARTICLE = 'RECEIVE_ARTICLE';
 
 export const fetchArticleIfNeed = pageActions(
   RECEIVE_ARTICLE,
-  ({ year, month, day, url }) => `/api/articles/article?year=${year}&month=${month}&day=${day}&url=${url}`,
+  ({
+    year,
+    month,
+    day,
+    url
+  }) => `/api/articles/article?year=${year}&month=${month}&day=${day}&url=${url}`,
   ['title', 'tags', 'content'],
-  (state, { year, month, day, url }) => {
-    if (`${year}-${month}-${day}` !== state.getIn(['article', 'date'])
-      || url !== state.getIn(['article', 'url'])
-      || !state.getIn(['article', 'content'])) return true;
+  (
+    state,
+    {
+      year,
+      month,
+      day,
+      url
+    }
+  ) => {
+    if (`${year}-${month}-${day}` !== state.getIn(['article', 'date']) ||
+      url !== state.getIn(['article', 'url']) ||
+      !state.getIn(['article', 'content'])) return true;
     return false;
   }
 );

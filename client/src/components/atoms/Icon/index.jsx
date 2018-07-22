@@ -5,7 +5,7 @@ import injectSheet from 'react-jss';
 import styles from './styles';
 
 const Icon = ({ classes, className, name }) => (
-  <i className={cx(classes.icon, className, name)} ></i>
+  <i className={cx(classes.icon, className, name)} />
 );
 
 Icon.propTypes = {

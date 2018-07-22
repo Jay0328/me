@@ -28,7 +28,17 @@ class ArticlePreview extends PureComponent {
   }
 
   render() {
-    const { classes, className, year, month, day, title, url, tags, preview } = this.props;
+    const {
+      classes,
+      className,
+      year,
+      month,
+      day,
+      title,
+      url,
+      tags,
+      preview
+    } = this.props;
     const link = `/${year}/${month}/${day}/${url}/`;
     const articleTitle = (
       <Link
@@ -43,7 +53,7 @@ class ArticlePreview extends PureComponent {
         className={classes.meta}
         to={link}
       >
-        <i className="far fa-calendar-alt" aria-hidden="true"></i>
+        <i className="far fa-calendar-alt" aria-hidden="true" />
         {`${year}/${month}/${day}`}
       </Link>
     );

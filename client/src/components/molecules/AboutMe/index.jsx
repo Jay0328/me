@@ -26,7 +26,9 @@ class AboutMe extends PureComponent {
           </Link>
         </h5>
         <img src="/covers/profile.png" alt="頭像" />
-        <p>No music no life.</p>
+        <p>
+          No music no life.
+        </p>
         <ContactInfo
           color={lighterGrey}
           fontSize={30}

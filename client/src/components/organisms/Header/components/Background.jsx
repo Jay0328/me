@@ -13,7 +13,12 @@ class HeaderBackground extends PureComponent {
 
   handleBackgroundImage = () => {
     const { mode, match } = this.props;
-    const { year, month, day, url } = match.params;
+    const {
+      year,
+      month,
+      day,
+      url
+    } = match.params;
     return mode === 'article' ?
       `linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),
       url("/covers/${year}-${month}-${day}-${url}.jpg")` :
@@ -26,8 +31,7 @@ class HeaderBackground extends PureComponent {
       <section
         className={classes.img}
         style={{ backgroundImage: this.handleBackgroundImage() }}
-      >
-      </section>
+      />
     );
   }
 }

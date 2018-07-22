@@ -50,4 +50,3 @@ class Categories extends PureComponent {
 }
 
 export default Categories;
-

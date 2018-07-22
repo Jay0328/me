@@ -34,14 +34,14 @@ const routePage = ({ title, shouldRefetchData }) => WrappedComponent => {
     componentDidMount() {
       const { props } = this;
       const { fetchData } = props;
-      scrollTo(0, 0);
+      window.scrollTo(0, 0);
       fetchData(props);
     }
 
     componentDidUpdate(prevProps) {
       document.title = this.handleTitle(title);
       if (shouldRefetchData && shouldRefetchData(prevProps, this.props)) {
-        scrollTo(0, 0);
+        window.scrollTo(0, 0);
         this.props.fetchData(this.props);
       }
     }

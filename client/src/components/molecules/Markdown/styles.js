@@ -44,7 +44,7 @@ export default {
       }
     },
     '& table': {
-      'borderCollapse': 'collapse',
+      borderCollapse: 'collapse',
       '& tr': {
         borderTop: '1px solid #cccccc',
         '&:nth-child(2n)': {

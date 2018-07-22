@@ -14,12 +14,12 @@ class Loading extends PureComponent {
     return (
       <div className={classes.loading}>
         <ul>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
+          <li />
+          <li />
+          <li />
+          <li />
+          <li />
+          <li />
         </ul>
       </div>
     );

@@ -25,7 +25,14 @@ class HeaderContent extends PureComponent {
   }
 
   render() {
-    const { classes, mode, isFetching, date, title, tags } = this.props;
+    const {
+      classes,
+      mode,
+      isFetching,
+      date,
+      title,
+      tags
+    } = this.props;
     let headerTitle;
     if (mode === 'home') {
       headerTitle = 'Jay Blog';
@@ -49,8 +56,24 @@ class HeaderContent extends PureComponent {
             />
           )) : null}
         </section>
-        {mode !== 'article' || !isFetching ? <h1 className={classes.title}>{headerTitle}</h1> : null}
-        {mode === 'article' && !isFetching ? <span className={classes.date}>{date}</span> : null}
+        {
+          mode !== 'article' || !isFetching ?
+            (
+              <h1 className={classes.title}>
+                {headerTitle}
+              </h1>
+            ) :
+            null
+        }
+        {
+          mode === 'article' && !isFetching ?
+            (
+              <span className={classes.date}>
+                {date}
+              </span>
+            ) :
+            null
+        }
       </section>
     );
   }

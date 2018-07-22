@@ -22,7 +22,7 @@ export const createAction = (type, payloadCreator) => (...params) => {
   };
 };
 
-export const createActions = (actions) =>
+export const createActions = (actions) => (
   Object
     .keys(actions)
     .reduce((newActions, types) => ({
@@ -33,16 +33,18 @@ export const createActions = (actions) =>
           ...ret,
           [changeTypesToFncName(type)]: createAction(type, actions[types])
         }), {})
-    }), {});
+    }), {})
+);
 
 /*  reducer */
-const flattenHandler = (types, handler) =>
+const flattenHandler = (types, handler) => (
   types
     .split(',')
     .reduce((ret, t) => ({
       ...ret,
       [t]: handler
-    }), {});
+    }), {})
+);
 
 export const createReducer = (handlers, initialState) => {
   const flattenedHandlers = Object

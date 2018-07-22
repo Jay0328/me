@@ -24,8 +24,7 @@ class Markdown extends PureComponent {
         dangerouslySetInnerHTML={{
           __html: md.render(content)
         }}
-      >
-      </div>
+      />
     );
   }
 }

@@ -38,7 +38,15 @@ class Login extends PureComponent {
   }
 
   render() {
-    const { classes, username, pwd1, pwd2, pristine, onChange, onSubmit } = this.props;
+    const {
+      classes,
+      username,
+      pwd1,
+      pwd2,
+      pristine,
+      onChange,
+      onSubmit
+    } = this.props;
     return (
       <form
         className={classes.form}
@@ -78,10 +86,16 @@ class Login extends PureComponent {
           <button
             className="positive"
             onClick={onSubmit}
+            type="submit"
           >
             read my name
           </button>
-          <button onClick={pristine} >清除</button>
+          <button
+            onClick={pristine}
+            type="button"
+          >
+            清除
+          </button>
         </section>
       </form>
     );

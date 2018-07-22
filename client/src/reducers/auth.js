@@ -8,10 +8,11 @@ const initialState = fromJS({
 });
 
 const Authentication = createReducer({
-  [LOGIN_SUCCESS]: (state, { payload: token }) =>
+  [LOGIN_SUCCESS]: (state, { payload: token }) => (
     state
       .set('token', token)
-      .set('isAuthenticated', true),
+      .set('isAuthenticated', true)
+  ),
   [LOGOUT]: () => initialState
 }, initialState);
 

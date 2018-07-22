@@ -9,7 +9,12 @@ import ajax from 'Utils/api';
 import styles from './styles';
 
 const mapDispatchToProps = (dispatch) => ({
-  redirectToArticle: ({ year, month, day, url }) => dispatch(push(`/${year}/${month}/${day}/${url}/`))
+  redirectToArticle: ({
+    year,
+    month,
+    day,
+    url
+  }) => dispatch(push(`/${year}/${month}/${day}/${url}/`))
 });
 
 @connect(null, mapDispatchToProps)
@@ -79,18 +84,26 @@ class PostArticle extends PureComponent {
     e.preventDefault();
     const canUpload = this.canUpload();
     const token = localStorage.getItem('token');
-    const { categoryInput, categoryOptions, tagInput, tagOptions, imageName, ...body } = this.state;
+    const {
+      categoryInput,
+      categoryOptions,
+      tagInput,
+      tagOptions,
+      imageName,
+      ...body
+    } = this.state;
+    const { redirectToArticle } = this.props;
     if (canUpload && token) {
       try {
         const { ok } = await ajax.post('/api/articles/article', {
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            Authorization: `Bearer ${token}`
           },
           body: JSON.stringify(body)
         });
         if (ok) {
-          this.props.redirectToArticle(body);
+          redirectToArticle(body);
         }
       }
       catch (err) {
@@ -127,10 +140,10 @@ class PostArticle extends PureComponent {
     e.preventDefault();
     const optionName = `${mode}Options`;
     const inputName = `${mode}Input`;
-    this.setState({
-      [optionName]: [...this.state[optionName], this.state[inputName]],
+    this.setState(prevState => ({
+      [optionName]: [...prevState[optionName], prevState[inputName]],
       [inputName]: ''
-    });
+    }));
   }
 
   readFile = file => new Promise(resolve => {
@@ -147,7 +160,7 @@ class PostArticle extends PureComponent {
       await ajax.post('/api/images', {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(body)
       });
@@ -158,14 +171,28 @@ class PostArticle extends PureComponent {
   }
 
   canUpload = () => {
-    const { year, month, day, title, url, category, tags } = this.state;
+    const {
+      year,
+      month,
+      day,
+      title,
+      url,
+      category,
+      tags
+    } = this.state;
     return !!(year && month && day && title && url && category && tags.length);
   }
 
 
   render() {
     const { classes } = this.props;
-    const { content, categoryOptions, tagOptions } = this.state;
+    const {
+      content,
+      categoryOptions,
+      categoryInput,
+      tagOptions,
+      tagInput
+    } = this.state;
     const {
       onSubmit,
       onFieldChange,
@@ -198,33 +225,62 @@ class PostArticle extends PureComponent {
             分類
             <input
               name="category"
-              value={this.state.categoryInput}
+              value={categoryInput}
               type="text"
               onChange={onFieldChange('categoryInput')}
             />
-            <button onClick={addOption('category')}>新增category選項</button>
+            <button
+              onClick={addOption('category')}
+              type="button"
+            >
+              新增category選項
+            </button>
             <select
-              defaultValue=''
+              defaultValue=""
               onChange={onOptionChange('category')}
             >
-              <option value='' disabled>請選擇</option>
-              {categoryOptions.map(o => <option key={o} value={o}>{o}</option>)}
+              <option
+                value=""
+                disabled
+              >
+                請選擇
+              </option>
+              {categoryOptions.map(o => (
+                <option
+                  key={o}
+                  value={o}
+                >
+                  {o}
+                </option>
+              ))}
             </select>
           </label>
           <label htmlFor="tags">
             標籤
             <input
               name="tags"
-              value={this.state.tagInput}
+              value={tagInput}
               type="text"
               onChange={onFieldChange('tagInput')}
             />
-            <button onClick={addOption('tag')}>新增tag選項</button>
+            <button
+              onClick={addOption('tag')}
+              type="button"
+            >
+              新增tag選項
+            </button>
             <select
               multiple
               onChange={onOptionChange('tag', true)}
             >
-              {tagOptions.map(o => <option key={o} value={o}>{o}</option>)}
+              {tagOptions.map(o => (
+                <option
+                  key={o}
+                  value={o}
+                >
+                  {o}
+                </option>
+              ))}
             </select>
           </label>
           <label htmlFor="date">
@@ -242,6 +298,7 @@ class PostArticle extends PureComponent {
           />
           <button
             onClick={onSubmit}
+            type="submit"
           >
             發文囉
           </button>
@@ -254,8 +311,11 @@ class PostArticle extends PureComponent {
                 onChange={onFieldChange('imageName')}
               />
             </label>
-            <label className={classes.imageUpload}>
-              <i className="fas fa-cloud-upload-alt"></i>
+            <label
+              className={classes.imageUpload}
+              htmlFor="coverUpload"
+            >
+              <i className="fas fa-cloud-upload-alt" />
               封面上傳
               <input
                 type="file"
@@ -267,8 +327,11 @@ class PostArticle extends PureComponent {
                 onChange={getRemoteImage('covers')}
               />
             </label>
-            <label className={classes.imageUpload}>
-              <i className="fas fa-cloud-upload-alt"></i>
+            <label
+              className={classes.imageUpload}
+              htmlFor="imageUpload"
+            >
+              <i className="fas fa-cloud-upload-alt" />
               圖片上傳
               <input
                 type="file"

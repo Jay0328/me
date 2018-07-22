@@ -12,11 +12,11 @@ class Header extends PureComponent {
   render() {
     return (
       <header>
-        <Route exact strict path='/' component={Home} />
-        <Route exact strict path='/page/:page/' component={Home} />
-        <Route strict path='/tags/' component={Tags} />
-        <Route strict path='/categories/' component={Categories} />
-        <Route exact strict path='/:year/:month/:day/:url/' component={Article} />
+        <Route exact strict path="/" component={Home} />
+        <Route exact strict path="/page/:page/" component={Home} />
+        <Route strict path="/tags/" component={Tags} />
+        <Route strict path="/categories/" component={Categories} />
+        <Route exact strict path="/:year/:month/:day/:url/" component={Article} />
       </header>
     );
   }

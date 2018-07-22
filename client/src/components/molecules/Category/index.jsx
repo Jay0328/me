@@ -19,7 +19,12 @@ class Category extends PureComponent {
   }
 
   render() {
-    const { classes, categoryName, categoryCover, articlesCount } = this.props;
+    const {
+      classes,
+      categoryName,
+      categoryCover,
+      articlesCount
+    } = this.props;
     return (
       <Link
         className={classes.link}
@@ -32,9 +37,13 @@ class Category extends PureComponent {
               backgroundImage: categoryCover
             }}
           >
-            <span className={classes.categoryName}>{categoryName}</span>
+            <span className={classes.categoryName}>
+              {categoryName}
+            </span>
           </section>
-          <span className={classes.count}>共有{articlesCount}篇文章</span>
+          <span className={classes.count}>
+            {`共有${articlesCount}篇文章`}
+          </span>
         </Card>
       </Link>
     );

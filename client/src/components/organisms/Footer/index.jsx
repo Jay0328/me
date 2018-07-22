@@ -24,7 +24,7 @@ class Footer extends PureComponent {
         />
         <p className={classes.copyright}>
           <span>
-            Copyright © Jay Blog {year}
+            {`Copyright © Jay Blog ${year}`}
           </span>
           <br />
           <span>

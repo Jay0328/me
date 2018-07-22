@@ -57,16 +57,26 @@ class Navbar extends Component {
         onBlur={this.closeMenu}
       >
         <div className={classes.brand}>
-          <Link to="/">Jay Blog</Link>
+          <Link to="/">
+            Jay Blog
+          </Link>
         </div>
         <div className={`${classes.links} ${isOpen ? 'is-open' : ''}`}>
-          {links.map(l => <Link to={l.url} key={l.name}>{l.name}</Link>)}
+          {links.map(l => (
+            <Link
+              to={l.url}
+              key={l.name}
+            >
+              {l.name}
+            </Link>
+          ))}
         </div>
         <button
           className={classes.toggleBtn}
           onClick={this.toggleMenu}
+          type="button"
         >
-          <i className="fa fa-bars"></i>
+          <i className="fa fa-bars" />
         </button>
       </nav>
     );

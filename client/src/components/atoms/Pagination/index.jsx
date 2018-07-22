@@ -15,7 +15,12 @@ class Pagination extends PureComponent {
   }
 
   render() {
-    const { classes, baseUrl, page, totalPage } = this.props;
+    const {
+      classes,
+      baseUrl,
+      page,
+      totalPage
+    } = this.props;
     let menu = [];
     let menuStart = page - 2;
     let menuEnd;
@@ -41,8 +46,19 @@ class Pagination extends PureComponent {
     if (menuStart > 1) {
       menu = [
         ...menu,
-        <Link className={classes.item} to={baseUrl} key='link-last-page'>1</Link>,
-        <div className={classes.divider} key='page-divider-left'>...</div>
+        <Link
+          className={classes.item}
+          to={baseUrl}
+          key="link-last-page"
+        >
+          1
+        </Link>,
+        <div
+          className={classes.divider}
+          key="page-divider-left"
+        >
+          ...
+        </div>
       ];
     }
     /* page menu */
@@ -51,8 +67,14 @@ class Pagination extends PureComponent {
       Array
         .from({ length: (menuEnd - menuStart) + 1 }, (v, k) => k + menuStart)
         .map(p => p === page ?
-          <div className={cx(classes.item, 'active')} key={`link-page-${p}`}>{p}</div>
-          :
+          (
+            <div
+              className={cx(classes.item, 'active')}
+              key={`link-page-${p}`}
+            >
+              {p}
+            </div>
+          ) :
           (
             <Link
               className={classes.item}
@@ -67,7 +89,12 @@ class Pagination extends PureComponent {
     if (menuEnd < totalPage) {
       menu = [
         ...menu,
-        <div className={classes.divider} key='page-divider-right'>...</div>,
+        <div
+          className={classes.divider}
+          key="page-divider-right"
+        >
+          ...
+        </div>,
         <Link
           className={classes.item}
           to={`${baseUrl !== '/' ? baseUrl : ''}/page/${totalPage}/`}
@@ -83,13 +110,17 @@ class Pagination extends PureComponent {
         <Link
           className={classes.item}
           to={`${baseUrl !== '/' ? baseUrl : ''}/page/${page + 1}/`}
-          key='link-next-page'
+          key="link-next-page"
         >
           &#x21E8;
         </Link>
       ];
     }
-    return <div className={classes.pagination}>{menu}</div>;
+    return (
+      <div className={classes.pagination}>
+        {menu}
+      </div>
+    );
   }
 }
 
