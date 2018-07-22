@@ -1,5 +1,5 @@
 node_modules/
-public/build/
+build/
 blog/
 .DS_Store
-src/config/index.js
+server/config/index.js

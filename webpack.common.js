@@ -2,10 +2,10 @@ const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { resolve } = require('path');
-const { markdownLanguage } = require('./public/config.js');
+const { markdownLanguage } = require('./client/config.js');
 
-const BUILD_DIR = resolve(__dirname, 'public/build');
-const APP_DIR = resolve(__dirname, 'public/src');
+const BUILD_DIR = resolve(__dirname, 'build');
+const APP_DIR = resolve(__dirname, 'client/src');
 
 module.exports = {
   entry: {
@@ -32,6 +32,17 @@ module.exports = {
     ]
   },
   resolve: {
+    alias: {
+      Config$: resolve(__dirname, 'client/config.js'),
+      Actions: resolve(__dirname, 'client/src/actions'),
+      Atoms: resolve(__dirname, 'client/src/components/atoms'),
+      Molecules: resolve(__dirname, 'client/src/components/molecules'),
+      Organisms: resolve(__dirname, 'client/src/components/organisms'),
+      Layouts: resolve(__dirname, 'client/src/layouts'),
+      Routes: resolve(__dirname, 'client/src/routes'),
+      Theme: resolve(__dirname, 'client/src/theme'),
+      Utils: resolve(__dirname, 'client/src/utils'),
+    },
     extensions: ['.js', '.jsx']
   },
   optimization: {
@@ -72,7 +83,7 @@ module.exports = {
       new RegExp(`^./(${markdownLanguage.join('|')})$`)
     ),
     new HtmlWebpackPlugin({
-      template: './public/index.html'
+      template: './client/index.html'
     })
   ]
 };

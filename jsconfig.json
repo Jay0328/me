@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "baseUrl": "./",
+    "paths": {
+      "Config": ["client/config.js"],
+      "Actions/*": ["client/src/actions/*"],
+      "Atoms/*": ["client/src/components/atoms/*"],
+      "Molecules/*": ["client/src/components/molecules/*"],
+      "Organisms/*": ["client/src/components/organisms/*"],
+      "Layouts/*": ["client/src/layouts/*"],
+      "Routes/*": ["client/src/routes/*"],
+      "Theme/*": ["client/src/theme/*"],
+      "Utils/*": ["client/src/utils/*"]
+    },
+    "experimentalDecorators": true
+  }
+}
