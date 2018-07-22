@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import ConnectWithToJS from 'Layouts/ConnectWithToJS';
-import InputField from 'Components/atoms/InputField';
+import InputField from 'Atoms/InputField';
 import { pristineLoginForm, loginOnChange, login } from 'Actions/auth';
 import styles from './styles';
 

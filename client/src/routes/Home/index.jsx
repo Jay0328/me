@@ -4,9 +4,9 @@ import injectSheet from 'react-jss';
 import { withRouter } from 'react-router';
 import RoutePage from 'Layouts/RoutePage';
 import ConnectWithToJS from 'Layouts/ConnectWithToJS';
-import Pagination from 'Components/atoms/Pagination';
-import ArticlePreview from 'Components/molecules/ArticlePreview';
-import Profile from 'Components/molecules/Profile';
+import Pagination from 'Atoms/Pagination';
+import ArticlePreview from 'Molecules/ArticlePreview';
+import Profile from 'Molecules/Profile';
 import { fetchArticlesListIfNeed } from 'Actions/articleActions';
 import styles from './styles';
 

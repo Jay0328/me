@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import Markdown from 'Components/molecules/Markdown';
+import Markdown from 'Molecules/Markdown';
 import ajax from 'Utils/api';
 
 import styles from './styles';

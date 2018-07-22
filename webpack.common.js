@@ -35,7 +35,9 @@ module.exports = {
     alias: {
       Config$: resolve(__dirname, 'client/config.js'),
       Actions: resolve(__dirname, 'client/src/actions'),
-      Components: resolve(__dirname, 'client/src/components'),
+      Atoms: resolve(__dirname, 'client/src/components/atoms'),
+      Molecules: resolve(__dirname, 'client/src/components/molecules'),
+      Organisms: resolve(__dirname, 'client/src/components/organisms'),
       Layouts: resolve(__dirname, 'client/src/layouts'),
       Routes: resolve(__dirname, 'client/src/routes'),
       Theme: resolve(__dirname, 'client/src/theme'),

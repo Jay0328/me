@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import injectSheet from 'react-jss';
-import TagLabel from 'Components/atoms/TagLabel';
+import TagLabel from 'Atoms/TagLabel';
 import { themeColor } from 'Theme/colors';
 import styles from './styles';
 

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
-import Icon from 'Components/atoms/Icon';
+import Icon from 'Atoms/Icon';
 import styles from './styles';
 import contacts from './contacts';
 

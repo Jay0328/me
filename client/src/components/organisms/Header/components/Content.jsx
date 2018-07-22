@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import ConnectWithToJS from 'Layouts/ConnectWithToJS';
-import TagLabel from 'Components/atoms/TagLabel';
+import TagLabel from 'Atoms/TagLabel';
 import styles from '../styles';
 
 const mapStateToProps = state => ({

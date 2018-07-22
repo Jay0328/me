@@ -4,7 +4,7 @@ import injectSheet from 'react-jss';
 import { withRouter } from 'react-router';
 import RoutePage from 'Layouts/RoutePage';
 import ConnectWithToJS from 'Layouts/ConnectWithToJS';
-import Category from 'Components/molecules/Category';
+import Category from 'Molecules/Category';
 import { fetchCategoriesIfNeed } from 'Actions/categoriesActions';
 import styles from './styles';
 

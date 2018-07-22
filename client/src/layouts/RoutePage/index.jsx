@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
-import Loading from 'Components/atoms/Loading';
+import Loading from 'Atoms/Loading';
 import getDisplayName from 'Utils/getDisplayName';
 import styles from './styles';
 

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
-import ContactInfo from 'Components/molecules/ContactInfo';
+import ContactInfo from 'Molecules/ContactInfo';
 import { grey } from 'Theme/colors';
 import styles from './styles';
 

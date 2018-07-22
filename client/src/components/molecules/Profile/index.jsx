@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
-import AboutMe from 'Components/molecules/AboutMe';
+import AboutMe from 'Molecules/AboutMe';
 import styles from './styles';
 
 @injectSheet(styles)

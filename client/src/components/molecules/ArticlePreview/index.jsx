@@ -2,9 +2,9 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import { Link } from 'react-router-dom';
-import Card from 'Components/atoms/Card';
-import TagLabel from 'Components/atoms/TagLabel';
-import Markdown from 'Components/molecules/Markdown';
+import Card from 'Atoms/Card';
+import TagLabel from 'Atoms/TagLabel';
+import Markdown from 'Molecules/Markdown';
 import { themeColor, lightGrey } from 'Theme/colors';
 import styles from './styles';
 

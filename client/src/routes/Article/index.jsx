@@ -4,7 +4,7 @@ import injectSheet from 'react-jss';
 import { withRouter } from 'react-router';
 import RoutePage from 'Layouts/RoutePage';
 import ConnectWithToJS from 'Layouts/ConnectWithToJS';
-import Markdown from 'Components/molecules/Markdown';
+import Markdown from 'Molecules/Markdown';
 import { fetchArticleIfNeed } from 'Actions/articleActions';
 import styles from './styles';
 

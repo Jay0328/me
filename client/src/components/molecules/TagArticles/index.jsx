@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
-import TagArticle from 'Components/molecules/TagArticle';
+import TagArticle from 'Molecules/TagArticle';
 import styles from './styles';
 
 @injectSheet(styles)

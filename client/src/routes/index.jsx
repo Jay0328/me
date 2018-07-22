@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter, Switch, Route } from 'react-router-dom';
 import { routes, redirectRoutes } from 'Routes/config';
-import RedirectRoute from 'Components/molecules/RedirectRoute';
+import RedirectRoute from 'Molecules/RedirectRoute';
 
 const mapStateToProps = state => ({
   isAuthenticated: state.getIn(['auth', 'isAuthenticated'])

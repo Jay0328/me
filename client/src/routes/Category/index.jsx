@@ -5,8 +5,8 @@ import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import RoutePage from 'Layouts/RoutePage';
 import ConnectWithToJS from 'Layouts/ConnectWithToJS';
-import Icon from 'Components/atoms/Icon';
-import ArticlePreview from 'Components/molecules/ArticlePreview';
+import Icon from 'Atoms/Icon';
+import ArticlePreview from 'Molecules/ArticlePreview';
 import { fetchArticlesInCategory } from 'Actions/categoriesActions';
 import styles from './styles';
 

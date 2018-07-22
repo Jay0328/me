@@ -5,7 +5,9 @@
     "paths": {
       "Config": ["client/config.js"],
       "Actions/*": ["client/src/actions/*"],
-      "Components/*": ["client/src/components/*"],
+      "Atoms/*": ["client/src/components/atoms/*"],
+      "Molecules/*": ["client/src/components/molecules/*"],
+      "Organisms/*": ["client/src/components/organisms/*"],
       "Layouts/*": ["client/src/layouts/*"],
       "Routes/*": ["client/src/routes/*"],
       "Theme/*": ["client/src/theme/*"],

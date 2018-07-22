@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import { Link } from 'react-router-dom';
-import Icon from 'Components/atoms/Icon';
+import Icon from 'Atoms/Icon';
 import { themeColor } from 'Theme/colors';
 import styles from './styles';
 

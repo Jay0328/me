@@ -4,8 +4,8 @@ import injectSheet from 'react-jss';
 import { withRouter } from 'react-router';
 import RoutePage from 'Layouts/RoutePage';
 import ConnectWithToJS from 'Layouts/ConnectWithToJS';
-import TagsCloud from 'Components/molecules/TagsCloud';
-import TagArticles from 'Components/molecules/TagArticles';
+import TagsCloud from 'Molecules/TagsCloud';
+import TagArticles from 'Molecules/TagArticles';
 import { fetchTagsIfNeed } from 'Actions/tagsActions';
 import styles from './styles';
 

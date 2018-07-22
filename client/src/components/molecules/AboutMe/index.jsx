@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import { Link } from 'react-router-dom';
-import ContactInfo from 'Components/molecules/ContactInfo';
+import ContactInfo from 'Molecules/ContactInfo';
 import { lighterGrey } from 'Theme/colors';
 import styles from './styles';
 
