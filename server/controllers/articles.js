@@ -7,7 +7,7 @@ exports.getArticlesInPage = async ctx => {
   const page = (ctx.request.query.page || 1) | 0;
   try {
     if (page > 0) {
-      const totalArticles = await Articles.count();
+      const totalArticles = await Articles.countDocuments();
       const totalPage = Math.ceil(totalArticles / 10);
       let articles = await Articles.getArticlesInPage(page);
       articles = await readArticlePreviews(articles);
