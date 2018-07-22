@@ -21,9 +21,4 @@ const renderDom = () => {
   );
 };
 
-const run = () => {
-  store.dispatch(verifyAuth());
-  renderDom();
-};
-
-run();
+store.dispatch(verifyAuth(renderDom));

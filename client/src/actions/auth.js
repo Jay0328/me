@@ -3,9 +3,14 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/observable/defer';
+import 'rxjs/add/observable/empty';
+import 'rxjs/add/observable/concat';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/mergeMapTo';
 import 'rxjs/add/operator/catch';
 import ajax from '../utils/api';
 import { createActions, createActionTypes } from '../utils/redux';
@@ -48,7 +53,7 @@ export const {
   [LOGIN_FAIL]: (field, errMsg) => ({ field, errMsg }),
   [LOGIN_ON_CHANGE]: (field, value) => ({ field, value }),
   [LOGOUT]: () => localStorage.removeItem('token'),
-  [VERIFY_AUTH]: () => localStorage.getItem('token')
+  [VERIFY_AUTH]: (render) => ({ render, token: localStorage.getItem('token') })
 });
 
 const check = async data => {
@@ -113,17 +118,26 @@ export const loginEpic = (action$, store) =>
 export const verifyAuthEpic = action$ =>
   action$
     .ofType(VERIFY_AUTH)
-    .map(({ payload }) => payload)
-    .filter(token => token)
-    .switchMap(token =>
-      Observable
-        .defer(async () => {
-          await ajax.get('/api/authenticate', { headers: { 'Authorization': `Bearer ${token}` } });
-          return token;
-        })
-        .map(loginSuccess)
+    .switchMap(({ payload: { render, token } }) => {
+      if (!token) {
+        render();
+        return Observable.empty();
+      }
+      return Observable
+        .defer(async () =>
+          await ajax.get('/api/authenticate', { headers: { 'Authorization': `Bearer ${token}` } })
+        )
+        .mergeMap(() =>
+          Observable.concat(
+            Observable.of(loginSuccess(token)),
+            Observable
+              .of(null)
+              .do(render)
+              .mergeMapTo(Observable.empty())
+          )
+        )
         .catch((err) => {
           console.error(err);
           return Observable.of(logout());
-        })
-    );
+        });
+    });

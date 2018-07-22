@@ -42,13 +42,13 @@ export const redirectRoutes = [
   {
     component: Login,
     path: '/login/',
-    redirect: (isAuthenticated) => isAuthenticated !== null ? isAuthenticated : null,
+    redirect: (isAuthenticated) => isAuthenticated,
     redirectUrl: '/',
   },
   {
     component: PostArticle,
     path: '/admin/post-article/',
-    redirect: (isAuthenticated) => isAuthenticated !== null ? !isAuthenticated : null,
+    redirect: (isAuthenticated) => !isAuthenticated,
     redirectUrl: '/login/',
   },
 ];

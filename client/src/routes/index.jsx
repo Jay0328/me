@@ -13,11 +13,7 @@ const mapStateToProps = state => ({
 @connect(mapStateToProps)
 class Routes extends PureComponent {
   static propTypes = {
-    isAuthenticated: PropTypes.bool
-  }
-
-  static defaultProps = {
-    isAuthenticated: null
+    isAuthenticated: PropTypes.bool.isRequired
   }
 
   render() {
